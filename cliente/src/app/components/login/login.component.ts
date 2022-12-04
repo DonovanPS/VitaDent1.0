@@ -25,10 +25,19 @@ export class LoginComponent {
 
   logIn(){
 
-    console.log(this.user);
+    //console.log(this.user);
     this.autService.singin(this.user).subscribe( (res:any) =>{
-      console.log(res);
-      localStorage.setItem('token',res.token)
+      
+
+      if(res=='Usuario o contraseña incorrectas'){
+        alert(res);
+      }else{
+        
+        localStorage.setItem('token',res.token);
+         console.log(res);
+        this.router.navigate(['home']);
+      }
+     
       //this.router.navigate{}
     })
   }
