@@ -46,7 +46,7 @@ class IndexController {
 
     }
 
-    public login (req: Request,res:Response){
+    public login  (req: Request,res:Response){
        // res.json('Validando  '+ req.params.user + ' ' + req.params.password)
         //const {user,password} = req.body;
 
