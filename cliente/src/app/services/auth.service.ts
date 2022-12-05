@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  private URL = 'http://localhost:3000'
+  private URL = 'https://vitadent10-production.up.railway.app/ '//'http://localhost:3000'
 
 
   constructor(private http: HttpClient,
