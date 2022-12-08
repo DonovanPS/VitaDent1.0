@@ -8,3 +8,5 @@ export default{
         ssl: {}
     }
 }
+
+//"build": "tsc -w",
