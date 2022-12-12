@@ -1,28 +1,20 @@
-.containerLogin{
 
-   
-    width: 320px;
-    height: 550px;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%,-50%);
-    box-sizing: border-box;
-    padding: 70px 30px;
-  
-      
-     /*  height: 70vh;
-     margin: 25%;
-      display: flex;
-      justify-content: center;*/
-  
-  }
   
   .form{
-      width: 320px;
+      width: 360px;
       height: 550px;
-  
-      background-color: black;
+      border-radius: 15px;
+      background-color: rgb(224,224,224);
+      
+      top: 50%;
+      left: 50%;
+      position: absolute;
+      transform: translate(-50%,-50%);
+      box-sizing: border-box;
+      
+   
+
+
   }
   .form-floating{
       margin: 20px;
@@ -30,6 +22,13 @@
   .btn{
   
       width: 280px;
+      background-color: rgb(171, 65, 129);
+      border-color:  rgb(171, 65, 129);
   }
+
+  .btn:hover{
+    background-color:  rgb(216, 73, 159);
+}
+
   
   

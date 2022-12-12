@@ -9,3 +9,4 @@ exports.default = {
         ssl: {}
     }
 };
+//"build": "tsc -w",

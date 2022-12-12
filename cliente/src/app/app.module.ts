@@ -15,6 +15,8 @@ import { HomeComponent } from './components/home/home.component';
 // Providers
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { HistorySearchComponent } from './components/history-search/history-search.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
@@ -23,13 +25,19 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    HistorySearchComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
     HttpClientModule
+  ],
+  exports: [
+    HomeComponent,
+    NavbarComponent
   ],
   providers: [
     //JWT
