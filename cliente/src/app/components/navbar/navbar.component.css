@@ -6,8 +6,20 @@
   border-bottom:rgb(211, 209, 209) 1px solid;
   margin-left: 5%;
   margin-right: 5%;
+  
   width: 90%;
-  max-width: 1350px;
+  max-width: 2000px;
+
+  height: 10vh;
+ 
+  margin: 0 auto;
+ 
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 241px;
+
+
+
 
 }
 
@@ -114,12 +126,16 @@
 }
 
 
-@media screen and (max-width: 575.5px) {
+@media screen and (max-width: 767px) {
 
+  .navbar{
+    height: 100%;
+  }
   .navbar-nav {
     width: 100%;
     display: block;
     
+  height: 100%;
   margin-top: 3%;
 
   

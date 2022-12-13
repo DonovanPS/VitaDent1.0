@@ -4,18 +4,21 @@
   background-color:  rgb(224, 224, 224);
   
   width: 90%;
-  max-width: 1350px;
-  height: 100%;
+  max-width: 2000px;
+  
+
   margin: 0 auto;
   overflow: hidden;
   justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   min-width: 241px;
+  height:80vh;
 }
 
 
 .containerBody {
-
+  
   width: 100%;
   max-width: 1200px;
   height: 100%;
@@ -31,16 +34,18 @@
 
 
 .container {
-  width: 47%;
-  height: 330px;
-
+  width: 44%;
+  height: 350px;
+  margin-top: 10%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
-  margin-left: 3%;
 
+  margin-left: 3%;
+  margin-right: 3%;
   float: left;
+
 
 
 }
@@ -48,12 +53,14 @@
 
 
 .container .card {
-  width: 350px;
-  height: 85%;
+ 
+ 
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  margin: 5%;
+  
   text-align: center;
   transition: all 0.25s;
 
@@ -86,16 +93,26 @@
 }
 
 
-@media screen and (max-width: 575.5px) {
+@media screen and (max-width: 767px) {
 
+  .containerhome{
+    height: 100%;
+  }
   .container {
-
+  
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     box-sizing: border-box;
-    margin-left: 0%;
+   
+    margin: 0 auto;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    float: none;
+    
+    
   }
 
   .btn {
@@ -109,5 +126,8 @@
     margin-top: 5%;
   }
 
- 
+  .container .card{
+  
+  height: 90%;
+ }
 }
