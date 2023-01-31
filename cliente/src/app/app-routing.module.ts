@@ -4,17 +4,16 @@ import { HistorySearchComponent } from './components/history-search/history-sear
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
-
+import { NewHistoryComponent } from './components/new-history/new-history.component';
 
 const routes: Routes = [
-  { path: 'history-search', component: HistorySearchComponent,canActivate:[AuthGuard]},
-  { path: 'home', component: HomeComponent,canActivate:[AuthGuard]},
+  { path: 'history-search', component: HistorySearchComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'new-history', component: NewHistoryComponent, canActivate: [AuthGuard] },
+
   { path: 'login', component: LoginComponent },
- 
+  { path: '**', pathMatch: 'full', redirectTo: 'login' }
 
-
-  {path: '**', pathMatch:'full', redirectTo:'login'}
-  
 ];
 
 @NgModule({

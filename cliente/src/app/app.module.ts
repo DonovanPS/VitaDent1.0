@@ -17,6 +17,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { HistorySearchComponent } from './components/history-search/history-search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { NewHistoryComponent } from './components/new-history/new-history.component';
 
 
 
@@ -27,7 +28,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     HomeComponent,
     HistorySearchComponent,
-    NavbarComponent
+    NavbarComponent,
+    NewHistoryComponent
   ],
   imports: [
     BrowserModule,
