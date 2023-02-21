@@ -18,6 +18,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { HistorySearchComponent } from './components/history-search/history-search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewHistoryComponent } from './components/new-history/new-history.component';
+import { SonHistorySearchComponent } from './components/son-history-search/son-history-search.component';
 
 
 
@@ -29,7 +30,8 @@ import { NewHistoryComponent } from './components/new-history/new-history.compon
     HomeComponent,
     HistorySearchComponent,
     NavbarComponent,
-    NewHistoryComponent
+    NewHistoryComponent,
+    SonHistorySearchComponent
   ],
   imports: [
     BrowserModule,

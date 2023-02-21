@@ -63,45 +63,6 @@
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 
-  text-align: left;
-  
+  text-align: left;  
 
-
-}
-
-.Odontologico{
-  display: flex;
-}
-
-.texto{
-  width: 80%;
-  background-color: white;
-  text-align: left;
-}
-.button{
-  text-align: left;
-  width: 20%;
-  background-color: blue;
-}
-
-#ver{
-  background-color: rgb(96, 96, 104);
-  margin-left: 10%;
-  margin-top: 10%;
-  width: 80%;
-}
-
-@media screen and (max-width: 767px) {
-  .Odontologico{
-    display: block;
-  }
-  
-  .texto{
-    width: 100%;
-    
-  }
-  .button{
-    width: 100%;
-    
-  }
 }
