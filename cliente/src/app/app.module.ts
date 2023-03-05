@@ -19,7 +19,13 @@ import { HistorySearchComponent } from './components/history-search/history-sear
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NewHistoryComponent } from './components/new-history/new-history.component';
 import { SonHistorySearchComponent } from './components/son-history-search/son-history-search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 
 
@@ -37,7 +43,13 @@ import { SonHistorySearchComponent } from './components/son-history-search/son-h
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule
+   
   ],
   exports: [
     HomeComponent,
