@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'history-search', component: HistorySearchComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'new-history', component: NewHistoryComponent, canActivate: [AuthGuard] },
+  
 
   { path: 'login', component: LoginComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
