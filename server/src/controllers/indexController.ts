@@ -1,8 +1,8 @@
 import {Request, Response} from 'express';
 
-import{CookieService} from 'ngx-cookie-service'
-
 import pool from '../database';
+
+import bcrypt from "bcrypt";
 
 const jwt = require('jsonwebtoken');
 
@@ -11,8 +11,6 @@ let dataToken: string;
 class IndexController {
     
   
-   
-    
     public list (req: Request,res:Response) {
        
         //const resultado =  pool.query('Desc Users');
@@ -23,8 +21,8 @@ class IndexController {
         pool.getConnection(async (err,conn)=>{
             conn.query('Desc Users',(err,result)=>{
                 res.json(result)
+                conn.release();
             });
-            
         })
     } 
 
@@ -36,17 +34,29 @@ class IndexController {
         pool.getConnection(async (err,conn)=>{
             conn.query('SELECT * FROM Users',(err,result)=>{
                 res.json(result)
+                conn.release();
             });
-            
         })
        
     }
 
-    public create_User (req: Request,res:Response){
+    public async create_User (req: Request,res:Response){
+        const{user,password} = req.body;
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        pool.getConnection(async (err,conn)=>{
+            conn.query('INSERT INTO USERS VALUES (NULL, ?, ?)',[user, hashedPassword],(err,result)=>{
+                console.log(result);
+                res.json("creacion hacida")
+            });
+        })
 
     }
 
     public login  (req: Request,res:Response){
+        console.log("entrado al login");
+        
        // res.json('Validando  '+ req.params.user + ' ' + req.params.password)
         //const {user,password} = req.body;
 
@@ -55,21 +65,22 @@ class IndexController {
         const{user,password} = req.body;
         
         pool.getConnection(async (err,conn)=>{
-            conn.query('SELECT user FROM Users where user = ? and password = ?',[user,password],(err,result)=>{
-                
+            conn.query('SELECT * FROM Users where user = ?',[user,password],async (err,result)=>{
+                if(result.length === 0) return res.json('Usuario o contraseña incorrectas');      
 
-                if (result.length > 0){
+                const verified = await bcrypt.compare(password, result[0].password );
+                
+                if (verified && result[0].user === user ){
                   let data = JSON.stringify(result[0]);
                   const token = jwt.sign(data,'stil');
                   res.json({token})
-                 // this.cookies.set("token",token)
                 }else{
                     res.json('Usuario o contraseña incorrectas');
                 
                 }
                
+                conn.release();
             });
-            
         })
        
 

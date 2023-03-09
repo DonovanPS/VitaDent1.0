@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt = require('jsonwebtoken');
 let dataToken;
 class IndexController {
@@ -23,6 +24,7 @@ class IndexController {
         database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
             conn.query('Desc Users', (err, result) => {
                 res.json(result);
+                conn.release();
             });
         }));
     }
@@ -32,28 +34,43 @@ class IndexController {
         database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
             conn.query('SELECT * FROM Users', (err, result) => {
                 res.json(result);
+                conn.release();
             });
         }));
     }
     create_User(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { user, password } = req.body;
+            const hashedPassword = yield bcrypt_1.default.hash(password, 12);
+            database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                conn.query('INSERT INTO USERS VALUES (NULL, ?, ?)', [user, hashedPassword], (err, result) => {
+                    console.log(result);
+                    res.json("creacion hacida");
+                });
+            }));
+        });
     }
     login(req, res) {
+        console.log("entrado al login");
         // res.json('Validando  '+ req.params.user + ' ' + req.params.password)
         //const {user,password} = req.body;
         //console.log(req.body);
         const { user, password } = req.body;
         database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
-            conn.query('SELECT user FROM Users where user = ? and password = ?', [user, password], (err, result) => {
-                if (result.length > 0) {
+            conn.query('SELECT * FROM Users where user = ?', [user, password], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (result.length === 0)
+                    return res.json('Usuario o contraseña incorrectas');
+                const verified = yield bcrypt_1.default.compare(password, result[0].password);
+                if (verified && result[0].user === user) {
                     let data = JSON.stringify(result[0]);
                     const token = jwt.sign(data, 'stil');
                     res.json({ token });
-                    // this.cookies.set("token",token)
                 }
                 else {
                     res.json('Usuario o contraseña incorrectas');
                 }
-            });
+                conn.release();
+            }));
         }));
     }
     detele_User(req, res) {

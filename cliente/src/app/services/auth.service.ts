@@ -1,3 +1,4 @@
+import { environment } from './../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -7,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthService {
 
-  private URL = 'http://localhost:3000'
+  private URL = environment.apiUrl;
 // private URL = 'https://vitadent10-production.up.railway.app/ '
 
   constructor(private http: HttpClient,
@@ -19,7 +20,7 @@ export class AuthService {
 
   isAuth():boolean{
     const token = localStorage.getItem('token');
-    
+
     if(this.jwtHelper.isTokenExpired(token!) || !localStorage.getItem('token')){
       return false;
     }

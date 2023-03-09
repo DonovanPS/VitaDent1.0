@@ -13,6 +13,7 @@ class IndexRoutes {
     config() {
         this.router.get('/test', indexController_1.default.verifyToken, indexController_1.default.llamar);
         this.router.post('/', indexController_1.default.login);
+        this.router.post('/create', indexController_1.default.create_User);
         //this.router.post('/',indexController.create_User);
         //this.router.delete('/:id',indexController.detele_User);
         //this.router.put('/:id',indexController.detele_User);

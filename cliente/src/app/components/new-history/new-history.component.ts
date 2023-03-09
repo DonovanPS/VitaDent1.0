@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Paciente } from 'src/app/models/paciente';
 
 
 @Component({
@@ -9,7 +10,17 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class NewHistoryComponent {
 
+  paciente= new Paciente()
+
   onDateChange(event: MatDatepickerInputEvent<Date>) {
     console.log(event.value);
   }
+
+  prueba(){
+    this.paciente.fechaNacimiento= new Date(this.paciente.fechaNacimiento)       
+      console.log(this.paciente);
+      
+  }
+
+
 }

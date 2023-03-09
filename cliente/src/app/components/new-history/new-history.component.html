@@ -12,36 +12,46 @@
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="ID" name="ID">
+        <input [(ngModel)]="paciente.id" type="text" class="form-control" id="floatingInput" placeholder="ID" name="ID">
         <label for="floatingInput">ID</label>
       </div>
 
       <div class="tipoId">
 
         <div class="form-check form-check-inline" id="CC">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="CC">
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="CC">
           <label class="form-check-label" for="inlineRadio1">C.C</label>
         </div>
         <div class="form-check form-check-inline" id="TI">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="TI">
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="TI">
           <label class="form-check-label" for="inlineRadio2">T.I</label>
         </div>
 
         <div class="form-check form-check-inline" id="PAS">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="PAS">
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="PAS">
           <label class="form-check-label" for="inlineRadio3">PAS</label>
+        </div>
+
+        <div class="form-check form-check-inline" id="CE">
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="PAS">
+          <label class="form-check-label" for="inlineRadio3">CE</label>
+        </div>
+
+        <div class="form-check form-check-inline" id="CEX">
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="PAS">
+          <label class="form-check-label" for="inlineRadio3">CEX</label>
         </div>
 
 
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="name" name="Nombres">
+        <input [(ngModel)]="paciente.nombre" type="text" class="form-control" id="floatingInput" placeholder="name" name="Nombres">
         <label for="floatingInput">Nombres</label>
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="Apellidos">
+        <input [(ngModel)]="paciente.apellido" type="text" class="form-control" id="floatingInput" placeholder="A" name="Apellidos">
         <label for="floatingInput">Apellidos</label>
       </div>
 
@@ -49,7 +59,7 @@
 
         <mat-form-field class="custom-form-field" appearance="fill">
           <mat-label>Fecha nacimiento</mat-label>
-          <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
+          <input [(ngModel)]="paciente.fechaNacimiento" matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -61,7 +71,7 @@
         <div class="row">
           <div class="col-md-8">
           
-            <select class="form-select" id="genero">
+            <select [(ngModel)]="paciente.genero" class="form-select" id="genero">
                 <option value="default">Selecione una opción...</option>
               <option value="masculino">Masculino</option>
               <option value="femenino">Femenino</option>
@@ -72,48 +82,50 @@
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="name" name="EstadoCivil">
+        <input [(ngModel)]="paciente.estadoCivil" type="text" class="form-control" id="floatingInput" placeholder="name" name="EstadoCivil">
         <label for="floatingInput">Estado Civil</label>
       </div>
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="CiudadNacimiento">
+        <input [(ngModel)]="paciente.ciudadNacimiento" type="text" class="form-control" id="floatingInput" placeholder="A" name="CiudadNacimiento">
         <label for="floatingInput">Ciudad de nacimiento</label>
       </div>
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="Ocupacion">
+        <input [(ngModel)]="paciente.ocupacion" type="text" class="form-control" id="floatingInput" placeholder="A" name="Ocupacion">
         <label for="floatingInput">Ocupacion</label>
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="ServicioSalud">
+        <input [(ngModel)]="paciente.servicioSalud" type="text" class="form-control" id="floatingInput" placeholder="A" name="ServicioSalud">
         <label for="floatingInput">Servicio de salud</label>
       </div>
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="CiudadResidencia">
+        <input [(ngModel)]="paciente.ciudadResidencia" type="text" class="form-control" id="floatingInput" placeholder="A" name="CiudadResidencia">
         <label for="floatingInput">Ciudad de residencia</label>
       </div>
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="Direccion">
+        <input [(ngModel)]="paciente.direccion" type="text" class="form-control" id="floatingInput" placeholder="A" name="Direccion">
         <label for="floatingInput">Dirección</label>
       </div>
 
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="A" name="telefono">
+        <input [(ngModel)]="paciente.celular" type="text" class="form-control" id="floatingInput" placeholder="A" name="telefono">
         <label for="floatingInput">Numero de celular</label>
       </div>
 
-
-
+     
     </div>
+
+    <button class="btn btn-primary" (click)="prueba()">Enviar</button>
+
   </div>
 
 
