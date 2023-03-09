@@ -26,6 +26,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { SonNewHistoryFormOdontologyComponent } from './components/son-new-history-form-odontology/son-new-history-form-odontology.component';
 
 
 
@@ -37,7 +38,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     HistorySearchComponent,
     NavbarComponent,
     NewHistoryComponent,
-    SonHistorySearchComponent
+    SonHistorySearchComponent,
+    SonNewHistoryFormOdontologyComponent
   ],
   imports: [
     BrowserModule,

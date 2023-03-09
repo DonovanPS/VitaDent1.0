@@ -12,7 +12,7 @@
 
 
       <div class="form-floating">
-        <input [(ngModel)]="paciente.id" type="text" class="form-control" id="floatingInput" placeholder="ID" name="ID">
+        <input [(ngModel)]="paciente.id" type="text" class="form-control" id="floatingInput" placeholder="ID" name="ID" maxlength="30" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
         <label for="floatingInput">ID</label>
       </div>
 
@@ -50,13 +50,7 @@
         <label for="floatingInput">Nombres</label>
       </div>
 
-      <div class="form-floating">
-        <input [(ngModel)]="paciente.apellido" type="text" class="form-control" id="floatingInput" placeholder="A" name="Apellidos">
-        <label for="floatingInput">Apellidos</label>
-      </div>
-
       <div class="datepiker">
-
         <mat-form-field class="custom-form-field" appearance="fill">
           <mat-label>Fecha nacimiento</mat-label>
           <input [(ngModel)]="paciente.fechaNacimiento" matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)">
@@ -66,11 +60,18 @@
 
       </div>
 
+
+      <div class="form-floating">
+        <input [(ngModel)]="paciente.apellido" type="text" class="form-control" id="floatingInput" placeholder="A" name="Apellidos">
+        <label for="floatingInput">Apellidos</label>
+      </div>
+
+
       <div class="sexo">
         <label >Género</label>
         <div class="row">
           <div class="col-md-8">
-          
+
             <select [(ngModel)]="paciente.genero" class="form-select" id="genero">
                 <option value="default">Selecione una opción...</option>
               <option value="masculino">Masculino</option>
@@ -117,16 +118,17 @@
 
 
       <div class="form-floating">
-        <input [(ngModel)]="paciente.celular" type="text" class="form-control" id="floatingInput" placeholder="A" name="telefono">
+        <input [(ngModel)]="paciente.celular" type="text" class="form-control" id="floatingInput" placeholder="A" name="telefono" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" >
         <label for="floatingInput">Numero de celular</label>
       </div>
 
-     
+
     </div>
 
     <button class="btn btn-primary" (click)="prueba()">Enviar</button>
 
   </div>
 
+  <app-son-new-history-form-odontology></app-son-new-history-form-odontology>
 
 </div>

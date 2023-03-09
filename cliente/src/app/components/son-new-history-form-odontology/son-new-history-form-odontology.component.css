@@ -1,0 +1,70 @@
+
+.body {
+  width: 90%;
+  max-width: 2000px;
+  margin: 0 auto;
+  min-width: 241px;
+
+  background-color: rgb(224, 224, 224);
+
+  overflow: hidden;
+
+  text-align: center;
+
+
+  box-sizing: border-box;
+
+  margin-bottom: 1%;
+
+  max-height: 100%;
+
+  height: 100%;
+
+
+}
+
+.form_odontologia{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.higieneOral {
+  width: 30%;
+  margin-left: 5%;
+  height: 55px;
+  display: flex;
+
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.cepillado{
+    width: 27%;
+
+    height: 55px;
+    display: flex;
+
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.form-floating{
+  width: 27%;
+  margin-bottom: 2%;
+}
+
+#a {
+  width: 28.5%;
+
+  height: 55px;
+  display: flex;
+
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.enjuague{
+  margin-left: 5%;
+}
