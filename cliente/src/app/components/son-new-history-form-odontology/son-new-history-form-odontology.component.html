@@ -9,76 +9,83 @@
     <div class="form_odontologia">
 
 
-      <div class="higieneOral">
-        <label>Higiene oral</label>
-        <div class="row">
-          <div class="col-md-8">
+      <div class="higiene" id="radioButton">
 
-            <select class="form-select" id="higiene">
-              <option value="default">Selecione una opción...</option>
-              <option value="bueno">Bueno</option>
-              <option value="malo">Malo</option>
-              <option value="regular">Regular</option>
-            </select>
-          </div>
+        <label for="text">Higiene oral: </label>
+        <div class="form-check form-check-inline" id="B">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="B">
+          <label class="form-check-label" for="inlineRadio1">B</label>
         </div>
+
+        <div class="form-check form-check-inline" id="R">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="R">
+          <label class="form-check-label" for="inlineRadio1">R</label>
+        </div>
+
+        <div class="form-check form-check-inline" id="M">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="M">
+          <label class="form-check-label" for="inlineRadio1">M</label>
+        </div>
+
       </div>
 
-      <div class="cepillado">
-        <label>Cepillado</label>
-        <div class="row">
-          <div class="col-md-8">
+      <div class="cepillado" id="radioButton">
 
-            <select class="form-select" id="cepillado">
-              <option value="default">Selecione una opción...</option>
-              <option value="si">Si</option>
-              <option value="no">No</option>
-
-            </select>
-          </div>
+        <label for="text">Cepillado: </label>
+        <div class="form-check form-check-inline" id="SI">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="SI">
+          <label class="form-check-label" for="inlineRadio1">SI</label>
         </div>
+
+        <div class="form-check form-check-inline" id="NO">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="NO">
+          <label class="form-check-label" for="inlineRadio1">NO</label>
+        </div>
+
       </div>
 
-      <div class="form-floating">
+
+      <div class="form-floating" id="numero">
         <input type="text" class="form-control" id="floatingInput" placeholder="numeroCepillado"
           name="Numero_cepillado">
         <label for="floatingInput">Numero Cepillado</label>
       </div>
 
 
-      <div class="enjuague" id="a">
-        <label>Enjuague bucal</label>
-        <div class="row">
-          <div class="col-md-8">
+      <div class="enjuague" id="radioButton">
 
-            <select class="form-select" id="enjuague">
-              <option value="default">Selecione una opción...</option>
-              <option value="si">Si</option>
-              <option value="no">No</option>
-
-            </select>
-          </div>
+        <label for="text">Enjuague bucal: </label>
+        <div class="form-check form-check-inline" id="SI">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="SI">
+          <label class="form-check-label" for="inlineRadio1">SI</label>
         </div>
+
+        <div class="form-check form-check-inline" id="NO">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="NO">
+          <label class="form-check-label" for="inlineRadio1">NO</label>
+        </div>
+
+      </div>
+
+      <div class="seda" id="radioButton">
+
+        <label for="text">Seda dental: </label>
+        <div class="form-check form-check-inline" id="SI">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="SI">
+          <label class="form-check-label" for="inlineRadio1">SI</label>
+        </div>
+
+        <div class="form-check form-check-inline" id="NO">
+          <input  class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="NO">
+          <label class="form-check-label" for="inlineRadio1">NO</label>
+        </div>
+
       </div>
 
 
-      <div class="seda" id="a">
-        <label>Seda denta</label>
-        <div class="row">
-          <div class="col-md-8">
-
-            <select class="form-select" id="seda">
-              <option value="default">Selecione una opción...</option>
-              <option value="si">Si</option>
-              <option value="no">No</option>
-
-            </select>
-          </div>
-        </div>
-      </div>
 
 
-      <div class="form-floating">
+      <div class="form-floating" id="plan">
         <textarea name="plan_tratamiento" class="form-control" id="floatingInput" placeholder="planTratamiento"cols="300" rows="10"></textarea>
 
         <label for="floatingInput">Plan de tratamiento</label>

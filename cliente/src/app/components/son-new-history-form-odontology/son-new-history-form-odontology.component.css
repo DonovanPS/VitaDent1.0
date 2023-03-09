@@ -30,41 +30,18 @@
   box-sizing: border-box;
 }
 
-.higieneOral {
-  width: 30%;
-  margin-left: 5%;
-  height: 55px;
-  display: flex;
-
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.cepillado{
-    width: 27%;
-
-    height: 55px;
-    display: flex;
-
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 .form-floating{
-  width: 27%;
   margin-bottom: 2%;
+  width: 28%;
 }
 
-#a {
-  width: 28.5%;
 
-  height: 55px;
+#radioButton{
+  width: 27%;
+
   display: flex;
 
   justify-content: space-evenly;
   align-items: center;
 }
 
-.enjuague{
-  margin-left: 5%;
-}
