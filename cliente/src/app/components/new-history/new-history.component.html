@@ -33,13 +33,13 @@
         </div>
 
         <div class="form-check form-check-inline" id="CE">
-          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="PAS">
-          <label class="form-check-label" for="inlineRadio3">CE</label>
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="CE">
+          <label class="form-check-label" for="inlineRadio4">CE</label>
         </div>
 
         <div class="form-check form-check-inline" id="CEX">
-          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="PAS">
-          <label class="form-check-label" for="inlineRadio3">CEX</label>
+          <input [(ngModel)]="paciente.tipoID" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="CEX">
+          <label class="form-check-label" for="inlineRadio5">CEX</label>
         </div>
 
 
@@ -135,6 +135,15 @@
     <br>
     <br>
     <app-son-new-history-form-anamnesis></app-son-new-history-form-anamnesis>
+
+    <br>
+    <br>
+    <app-son-new-history-examen-periodontal [eventSubject]="eventSubject"></app-son-new-history-examen-periodontal>
+
+    <br>
+    <br>
+    <app-son-new-history-examen-tejidos-dentales></app-son-new-history-examen-tejidos-dentales>
+
 
   </div>
 

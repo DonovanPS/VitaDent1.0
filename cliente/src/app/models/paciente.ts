@@ -13,6 +13,4 @@ export class Paciente {
     ciudadResidencia:string;
     direccion:string;
     celular:string;
-
-
 }
