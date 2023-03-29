@@ -32,8 +32,8 @@
   }
 
   .form-floating{
-    width: 40%;
-    margin-left: 5%;
+    width: 35%;
+    margin-left: 4%;
     margin-bottom: 2%;
   }
 
@@ -46,9 +46,9 @@
     }
 
     .tipoId{
-        width: 40%;
+        width: 35%;
 
-        margin-left: 5%;
+        margin-left: 4%;
 
         display: flex;
 
@@ -62,8 +62,8 @@
   }
 
   .datepiker{
-    width: 40%;
-    margin-left: 5%;
+    width: 35%;
+    margin-left: 4%;
 
   }
 
@@ -75,8 +75,8 @@
   }
 
   .sexo{
-    width: 40%;
-    margin-left: 5%;
+    width: 35%;
+    margin-left: 4%;
     height: 55px;
     display: flex;
 

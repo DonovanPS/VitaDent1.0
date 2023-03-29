@@ -34,6 +34,5 @@ export class SonNewHistoryExamenPeriodontalComponent implements OnInit, OnDestro
     console.log(this.examenperiodontal);
   }
 
-
-
 }
+
