@@ -1,5 +1,5 @@
 import { Subject, Subscription } from 'rxjs';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ExamenPeriodontal } from 'src/app/models/examen-periodontal';
 
 @Component({
@@ -12,7 +12,7 @@ export class SonNewHistoryExamenPeriodontalComponent implements OnInit, OnDestro
   message: string = "Hola Mundo!"
 
   @Input() eventSubject: Subject<boolean>;
-
+  @Output() examenEvent : EventEmitter<ExamenPeriodontal> = new EventEmitter<ExamenPeriodontal>();
   subscription: Subscription;
 
 
@@ -31,7 +31,7 @@ export class SonNewHistoryExamenPeriodontalComponent implements OnInit, OnDestro
   }
 
   prueba(){
-    console.log(this.examenperiodontal);
+    this.examenEvent.emit(this.examenperiodontal);
   }
 
 }

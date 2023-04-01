@@ -134,11 +134,11 @@
 
     <br>
     <br>
-    <app-son-new-history-form-anamnesis></app-son-new-history-form-anamnesis>
+    <app-son-new-history-form-anamnesis [eventSubject]="eventSubject" (anamnesisEvent)="anamnesisEvento($event)"></app-son-new-history-form-anamnesis>
 
     <br>
     <br>
-    <app-son-new-history-examen-periodontal [eventSubject]="eventSubject"></app-son-new-history-examen-periodontal>
+    <app-son-new-history-examen-periodontal [eventSubject]="eventSubject" (examenEvent)="pruebaEvento($event)"></app-son-new-history-examen-periodontal>
 
     <br>
     <br>

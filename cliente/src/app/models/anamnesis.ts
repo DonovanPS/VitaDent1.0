@@ -1,4 +1,4 @@
-export class Paciente {
+export class Anamnesis {
 
   anmnesis_id: number;
   hipertencion: string;
@@ -7,7 +7,7 @@ export class Paciente {
   sistema_digestivo: string;
   fiebre_reumatica: string;
   hepatitis: string;
-  enfe_renales: string;
+  enfer_renales: string;
   enfer_gastrointestinales: string;
   quirurgico: string;
   traumatico: string;
