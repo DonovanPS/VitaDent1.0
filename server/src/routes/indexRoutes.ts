@@ -1,19 +1,24 @@
 import {Router} from 'express';
-import indexController from '../controllers/indexController'
+import IndexController from '../controllers/indexController';
 
 class IndexRoutes{
 
     public router: Router = Router();
+
+    private indexController = new IndexController();
 
     constructor(){
         this.config();
     }
 
     config(): void{
-        this.router.get('/test',indexController.verifyToken,indexController.llamar);
+        this.router.get('/test',this.indexController.verifyToken,this.indexController.llamar);
 
-        this.router.post('/', indexController.login);
-        this.router.post('/create', indexController.create_User);
+        this.router.post('/', this.indexController.login);
+        this.router.post('/create', this.indexController.create_User);
+        this.router.post('/createNewHistory', this.indexController.newHistory);
+
+        
         
         //this.router.post('/',indexController.create_User);
         //this.router.delete('/:id',indexController.detele_User);

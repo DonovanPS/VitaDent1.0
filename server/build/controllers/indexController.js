@@ -17,6 +17,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt = require('jsonwebtoken');
 let dataToken;
 class IndexController {
+    constructor() {
+    }
+    imprimir() {
+        console.log("lakshjdfkilasdjalsasdjklasdhjklasdhjklasdjkldasjklasdjklasdjklasdjkl");
+    }
     list(req, res) {
         //const resultado =  pool.query('Desc Users');
         //console.log(resultado);
@@ -57,7 +62,7 @@ class IndexController {
         //console.log(req.body);
         const { user, password } = req.body;
         database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
-            conn.query('SELECT * FROM Users where user = ?', [user, password], (err, result) => __awaiter(this, void 0, void 0, function* () {
+            conn.query('SELECT * FROM Users where user = ? ', [user, password], (err, result) => __awaiter(this, void 0, void 0, function* () {
                 if (result.length === 0)
                     return res.json('Usuario o contraseña incorrectas');
                 const verified = yield bcrypt_1.default.compare(password, result[0].password);
@@ -98,6 +103,165 @@ class IndexController {
             res.status(401).json('Error token');
         }
     }
+    newHistory(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                console.log("Nuevo historial");
+                //console.log(req.body);
+                // Obtener los datos del paciente del objeto req.body
+                const Nh = req.body;
+                console.log(Nh);
+                // Crear una consulta SQL que inserte los datos en la tabla correspondiente
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query('INSERT INTO pacientes (paciente_id, nombre, apellido, estado_civil, ciudad_nacimiento, fecha_nacimiento, tipo_documento, servicio_salud, ocupacion, ciudad_residencia, direccion, numero_celular, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)', [
+                        Nh.paciente.id,
+                        Nh.paciente.nombre,
+                        Nh.paciente.apellido,
+                        Nh.paciente.estadoCivil,
+                        Nh.paciente.ciudadNacimiento,
+                        Nh.paciente.fechaNacimiento,
+                        Nh.paciente.tipoID,
+                        Nh.paciente.servicioSalud,
+                        Nh.paciente.ocupacion,
+                        Nh.paciente.ciudadResidencia,
+                        Nh.paciente.direccion,
+                        Nh.paciente.celular,
+                        Nh.paciente.genero
+                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.log("Error: " + err);
+                            res.status(200).json({
+                                success: false,
+                                message: err.sqlMessage,
+                            });
+                        }
+                        else {
+                            /*
+                            this.insertNewOdontologia(req.body.odontologia).then(test =>{
+                                this.insertNewOdontologia(req.body.odontologia).then(test =>{
+                                
+                                });
+                            });
+                            */
+                            // await this.insertNewOdontologia(req.body.odontologia)
+                            this.imprimir();
+                            /*
+                            res.status(200).json({
+                                success: true,
+                                message: 'Insertado con exito',
+                              });
+                          console.log("Result: " + result);
+                          */
+                            // Insertar datos odontologia
+                            /*
+                            try{
+          
+                              console.log("insertar odontologia");
+                          
+                              //obtienen datos de odontologia
+                              const dataOdontologia= req.body.odontologia;
+                  
+                              console.log(dataOdontologia);
+                  
+                             pool.getConnection(async (err,conn) =>{
+                              conn.query(
+                                   'INSERT INTO historiales_odontologia (odontologia_id, higiene_oral, cepillado, numero_cepillado, enjuague_bucal, seda_dental, plan_tratamiento, paciente_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',[
+                                      dataOdontologia.odontologia_id,
+                                      dataOdontologia.higiene_oral,
+                                      dataOdontologia.cepillado,
+                                      dataOdontologia.numero_cepillado,
+                                      dataOdontologia.enjuague_bucal,
+                                      dataOdontologia.seda_dental,
+                                      dataOdontologia.plan_tratamiento,
+                                      dataOdontologia.paciente_id
+                                  ],
+                  
+                                  async (err,result)=>{
+                  
+                                      if (err) {
+                                          console.log("Error: " + err);
+                                          res.status(200).json({
+                                            success: false,
+                                            message: err.sqlMessage,
+                                          });
+                        
+                                          
+                                        } else {
+                                            res.status(200).json({
+                                                success: true,
+                                                message: 'Insertado odontologia con exito',
+                                              });
+                                          console.log("Result: " + result);
+                                        }
+                                        conn.release();
+                  
+                  
+                                  }
+                              );
+                             });
+                              
+                  
+                  
+                          } catch (error) {
+                            // Enviar una respuesta con error al cliente
+                            console.error(error);
+                            res.status(500).json({
+                              success: false,
+                              message: 'Ha ocurrido un error al insertar los datos de odontologia',
+                            });
+                          }
+          
+                          */
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (error) {
+                // Enviar una respuesta con error al cliente
+                console.error(error);
+                res.status(500).json({
+                    success: false,
+                    message: 'Ha ocurrido un error al insertar los datos del paciente',
+                });
+            }
+        });
+    }
+    insertNewOdontologia(dataOdontologia) {
+        return new Promise((resolve, reject) => {
+            try {
+                console.log("insertar odontologia");
+                //obtienen datos de odontologia
+                console.log(dataOdontologia);
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query('INSERT INTO historiales_odontologia (odontologia_id, higiene_oral, cepillado, numero_cepillado, enjuague_bucal, seda_dental, plan_tratamiento, paciente_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+                        dataOdontologia.odontologia_id,
+                        dataOdontologia.higiene_oral,
+                        dataOdontologia.cepillado,
+                        dataOdontologia.numero_cepillado,
+                        dataOdontologia.enjuague_bucal,
+                        dataOdontologia.seda_dental,
+                        dataOdontologia.plan_tratamiento,
+                        dataOdontologia.paciente_id
+                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.log("Error: " + err);
+                            reject(err.sqlMessage);
+                        }
+                        else {
+                            resolve(true);
+                            console.log("Result: " + result);
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (error) {
+                // Enviar una respuesta con error al cliente
+                console.error(error);
+                reject(error);
+            }
+        });
+    }
 }
-const indexController = new IndexController();
-exports.default = indexController;
+exports.default = IndexController;

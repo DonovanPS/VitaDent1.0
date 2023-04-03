@@ -19,6 +19,7 @@
   
   .Odontologico{
     display: flex;
+    border-bottom:rgb(211, 209, 209) 1px solid;
   }
   
   .texto{
@@ -29,7 +30,7 @@
   .button{
     text-align: left;
     width: 20%;
-    background-color: rgb(214, 214, 219);
+    background-color: white;
   }
   
   #ver{
@@ -38,6 +39,9 @@
     margin-top: 6%;
     width: 80%;
   }
+
+  
+  
   
   @media screen and (max-width: 767px) {
     .Odontologico{

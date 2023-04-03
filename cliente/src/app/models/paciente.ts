@@ -4,7 +4,7 @@ export class Paciente {
     tipoID:string;
     nombre:string;
     apellido:string;
-    fechaNacimiento:Date;
+    fechaNacimiento:string;
     genero:string;
     estadoCivil:string;
     ciudadNacimiento:string;

@@ -29,8 +29,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { SonNewHistoryFormOdontologyComponent } from './components/son-new-history-form-odontology/son-new-history-form-odontology.component';
 import { SonNewHistoryFormAnamnesisComponent } from './components/son-new-history-form-anamnesis/son-new-history-form-anamnesis.component';
 import { SonNewHistoryExamenPeriodontalComponent } from './components/son-new-history-examen-periodontal/son-new-history-examen-periodontal.component';
-import { SonNewHistoryExamenTejidosDentalesComponent } from './components/son-new-history-examen-tejidos-dentales/son-new-history-examen-tejidos-dentales.component';
-
+import { SonNewHistoryExamenTejidosDentalesComponent } from './components/son-new-history-examen-tejidos-dentales/son-new-history-examen-tejidos-dentales.component'
+import { SonNewHistoryExamenTejidosblandosComponent } from './components/son-new-history-examen-tejidos-blandos/son-new-history-examen-tejidos-blandos.component';
 
 
 @NgModule({
@@ -45,7 +45,8 @@ import { SonNewHistoryExamenTejidosDentalesComponent } from './components/son-ne
     SonNewHistoryFormOdontologyComponent,
     SonNewHistoryFormAnamnesisComponent,
     SonNewHistoryExamenPeriodontalComponent,
-    SonNewHistoryExamenTejidosDentalesComponent
+    SonNewHistoryExamenTejidosDentalesComponent,
+    SonNewHistoryExamenTejidosblandosComponent
   ],
   imports: [
     BrowserModule,

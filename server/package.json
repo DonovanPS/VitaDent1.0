@@ -18,8 +18,10 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
+    "mysql2": "^3.2.0",
     "ngx-cookie-service": "^15.0.0",
-    "promise-mysql": "^5.2.0"
+    "promise-mysql": "^5.2.0",
+    "sequelize": "^6.30.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

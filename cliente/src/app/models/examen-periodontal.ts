@@ -5,4 +5,5 @@ export class ExamenPeriodontal{
   placaBlanca: string;
   calculos: string;
   observaciones: string;
+  odontologia_id: number;
 }
