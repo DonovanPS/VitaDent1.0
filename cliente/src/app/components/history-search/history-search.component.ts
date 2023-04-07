@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { HistoryService } from 'src/app/services/history.service';
 import { UsuarioService } from 'src/app/services/paciente.service';
+import { SonHistorySearchComponent } from 'src/app/components/son-history-search/son-history-search.component'
 
 @Component({
   selector: 'app-history-search',
@@ -9,11 +10,14 @@ import { UsuarioService } from 'src/app/services/paciente.service';
   styleUrls: ['./history-search.component.css']
 })
 export class HistorySearchComponent {
+  viewContainerRef: any;
+  componentFactoryResolver: any;
 
   constructor(
     private historyService: HistoryService,
     private usuarioService: UsuarioService
-  ) {
+    
+    ) {
   }
 
   @ViewChild('buscar') buscar: ElementRef;
@@ -56,6 +60,8 @@ export class HistorySearchComponent {
 
 
   consultarHistorias() {
+
+    //this.agregarComponente();
 
     this.showSonHistorySearchOdontologia = false;
     this.showSonHistorySearchOrtodoncia = false;
@@ -101,6 +107,18 @@ export class HistorySearchComponent {
 
   toggleSonHistorySearchOrtodoncia() {
     this.showSonHistorySearchOrtodoncia = true;
+  }
+
+
+
+  contador = 0;
+  agregarComponente() {
+    this.contador++;
+
+    // Se crea una instancia del componente NuevoComponente y se agrega al contenedor
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(SonHistorySearchComponent);
+    const componentRef = this.viewContainerRef.createComponent(componentFactory);
+    this.viewContainerRef.insert(componentRef.hostView);
   }
 
 
