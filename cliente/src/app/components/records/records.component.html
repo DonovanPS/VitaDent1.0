@@ -1,0 +1,127 @@
+<div class="containerGlobal">
+
+  <app-navbar></app-navbar>
+
+
+
+  <div class="body">
+
+    <div class="titleContainer mb-4 mt-4 w-100">
+      <h1 class="fw-bold">Buscador de Registros</h1>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-2">
+
+          <div class="card" style="width: 100%;margin-bottom: 5%;">
+            <div class="card-body">
+              <h4 class="card-title">Rango de fechas</h4>
+              <form action="">
+                <label for="fromDate" class="text-start mb-2">Desde:
+                  <input id="fromDate" type="date" class="mb-2">
+                </label>
+                <label for="fromDate" class="text-start mb-2">Hasta:
+                  <input id="toDate" type="date" class="mb-2">
+                </label>
+                <button type="submit" class="btn text-white btn-sm" style="background-color: #ab4181;">Aplicar</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h4 class="card-title">Tipo</h4>
+              <form action="">
+                <div class="form-check text-start">
+                  <input class="form-check-input" type="checkbox" value="" id="checkUrgencia">
+                  <label class="form-check-label" for="checkUrgencia">
+                    Urgencia
+                  </label>
+                </div>
+                <div class="form-check text-start">
+                  <input class="form-check-input" type="checkbox" value="" id="checkOdontologia">
+                  <label class="form-check-label" for="checkOdontologia">
+                    Odontología
+                  </label>
+                </div>
+                <div class="form-check text-start">
+                  <input class="form-check-input" type="checkbox" value="" id="checkOrtodoncia">
+                  <label class="form-check-label" for="checkOrtodoncia">
+                    Ortodoncia
+                  </label>
+                </div>
+                <button type="submit" class="btn text-white btn-sm" style="background-color: #ab4181;">Aplicar</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="col-10">
+          <div class="row mb-2">
+            <div class="dropdown col text-start">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #ab4181;">
+                Ordenar por:
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Fecha(ascendente)</a></li>
+                <li><a class="dropdown-item" href="#">Fecha(descendente)</a></li>
+                <li><a class="dropdown-item" href="#">Fecha(ascendente)</a></li>
+                <li><a class="dropdown-item" href="#">Precio(descendente)</a></li>
+              </ul>
+            </div>
+            <div class="col text-end fs-6">
+              <p class="align-bottom mt-3 mb-1">Total de ganancias: $$$$$</p>
+            </div>
+          </div>
+          
+          <table class="table table-striped">
+            <thead>
+              <tr style="background-color: #ab4181;">
+                <th scope="col" class="text-white fw-normal">Fecha</th>
+                <th scope="col" class="text-white fw-normal">Id Paciente</th>
+                <th scope="col" class="text-white fw-normal">Consulta</th>
+                <th scope="col" class="text-white fw-normal">Descripción</th>
+                <th scope="col" class="text-white fw-normal">Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background-color: white;">
+                <th scope="row" class="fw-normal">13/11/1999</th>
+                <td>1057611576</td>
+                <td>Odontologia</td>
+                <td>Retiro de muela picha</td>
+                <td>$150.000</td>
+              </tr>
+              <tr style="background-color: #EFD1E3;">
+                <th scope="row" class="fw-normal">15/08/2005</th>
+                <td>1057357849</td>
+                <td>Ortodoncia</td>
+                <td>Control mensual</td>
+                <td>$80.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      
+    </div>
+
+    
+
+    
+
+    
+    
+
+
+  </div>
+
+
+
+</div>

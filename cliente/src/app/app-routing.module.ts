@@ -5,11 +5,14 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NewHistoryComponent } from './components/new-history/new-history.component';
+import { RecordsComponent } from './components/records/records.component';
 
 const routes: Routes = [
   { path: 'history-search', component: HistorySearchComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'new-history', component: NewHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'records', component: RecordsComponent, canActivate: [AuthGuard]},
+
   
 
   { path: 'login', component: LoginComponent },

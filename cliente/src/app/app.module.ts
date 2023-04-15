@@ -31,6 +31,7 @@ import { SonNewHistoryFormAnamnesisComponent } from './components/son-new-histor
 import { SonNewHistoryExamenPeriodontalComponent } from './components/son-new-history-examen-periodontal/son-new-history-examen-periodontal.component';
 import { SonNewHistoryExamenTejidosDentalesComponent } from './components/son-new-history-examen-tejidos-dentales/son-new-history-examen-tejidos-dentales.component'
 import { SonNewHistoryExamenTejidosblandosComponent } from './components/son-new-history-examen-tejidos-blandos/son-new-history-examen-tejidos-blandos.component';
+import { RecordsComponent } from './components/records/records.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SonNewHistoryExamenTejidosblandosComponent } from './components/son-new
     SonNewHistoryFormAnamnesisComponent,
     SonNewHistoryExamenPeriodontalComponent,
     SonNewHistoryExamenTejidosDentalesComponent,
-    SonNewHistoryExamenTejidosblandosComponent
+    SonNewHistoryExamenTejidosblandosComponent,
+    RecordsComponent
   ],
   imports: [
     BrowserModule,
