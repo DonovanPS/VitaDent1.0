@@ -4,9 +4,10 @@ import cors from 'cors';
 
 
 import indexRoutes from './routes/indexRoutes';
-import gamesRoutes from './routes/gamesRoutes';
 import historyRoutes from './routes/historyRoutes';
 import PacienteRoutes from './routes/pacienteRoutes';
+import recordRouter from './routes/recordRouter';
+
 
 
 class Server {
@@ -27,9 +28,9 @@ class Server {
 
     routes(): void{
         this.app.use(indexRoutes);
-        this.app.use('/api/games',gamesRoutes);
         this.app.use('/history',new historyRoutes().router);
         this.app.use('/paciente',new PacienteRoutes().router);
+        this.app.use('/record',new recordRouter().router);
     }
 
     start(): void{
