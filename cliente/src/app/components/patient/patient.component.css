@@ -12,12 +12,16 @@
     margin-bottom: 1%;
     max-height: 100%;
     height: 100%;
-    
-  }
 
-  .form-check-input:checked {
+}
+
+.hover-transition {
     background-color: #ab4181;
-    border-color: #ab4181;
-  }
-
+}
   
+.hover-transition:hover {
+    background-color: #c24a92;
+}
+  
+
+
