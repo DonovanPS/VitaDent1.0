@@ -60,7 +60,8 @@ import { SonPatientOrtodonciaComponent } from './components/son-patient-ortodonc
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule, 
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatNativeDateModule,

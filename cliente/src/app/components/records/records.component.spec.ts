@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt'; // Importar JwtHelperService y JWT_OPTIONS
 
 import { RecordsComponent } from './records.component';
 
@@ -8,7 +10,12 @@ describe('RecordsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RecordsComponent ]
+      imports: [HttpClientModule], // importar HttpClientModule
+      declarations: [ RecordsComponent ],
+      providers: [
+        JwtHelperService,
+        { provide: JWT_OPTIONS, useValue: JWT_OPTIONS } // proveer JWT_OPTIONS con su valor
+      ]
     })
     .compileComponents();
 

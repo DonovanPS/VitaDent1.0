@@ -1,10 +1,19 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { RecordService } from 'src/app/services/record.service';
 
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
+
+
+
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css']
+
+  
+
 })
 export class RecordsComponent  {
   @ViewChild('myTbody') myTbody: ElementRef;

@@ -137,7 +137,7 @@ class HistoryService {
                 pool.getConnection(async (err, conn) => {
                     conn.query(
                         'INSERT INTO anamnesis ( anamnesis_id, hipertension, enfermedades_respiratorias, cardiopatias, sistema_digestivo, fiebre_reumatica, hepatitis, enfermedades_renales, enfermedades_gastrointestinales, quirurgico, traumatico, tratamiento_medico, toma_medicamentos, alergias, embarazo, diabetes, neoplasias, enfermedad_hemorrogica, nf_neurologicas, grupo_sanguineo, rh, observaciones, odontologia_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-                        dataAnamnesisi.anmnesis_id,
+                        dataAnamnesisi.anamnesis_id,
                         dataAnamnesisi.hipertencion,
                         dataAnamnesisi.enfe_respiratorias,
                         dataAnamnesisi.cardiopatias,

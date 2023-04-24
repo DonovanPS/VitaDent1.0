@@ -1,3 +1,5 @@
+import { FormsModule } from '@angular/forms';
+
 
 
 import { SonNewHistoryFormAnamnesisComponent } from './../son-new-history-form-anamnesis/son-new-history-form-anamnesis.component';
@@ -18,6 +20,7 @@ import { NgForm } from '@angular/forms';
 import { PacienteService } from 'src/app/services/paciente.service';
 
 
+
 @Component({
   selector: 'app-new-history',
   templateUrl: './new-history.component.html',
@@ -30,12 +33,23 @@ import { PacienteService } from 'src/app/services/paciente.service';
 })
 export class NewHistoryComponent implements AfterViewInit {
 
+  paciente= new Paciente()
+  message:string;
+
+  private examenPeriodontal: ExamenPeriodontal;
+  private anamnesis: Anamnesis;
+  private odontologia: Odontologia;
+  private tejidosBlandos: Tejidos_blandos;
+  private tejidosDentales: Tejidos_dentales;
+
 
   constructor(
     private historyService: HistoryService,
     //private router: Router,
     private usuarioService: PacienteService
+    
   ){
+    this.anamnesis = new Anamnesis();
   }
 
 
@@ -45,14 +59,6 @@ export class NewHistoryComponent implements AfterViewInit {
   @ViewChild(SonNewHistoryExamenPeriodontalComponent) child: SonNewHistoryExamenPeriodontalComponent;
   eventSubject: Subject<boolean> = new Subject<boolean>();
 
-  paciente= new Paciente()
-  message:string;
-
-  private examenPeriodontal: ExamenPeriodontal;
-  private anamnesis: Anamnesis;
-  private odontologia: Odontologia;
-  private tejidosBlandos: Tejidos_blandos;
-  private tejidosDentales: Tejidos_dentales;
 
 
   public validDoc: boolean = true;
@@ -84,7 +90,7 @@ export class NewHistoryComponent implements AfterViewInit {
 
 
   prueba(){
-    this.paciente.fechaNacimiento= (this.paciente.fechaNacimiento)
+   // this.paciente.fechaNacimiento= (this.paciente.fechaNacimiento)
       //console.log(this.paciente);
     this.eventSubject.next(true);
     //alert(this.message);
