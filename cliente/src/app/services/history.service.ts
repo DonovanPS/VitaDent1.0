@@ -22,4 +22,13 @@ export class HistoryService {
     return this.httpClient.get(`${this.URL}/history/findHistory/`+id)
   }
 
+
+  // obtiene todos los datos de las historias clinicas, se pasa id, tabla a consultar y el campo a comparar del id
+  getHistory(id: number, tabla: string, nombreCampo: string) {
+    return this.httpClient.get(`${this.URL}/history/gedHistory/${id}/${tabla}/${nombreCampo}`);
+  }
+
+  
+
+
 }

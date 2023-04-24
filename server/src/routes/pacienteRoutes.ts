@@ -13,7 +13,7 @@ class PacienteRoutes{
     }
 
     config(): void{
-        this.router.get('/paciente', this.usuarioControler.getusuario)
+        this.router.get('/:id', this.usuarioControler.getusuario)
         this.router.get('/countpaciente/:id', this.usuarioControler.countusuario)
 
     }

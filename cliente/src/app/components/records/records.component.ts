@@ -27,8 +27,8 @@ export class RecordsComponent  {
       this.recordsAux = res.records;
       this.recordsAux2 = res.records;
       this.calculateTotalPrice();
-    
-  
+
+
     });
   }
 
@@ -53,26 +53,28 @@ export class RecordsComponent  {
 
 
   filterByDateRange() {
-   
-    
+
+
     const fromDate: string = (<HTMLInputElement>document.getElementById('fromDate')).value;
     const toDate: string = (<HTMLInputElement>document.getElementById('toDate')).value;
 
-    
-    
+
+
+
+
     if (fromDate && toDate) {
-      
-      
+
+
       this.filteredRecords = this.recordsAux.filter(record => {
         return (record.fecha >= fromDate && record.fecha <= toDate);
       });
-    
+
      this.records= this.filteredRecords;
      this.recordsAux2 = this.records;
-     
+
     } else {
-     
-      
+
+
       this.records = this.recordsAux;
       this.recordsAux2 = this.records;
     }
@@ -86,19 +88,19 @@ export class RecordsComponent  {
       filteredRecords2 = filteredRecords2.concat(this.recordsAux2.filter(item => item.consulta === 'Urgencia'));
     }
     if (this.isDental) {
-      filteredRecords2 = filteredRecords2.concat(this.recordsAux2.filter(item => item.consulta === 'Odontologia'));
+      filteredRecords2 = filteredRecords2.concat(this.recordsAux2.filter(item => item.consulta === 'Odontología'));
     }
     if (this.isOrthodontic) {
       filteredRecords2 = filteredRecords2.concat(this.recordsAux2.filter(item => item.consulta === 'Ortodoncia'));
     }
 
-    if(!this.isUrgent && !this.isDental && !this.isOrthodontic){    
+    if(!this.isUrgent && !this.isDental && !this.isOrthodontic){
       this.records = this.recordsAux2;
     }else{
       this.records = filteredRecords2;
     }
     this.calculateTotalPrice()
-   
+
   }
 
   calculateTotalPrice() {
@@ -106,13 +108,12 @@ export class RecordsComponent  {
     this.records.forEach(record => {
       total += record.precio;
     });
-   console.log(total);
-   
+
+
    let formattedTotal = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-   console.log(formattedTotal); // output: "$1,598,345.00"
    this.totalPrice = formattedTotal;
   }
-  
-  
-  
+
+
+
 }

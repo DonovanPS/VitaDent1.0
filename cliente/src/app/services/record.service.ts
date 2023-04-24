@@ -11,8 +11,12 @@ export class RecordService {
 
   constructor(private httpClient: HttpClient,
     private jwtHelper: JwtHelperService) {}
-  
+
     findRecords(){
       return this.httpClient.get(`${this.URL}/record/findRecords`)
+    }
+
+    findRecordsID(id: number, consulta: string){
+      return this.httpClient.get(`${this.URL}/record/${id}/${consulta}`)
     }
 }

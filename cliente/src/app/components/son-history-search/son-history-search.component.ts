@@ -10,19 +10,25 @@ export class SonHistorySearchComponent implements OnChanges {
 
   historial: string = '';
   nombrePaciente: string = '';
+  id: string = '';
 
-  constructor(){
+  constructor() {
   }
 
   ngOnChanges() {
-    
-    const { nombrePaciente, historial } = this.dataPaciente;
+
+    const { idP, nombrePaciente, historial } = this.dataPaciente;
     this.historial = historial;
     this.nombrePaciente = nombrePaciente;
-
-    
-    
-
+    this.id = idP;
   }
-}
 
+
+  verHistorial() {
+
+    localStorage.setItem('paciente',this.id)
+    localStorage.setItem('historial',this.historial)
+  }
+
+
+}

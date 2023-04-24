@@ -24,7 +24,7 @@
 
           <div
             *ngIf=" validDoc ||   myForm.controls['id']?.invalid ">
-           
+
             <div *ngIf="validDoc ">Paciente No Existente.</div>
           </div>
 
@@ -42,7 +42,7 @@
 
         <app-son-history-search *ngIf="showSonHistorySearchOdontologia" [dataPaciente]="dataPacienteOdontologia" ></app-son-history-search>
 
-        <app-son-history-search *ngIf="showSonHistorySearchOrtodoncia" [dataPaciente]="dataPacienteOrtodoncia" ></app-son-history-search>
+        <app-son-history-search *ngIf="showSonHistorySearchOrtodoncia" [dataPaciente]="dataPacienteOrtodoncia"></app-son-history-search>
 
       </div>
     </form>

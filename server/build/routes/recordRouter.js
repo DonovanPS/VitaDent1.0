@@ -14,6 +14,7 @@ class recordRouter {
     ;
     config() {
         this.router.get('/findRecords', this.recordControler.findRecords);
+        this.router.get('/:id/:consulta', this.recordControler.findRecordsID);
     }
 }
 exports.default = recordRouter;

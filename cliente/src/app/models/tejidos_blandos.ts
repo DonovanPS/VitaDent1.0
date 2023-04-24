@@ -12,5 +12,5 @@ export class Tejidos_blandos{
     musculos_masticatorios: boolean = false;
     otros: string;
     odontologia_id:number;
-    
+
 }

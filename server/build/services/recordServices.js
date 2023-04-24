@@ -17,5 +17,20 @@ class RecordService {
             });
         });
     }
+    findRecordsID(id, consulta) {
+        return new Promise((resolve, reject) => {
+            database_1.default.query('SELECT * FROM registros WHERE paciente_id = ? and consulta = ?', [
+                id,
+                consulta
+            ], (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                else {
+                    resolve(result);
+                }
+            });
+        });
+    }
 }
 exports.default = RecordService;

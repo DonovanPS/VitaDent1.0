@@ -32,6 +32,24 @@ class recordController {
                 });
             }
         });
+        this.findRecordsID = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = req.params.id;
+                const consulta = req.params.consulta;
+                const records = yield this.recorService.findRecordsID(id, consulta);
+                res.status(200).json({
+                    success: true,
+                    records: records,
+                });
+            }
+            catch (err) {
+                console.log(err);
+                res.status(400).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
     }
 }
 exports.default = recordController;

@@ -14,6 +14,7 @@ class historyRouter {
     config() {
         this.router.post('/createNewHistory', this.historyControler.newHistory);
         this.router.get('/findHistory/:id', this.historyControler.findHistory);
+        this.router.get('/gedHistory/:id/:tabla/:nombreCampo', this.historyControler.getHistory);
     }
 }
 exports.default = historyRouter;

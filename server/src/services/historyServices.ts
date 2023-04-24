@@ -74,12 +74,12 @@ class HistoryService {
 
             try {
 
-               
+
 
                 //obtienen datos de odontologia
 
 
-              
+
 
                 pool.getConnection(async (err, conn) => {
                     conn.query(
@@ -129,7 +129,7 @@ class HistoryService {
     public insertNewAnamnesis(dataAnamnesisi: any): Promise<boolean> {
 
         console.log(dataAnamnesisi);
-        
+
 
         return new Promise<boolean>((resolve, reject) => {
 
@@ -192,16 +192,16 @@ class HistoryService {
 
     public insertNewExamenPeriodontal(dataPeriodontal: any): Promise<boolean> {
 
-        return new Promise<boolean>((resolve, reject)=>{
+        return new Promise<boolean>((resolve, reject) => {
 
             try {
 
-                
-                
-                
-                pool.getConnection(async (err,conn)=>{
-                  conn.query(
-                    'INSERT INTO examen_periodontal (periodontal_id	, bolsas, movilidad, placa_blanda, calculos, observaciones, odontologia_id ) VALUES (?, ?, ?, ?, ?, ?, ?)',[
+
+
+
+                pool.getConnection(async (err, conn) => {
+                    conn.query(
+                        'INSERT INTO examen_periodontal (periodontal_id	, bolsas, movilidad, placa_blanda, calculos, observaciones, odontologia_id ) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                         dataPeriodontal.examenPeriodontal_id,
                         dataPeriodontal.bolsas,
                         dataPeriodontal.movilidad,
@@ -211,65 +211,65 @@ class HistoryService {
                         dataPeriodontal.odontologia_id
                     ],
 
-                    async (err, result) => {
+                        async (err, result) => {
 
-                        if (err) {
-                            console.log("Error: " + err);
-                            reject(err.sqlMessage)
+                            if (err) {
+                                console.log("Error: " + err);
+                                reject(err.sqlMessage)
 
 
-                        } else {
-                            resolve(true)
-                            console.log("Result: " + result);
+                            } else {
+                                resolve(true)
+                                console.log("Result: " + result);
+                            }
+                            conn.release();
+
                         }
-                        conn.release();
 
-                    }
-
-                  )
+                    )
                 })
 
-                
+
             } catch (err) {
                 console.error(err);
                 reject(err)
             }
-        }); 
+        });
 
     }
 
 
     public insertNewExamenTejidosBlnados(dataTejidosBlandos: any): Promise<boolean> {
-        return new Promise<boolean>((resolve, reject)=>{
+        return new Promise<boolean>((resolve, reject) => {
 
-            console.log("tejidos dentales" );
-            
+            console.log("tejidos dentales");
+
             console.log(dataTejidosBlandos);
-            
+
 
 
             try {
-                
-                pool.getConnection(async (err,conn)=>{
+
+                pool.getConnection(async (err, conn) => {
 
                     conn.query(
-                        'INSERT INTO examenes_tejidos_blandos (tejidos_blandos_id, labios, carrillos, frenillos, encias, paladar, lengua, orofaringe, glandulas, piso_boca, musculos_masticatorios, otros, odontologia_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',[
+                        'INSERT INTO examenes_tejidos_blandos (tejidos_blandos_id, labios, carrillos, frenillos, encias, paladar, lengua, orofaringe, glandulas, piso_boca, musculos_masticatorios, otros, odontologia_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
 
-                            dataTejidosBlandos.tejidos_blandos_id,
-                            dataTejidosBlandos.labios,
-                            dataTejidosBlandos.carrillos,
-                            dataTejidosBlandos.frenillos,
-                            dataTejidosBlandos.encias,
-                            dataTejidosBlandos.paladar,
-                            dataTejidosBlandos.lengua,
-                            dataTejidosBlandos.orofaringe,
-                            dataTejidosBlandos.glandulas,
-                            dataTejidosBlandos.piso_boca,
-                            dataTejidosBlandos.musculos_masticatorios,
-                            dataTejidosBlandos.otros,
-                            dataTejidosBlandos.odontologia_id
+                        dataTejidosBlandos.tejidos_blandos_id,
+                        dataTejidosBlandos.labios,
+                        dataTejidosBlandos.carrillos,
+                        dataTejidosBlandos.frenillos,
+                        dataTejidosBlandos.encias,
+                        dataTejidosBlandos.paladar,
+                        dataTejidosBlandos.lengua,
+                        dataTejidosBlandos.orofaringe,
+                        dataTejidosBlandos.glandulas,
+                        dataTejidosBlandos.piso_boca,
+                        dataTejidosBlandos.musculos_masticatorios,
+                        dataTejidosBlandos.otros,
+                        dataTejidosBlandos.odontologia_id
 
-                        ],
+                    ],
 
                         async (err, result) => {
 
@@ -300,29 +300,29 @@ class HistoryService {
         });
     }
 
-    public insertNewExamenTejidosDentales(dataTejidosDentales: any): Promise<boolean>{
+    public insertNewExamenTejidosDentales(dataTejidosDentales: any): Promise<boolean> {
 
-        return new Promise<boolean>((resolve,reject)=>{
+        return new Promise<boolean>((resolve, reject) => {
 
 
             try {
 
-                pool.getConnection(async(err,conn)=>{
+                pool.getConnection(async (err, conn) => {
 
                     conn.query(
-                        'INSERT INTO examenes_tejidos_dentales (tejidos_dentales_id, supernumerarios, abrasion, incluidos, maloclusiones, cambio_color, trauma, patologia_pulpar, otros, odontologia_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',[
-                            dataTejidosDentales.tejidos_dentales_id,
-                            dataTejidosDentales.supernumerarios,
-                            dataTejidosDentales.abrasion,
-                            dataTejidosDentales.incluidos,
-                            dataTejidosDentales.maloclusiones,
-                            dataTejidosDentales.cambio_color,
-                            dataTejidosDentales.trauma,
-                            dataTejidosDentales.patologia_pulmonar,
-                            dataTejidosDentales.otros,
-                            dataTejidosDentales.odontologia_id
-                        ],
-                        async(err, result)=>{
+                        'INSERT INTO examenes_tejidos_dentales (tejidos_dentales_id, supernumerarios, abrasion, incluidos, maloclusiones, cambio_color, trauma, patologia_pulpar, otros, odontologia_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                        dataTejidosDentales.tejidos_dentales_id,
+                        dataTejidosDentales.supernumerarios,
+                        dataTejidosDentales.abrasion,
+                        dataTejidosDentales.incluidos,
+                        dataTejidosDentales.maloclusiones,
+                        dataTejidosDentales.cambio_color,
+                        dataTejidosDentales.trauma,
+                        dataTejidosDentales.patologia_pulmonar,
+                        dataTejidosDentales.otros,
+                        dataTejidosDentales.odontologia_id
+                    ],
+                        async (err, result) => {
                             if (err) {
                                 console.log("Error: " + err);
                                 reject(err.sqlMessage)
@@ -337,11 +337,11 @@ class HistoryService {
                     );
 
                 });
-                
+
             } catch (err) {
-                 // Enviar una respuesta con error al cliente
-                 console.error(err);
-                 reject(err);
+                // Enviar una respuesta con error al cliente
+                console.error(err);
+                reject(err);
             }
 
         });
@@ -349,18 +349,20 @@ class HistoryService {
     }
 
 
-    public findHistory(id: string){
+    // Muestra si existe los historiales
+
+    public findHistory(id: string) {
         return new Promise<any>((resolve, reject) => {
 
             try {
 
                 pool.getConnection(async (err, conn) => {
                     conn.query(
-                        'SELECT (SELECT CONCAT(nombre, " ", apellido) FROM pacientes WHERE paciente_id = ?)AS nombrePaciente, (SELECT COUNT(*) FROM historiales_odontologia WHERE odontologia_id = ?) AS numOdontologia, (SELECT COUNT(*) FROM historiales_ortodoncia WHERE ortodoncia_id = ?) AS numOrtodoncia',[
-                            id,
-                            id,
-                            id
-                        ],
+                        'SELECT (SELECT CONCAT(nombre, " ", apellido) FROM pacientes WHERE paciente_id = ?)AS nombrePaciente, (SELECT COUNT(*) FROM historiales_odontologia WHERE odontologia_id = ?) AS numOdontologia, (SELECT COUNT(*) FROM historiales_ortodoncia WHERE ortodoncia_id = ?) AS numOrtodoncia', [
+                        id,
+                        id,
+                        id
+                    ],
                         async (err, result) => {
 
                             if (err) {
@@ -372,22 +374,64 @@ class HistoryService {
                                 resolve(result)
                                 console.log("Result: ");
                                 console.log(result);
-                                
+
                             }
                             conn.release();
                         }
                     );
                 });
 
-                
+
             } catch (err) {
                 console.error(err);
-                reject(err) 
+                reject(err)
             }
 
 
         });
 
+    }
+
+
+    // obtiene datos del historial de odontologia
+    public getHistory(id: string, tabla:string, nombreCampo:string) {
+
+        return new Promise<any>((resolve, reject) => {
+
+            try {
+
+                pool.getConnection(async (err, conn) => {
+                    conn.query(
+                        `SELECT * FROM ${tabla} WHERE ${nombreCampo} = ?`,  [
+                        id
+                    ],
+                        async (err, result) => {
+
+                            if (err) {
+                                console.log("Error: " + err);
+                                reject(err.sqlMessage)
+
+
+                            } else {
+                                resolve(result)
+                                console.log("Result: ");
+                                console.log(result);
+
+                            }
+                            conn.release();
+                        }
+                    );
+                });
+
+
+            } catch (err) {
+                console.error(err);
+                reject(err)
+            }
+
+
+
+        });
     }
 
 }

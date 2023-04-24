@@ -9,6 +9,8 @@ import { Odontologia } from 'src/app/models/odontologia';
 })
 export class SonNewHistoryFormOdontologyComponent implements OnInit, OnDestroy {
 
+  
+
 
   odontologia = new Odontologia;
 

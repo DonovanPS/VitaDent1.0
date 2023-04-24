@@ -3,9 +3,9 @@
     max-width: 2000px;
     margin: 0 auto;
     min-width: 241px;
-  
+
     background-color: rgb(224, 224, 224);
-  
+
     overflow: hidden;
     text-align: center;
     box-sizing: border-box;
@@ -18,10 +18,12 @@
 .hover-transition {
     background-color: #ab4181;
 }
-  
+
 .hover-transition:hover {
     background-color: #c24a92;
 }
-  
+
+
+
 
 

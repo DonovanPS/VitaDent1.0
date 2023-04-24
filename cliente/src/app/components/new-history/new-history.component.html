@@ -68,7 +68,7 @@
         </div>
 
 
-        
+
           <div class="form-floating">
             <input [(ngModel)]="paciente.nombre" name="pacienteNombre" required type="text" class="form-control"
                placeholder="name" >
@@ -80,7 +80,7 @@
 
           </div>
 
-        
+
 
         <div class="datepiker">
           <mat-form-field class="custom-form-field" appearance="fill">
@@ -94,7 +94,7 @@
           <div *ngIf="myForm.controls['pacientefecha']?.invalid && (myForm.controls['pacientefecha']?.dirty || myForm.controls['pacientefecha']?.touched)">
             <div *ngIf="myForm.controls['pacientefecha']?.errors?.['required']">Campo obligatorio.</div>
           </div>
-          
+
 
         </div>
 

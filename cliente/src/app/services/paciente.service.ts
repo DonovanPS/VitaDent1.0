@@ -6,9 +6,9 @@ import { environment } from 'src/environment/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class PacienteService {
   private URL = environment.apiUrl;
-  
+
 constructor(private httpClient: HttpClient,
   private jwtHelper: JwtHelperService) {}
 
@@ -16,4 +16,9 @@ constructor(private httpClient: HttpClient,
     return this.httpClient.get(`${this.URL}/paciente/countpaciente/`+id)
   }
 
+  getPaciente(id: number){
+    return this.httpClient.get(`${this.URL}/paciente/`+id)
+  }
+
+ 
 }

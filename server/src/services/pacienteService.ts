@@ -2,15 +2,15 @@ import pool from '../database';
 
 class PacienteService{
 
-    public getUser(id: string){
+    public getPaciente(id: string){
 
-        return new Promise<boolean>((resolve, reject) => {
-
+        return new Promise<any>((resolve, reject) => {
+   
             try {
                 
                 pool.getConnection(async (err, conn) => {
                     conn.query(
-                        'SELECT paciente_id from pacientes where paciente_id = ?',[
+                        'SELECT * from pacientes where paciente_id = ?',[
                             id
                         ],
                         async (err, result) => {
@@ -21,14 +21,14 @@ class PacienteService{
 
 
                             } else {
-                                resolve(true)
-                                console.log("Result: " + result);
+                                resolve(result)
+                                console.log("Result: ");
+                                console.log(result);
                             }
                             conn.release();
                         }
                     );
                 });
-
 
 
             } catch (err) {

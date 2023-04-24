@@ -16,6 +16,7 @@ const historyServices_1 = __importDefault(require("../services/historyServices")
 class historyController {
     constructor() {
         this.historyService = new historyServices_1.default();
+        // crea una nueva historia clinica
         this.newHistory = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log(req.body);
@@ -40,6 +41,7 @@ class historyController {
                 });
             }
         });
+        // Muestra solo el numero de historia clinica
         this.findHistory = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
@@ -55,6 +57,27 @@ class historyController {
                 console.log(err);
                 // deberia ir 400
                 res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        // Muestra toda la historia clinica de un paciente por id
+        this.getHistory = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { tabla } = req.params;
+                const { nombreCampo } = req.params;
+                const data = yield this.historyService.getHistory(id, tabla, nombreCampo);
+                res.status(200).json({
+                    success: true,
+                    data: data,
+                });
+            }
+            catch (err) {
+                console.log(err);
+                // deberia ir 400
+                res.status(400).json({
                     success: false,
                     message: err,
                 });

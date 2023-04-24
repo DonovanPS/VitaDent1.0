@@ -19,11 +19,15 @@ class PacienteController {
         this.getusuario = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield this.usuarioService.getUser(id);
+                const data = yield this.usuarioService.getPaciente(id);
+                res.status(200).json({
+                    success: true,
+                    data: data,
+                });
             }
             catch (err) {
                 console.log(err);
-                res.status(200).json({
+                res.status(400).json({
                     success: false,
                     message: err,
                 });

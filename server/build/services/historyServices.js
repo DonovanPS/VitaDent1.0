@@ -243,6 +243,7 @@ class HistoryService {
             }
         });
     }
+    // Muestra si existe los historiales
     findHistory(id) {
         return new Promise((resolve, reject) => {
             try {
@@ -250,6 +251,33 @@ class HistoryService {
                     conn.query('SELECT (SELECT CONCAT(nombre, " ", apellido) FROM pacientes WHERE paciente_id = ?)AS nombrePaciente, (SELECT COUNT(*) FROM historiales_odontologia WHERE odontologia_id = ?) AS numOdontologia, (SELECT COUNT(*) FROM historiales_ortodoncia WHERE ortodoncia_id = ?) AS numOrtodoncia', [
                         id,
                         id,
+                        id
+                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.log("Error: " + err);
+                            reject(err.sqlMessage);
+                        }
+                        else {
+                            resolve(result);
+                            console.log("Result: ");
+                            console.log(result);
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (err) {
+                console.error(err);
+                reject(err);
+            }
+        });
+    }
+    // obtiene datos del historial de odontologia
+    getHistory(id, tabla, nombreCampo) {
+        return new Promise((resolve, reject) => {
+            try {
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query(`SELECT * FROM ${tabla} WHERE ${nombreCampo} = ?`, [
                         id
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {

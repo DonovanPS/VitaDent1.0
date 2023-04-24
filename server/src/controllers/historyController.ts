@@ -6,6 +6,7 @@ class historyController {
 
     private historyService: HistoryService = new HistoryService();
 
+    // crea una nueva historia clinica
     public newHistory = async (req: Request, res: Response) => {
     
         try {
@@ -38,6 +39,7 @@ class historyController {
     }
 
 
+    // Muestra solo el numero de historia clinica
     public findHistory = async (req: Request, res: Response) => {
         try {
             
@@ -63,6 +65,41 @@ class historyController {
                 message: err,
             });
         }
+    }
+
+
+    // Muestra toda la historia clinica de un paciente por id
+    public getHistory = async (req: Request, res: Response) => {
+
+
+        
+        try {
+
+            const {id}= req.params
+            const {tabla}= req.params
+            const {nombreCampo}= req.params
+
+            
+            const data =  await this.historyService.getHistory(id,tabla,nombreCampo);
+
+            res.status(200).json({
+                success: true,
+                data: data,
+            });
+
+
+            
+        } catch (err) {
+            console.log(err);
+
+            // deberia ir 400
+            res.status(400).json({
+                success: false,
+                message: err,
+            });
+        }
+
+
     }
 
 

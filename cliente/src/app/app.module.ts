@@ -34,6 +34,9 @@ import { SonNewHistoryExamenTejidosblandosComponent } from './components/son-new
 import { RecordsComponent } from './components/records/records.component';
 import { PatientComponent } from './components/patient/patient.component';
 
+import { SonPatientOdontologiaComponent } from './components/son-patient-odontologia/son-patient-odontologia.component';
+import { SonPatientOrtodonciaComponent } from './components/son-patient-ortodoncia/son-patient-ortodoncia.component';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { PatientComponent } from './components/patient/patient.component';
     SonNewHistoryExamenTejidosDentalesComponent,
     SonNewHistoryExamenTejidosblandosComponent,
     RecordsComponent,
-    PatientComponent
+    PatientComponent,
+    SonPatientOdontologiaComponent,
+    SonPatientOrtodonciaComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +67,7 @@ import { PatientComponent } from './components/patient/patient.component';
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule
-   
+
   ],
   exports: [
     HomeComponent,

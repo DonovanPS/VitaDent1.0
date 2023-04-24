@@ -11,13 +11,18 @@ class PacienteController{
             
             const {id}= req.params
 
-           await this.usuarioService.getUser(id);
+            const data = await this.usuarioService.getPaciente(id);
+
+            res.status(200).json({
+                success: true,
+                data: data,
+            });
 
 
         } catch (err) {
             console.log(err);
 
-            res.status(200).json({
+            res.status(400).json({
                 success: false,
                 message: err,
             });

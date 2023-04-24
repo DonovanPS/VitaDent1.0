@@ -1,5 +1,5 @@
 export class Anamnesis {
-  anmnesis_id: number;
+  anamnesis_id: number;
   hipertencion: boolean = false;
   enfe_respiratorias: boolean = false;
   cardiopatias: boolean = false;

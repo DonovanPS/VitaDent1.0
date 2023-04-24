@@ -14,11 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
 class PacienteService {
-    getUser(id) {
+    getPaciente(id) {
         return new Promise((resolve, reject) => {
             try {
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
-                    conn.query('SELECT paciente_id from pacientes where paciente_id = ?', [
+                    conn.query('SELECT * from pacientes where paciente_id = ?', [
                         id
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
@@ -26,8 +26,9 @@ class PacienteService {
                             reject(err.sqlMessage);
                         }
                         else {
-                            resolve(true);
-                            console.log("Result: " + result);
+                            resolve(result);
+                            console.log("Result: ");
+                            console.log(result);
                         }
                         conn.release();
                     }));
