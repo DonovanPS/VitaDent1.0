@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NewHistoryComponent } from './components/new-history/new-history.component';
 import { RecordsComponent } from './components/records/records.component';
 import { PatientComponent } from './components/patient/patient.component';
+import { NewHistoryOrtodonciaComponent } from './components/new-history-ortodoncia/new-history-ortodoncia.component';
 
 const routes: Routes = [
   { path: 'history-search', component: HistorySearchComponent, canActivate: [AuthGuard] },
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'new-history', component: NewHistoryComponent, canActivate: [AuthGuard] },
   { path: 'records', component: RecordsComponent, canActivate: [AuthGuard]},
   { path: 'patient', component: PatientComponent, canActivate: [AuthGuard]},
-
+  { path: 'new-history-ortodoncia', component: NewHistoryOrtodonciaComponent, canActivate: [AuthGuard] },
   
 
   { path: 'login', component: LoginComponent },

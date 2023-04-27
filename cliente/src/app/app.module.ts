@@ -38,6 +38,7 @@ import { SonPatientOdontologiaComponent } from './components/son-patient-odontol
 import { SonPatientOrtodonciaComponent } from './components/son-patient-ortodoncia/son-patient-ortodoncia.component';
 
 import { ToastrModule } from 'ngx-toastr';
+import { NewHistoryOrtodonciaComponent } from './components/new-history-ortodoncia/new-history-ortodoncia.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ToastrModule } from 'ngx-toastr';
     RecordsComponent,
     PatientComponent,
     SonPatientOdontologiaComponent,
-    SonPatientOrtodonciaComponent
+    SonPatientOrtodonciaComponent,
+    NewHistoryOrtodonciaComponent
   ],
   imports: [
     BrowserModule,
