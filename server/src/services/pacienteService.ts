@@ -76,5 +76,45 @@ class PacienteService{
         
     }
 
+    public delete(id: string){
+        return new Promise<any>((resolve, reject) => {
+
+        
+            try {
+
+                pool.getConnection(async (err, conn) => {
+                    conn.query(
+                        `DELETE FROM pacientes WHERE paciente_id     = ?`,[
+                        id
+                    ],
+                        async (err, result) => {
+
+                            if (err) {
+                                console.log("Error: " + err);
+                                reject(err.sqlMessage)
+
+                            } else {
+                                resolve(result)
+                                console.log("Result: ");
+                                console.log(result);
+
+                            }
+                            conn.release();
+                        }
+                    );
+                });
+
+
+            } catch (err) {
+                console.error(err);
+                reject(err)
+            }
+
+
+
+        });
+   
+    }
+
 }
 export default PacienteService;

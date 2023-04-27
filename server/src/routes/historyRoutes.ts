@@ -18,6 +18,10 @@ class historyRouter{
         this.router.post('/createNewHistory', this.historyControler.newHistory);
         this.router.get('/findHistory/:id', this.historyControler.findHistory);
         this.router.get('/gedHistory/:id/:tabla/:nombreCampo', this.historyControler.getHistory);
+
+        this.router.delete('/deleteHistory/:id/:tabla', this.historyControler.deleteHistory);
+
+
     }
 
 

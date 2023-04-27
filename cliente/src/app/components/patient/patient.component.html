@@ -39,10 +39,11 @@
               <div class="modal-body">
                 <p> Eliminar {{history}} del paciente: </p>
                 <p>{{nombres}} identificado con {{tipoDoc}} numero: {{numeroDocumento}} </p>
+                <p>Se eliminara el paciente y todos sus datos, incluyendo las historias y registros</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger">Eliminar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()" >Eliminar</button>
               </div>
             </div>
           </div>
@@ -118,6 +119,7 @@
   </div>
 
 
+  <button id="myButton2" (click)="cambiarPagina()" type="button" class="btn btn-primary" routerLink="/history-search"> atras </button>
 
 
 </div>

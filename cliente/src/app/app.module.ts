@@ -37,6 +37,7 @@ import { PatientComponent } from './components/patient/patient.component';
 import { SonPatientOdontologiaComponent } from './components/son-patient-odontologia/son-patient-odontologia.component';
 import { SonPatientOrtodonciaComponent } from './components/son-patient-ortodoncia/son-patient-ortodoncia.component';
 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -60,14 +61,15 @@ import { SonPatientOrtodonciaComponent } from './components/son-patient-ortodonc
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ToastrModule.forRoot()
 
   ],
   exports: [

@@ -19,4 +19,8 @@ export class RecordService {
     findRecordsID(id: number, consulta: string){
       return this.httpClient.get(`${this.URL}/record/${id}/${consulta}`)
     }
+
+  
+
+
 }

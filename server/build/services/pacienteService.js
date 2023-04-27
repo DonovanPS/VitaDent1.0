@@ -65,5 +65,31 @@ class PacienteService {
             }
         });
     }
+    delete(id) {
+        return new Promise((resolve, reject) => {
+            try {
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query(`DELETE FROM pacientes WHERE paciente_id     = ?`, [
+                        id
+                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.log("Error: " + err);
+                            reject(err.sqlMessage);
+                        }
+                        else {
+                            resolve(result);
+                            console.log("Result: ");
+                            console.log(result);
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (err) {
+                console.error(err);
+                reject(err);
+            }
+        });
+    }
 }
 exports.default = PacienteService;

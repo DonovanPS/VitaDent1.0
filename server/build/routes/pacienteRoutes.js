@@ -8,12 +8,13 @@ const pacienteController_1 = __importDefault(require("../controllers/pacienteCon
 class PacienteRoutes {
     constructor() {
         this.router = (0, express_1.Router)();
-        this.usuarioControler = new pacienteController_1.default();
+        this.pacienteControler = new pacienteController_1.default();
         this.config();
     }
     config() {
-        this.router.get('/:id', this.usuarioControler.getusuario);
-        this.router.get('/countpaciente/:id', this.usuarioControler.countusuario);
+        this.router.get('/:id', this.pacienteControler.getusuario);
+        this.router.get('/countpaciente/:id', this.pacienteControler.countusuario);
+        this.router.get('/deletePaciente/:id', this.pacienteControler.deletePaciente);
     }
 }
 exports.default = PacienteRoutes;

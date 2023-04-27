@@ -13,6 +13,7 @@ import { PacienteService } from 'src/app/services/paciente.service';
 
 
 import { Paciente } from 'src/app/models/paciente';
+import { Acudiente } from 'src/app/models/acudiente';
 
 
 @Component({
@@ -44,6 +45,8 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
 
   edad: string;
 
+  edadAcudiente: string;
+
 
   public examenPeriodontal: ExamenPeriodontal;
 
@@ -55,6 +58,7 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
   public examen_periodontal: ExamenPeriodontal;
 
   public Paciente: Paciente;
+  public acudiente: Acudiente;
 
 
 
@@ -72,6 +76,7 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
     this.tejidos_blandos = new Tejidos_blandos();
     this.tejidos_dentales = new Tejidos_dentales();
     this.examen_periodontal = new ExamenPeriodontal();
+    this.acudiente = new Acudiente();
 
   }
 
@@ -124,8 +129,7 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
 
     });
 
-
-
+    this.consultaAcudiente();
     this.consultarOdontologial();
     this.consultaAnamnesis();
     this.consultaTejidosBlandos();
@@ -146,6 +150,20 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
     }
   }
 
+  consultaAcudiente(){
+    this.historyService.getHistory(this.id,'acudientes', 'paciente_id').subscribe((res: any) => {
+
+      this.acudiente.id = res.data[0].paciente_id;
+      this.acudiente.nombre = res.data[0].nombre;
+      this.acudiente.apellido = res.data[0].apellido;
+      this.acudiente.parentesco = res.data[0].parentesco;
+      this.acudiente.fechaNacimiento = res.data[0].fecha_nacimiento;
+      this.acudiente.telefono = res.data[0].numero_celular;
+
+      this.edadAcudiente = this.calcularEdad(this.acudiente.fechaNacimiento).toString();
+
+    });
+  }
 
 
   consultarOdontologial() {
@@ -303,7 +321,7 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
     })
   }
 
- 
+  
 
 
 

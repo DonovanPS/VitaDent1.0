@@ -20,5 +20,9 @@ constructor(private httpClient: HttpClient,
     return this.httpClient.get(`${this.URL}/paciente/`+id)
   }
 
- 
+  deletePaciente(id: number){
+    return this.httpClient.get(`${this.URL}/paciente/deletePaciente/`+id)
+  }
+
+
 }

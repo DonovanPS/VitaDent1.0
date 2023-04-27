@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
+import { Acudiente } from 'src/app/models/acudiente';
 import { Anamnesis } from 'src/app/models/anamnesis';
 import { Ortodoncia } from 'src/app/models/ortodoncia';
 import { Paciente } from 'src/app/models/paciente';
@@ -21,13 +22,14 @@ export class SonPatientOrtodonciaComponent {
 
   public validDoc: boolean = true;
 
-    paciente = new Paciente()
+  paciente = new Paciente()
 
   id: number;
-
+  edadAcudiente: string;
 
   edad: string;
 
+  public acudiente: Acudiente;
   public anamnesis: Anamnesis;
   public Paciente: Paciente;
   public ortodoncia: Ortodoncia;
@@ -35,6 +37,7 @@ export class SonPatientOrtodonciaComponent {
   @Output() informacionPaciente = new EventEmitter<{ nombres: string, tipoDocumento: string, numeroDocumento: string }>();
 
   constructor(private pacienteService: PacienteService, private historyService: HistoryService) {
+    this.acudiente = new Acudiente();
     this.anamnesis = new Anamnesis();
     this.ortodoncia = new Ortodoncia();
     this.paciente = new Paciente();
@@ -44,7 +47,7 @@ export class SonPatientOrtodonciaComponent {
 
   ngOnInit(): void {
 
- const myButton = document.getElementById("myButton") as HTMLButtonElement;
+    const myButton = document.getElementById("myButton") as HTMLButtonElement;
 
     myButton.style.display = 'none';
 
@@ -85,6 +88,7 @@ export class SonPatientOrtodonciaComponent {
 
 
     });
+    this.consultaAcudiente();
     this.consultaAnamnesis();
     this.consultaOrtodoncia();
 
@@ -97,7 +101,7 @@ export class SonPatientOrtodonciaComponent {
   }
 
   ngOnDestroy(): void {
-    if(this.subscription){
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
@@ -200,6 +204,21 @@ export class SonPatientOrtodonciaComponent {
       //res.numUser
 
     })
+  }
+
+  consultaAcudiente() {
+    this.historyService.getHistory(this.id, 'acudientes', 'paciente_id').subscribe((res: any) => {
+
+      this.acudiente.id = res.data[0].paciente_id;
+      this.acudiente.nombre = res.data[0].nombre;
+      this.acudiente.apellido = res.data[0].apellido;
+      this.acudiente.parentesco = res.data[0].parentesco;
+      this.acudiente.fechaNacimiento = res.data[0].fecha_nacimiento;
+      this.acudiente.telefono = res.data[0].numero_celular;
+
+      this.edadAcudiente = this.calcularEdad(this.acudiente.fechaNacimiento).toString();
+
+    });
   }
 
 }

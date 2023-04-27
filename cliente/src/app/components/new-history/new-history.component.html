@@ -7,14 +7,14 @@
 
     <h1 class="fw-bold">Nuevo Historial </h1>
 
-    <form #myForm="ngForm" >
+    <form #myForm="ngForm">
       <div class="containerForm">
 
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.id" (blur)="validarNumeroDocumento(paciente.id)" name="pacienteId" required type="text" class="form-control"
-            id="floatingInputN" placeholder="ID" maxlength="30"
+          <input [(ngModel)]="paciente.id" (blur)="validarNumeroDocumento(paciente.id)" name="pacienteId" required
+            type="text" class="form-control" id="floatingInputN" placeholder="ID" maxlength="30"
             onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
 
           <label for="floatingInput">Numero Documento</label>
@@ -69,16 +69,17 @@
 
 
 
-          <div class="form-floating">
-            <input [(ngModel)]="paciente.nombre" name="pacienteNombre" required type="text" class="form-control"
-               placeholder="name" >
-            <label for="floatingInput">Nombres</label>
+        <div class="form-floating">
+          <input [(ngModel)]="paciente.nombre" name="pacienteNombre" required type="text" class="form-control"
+            placeholder="name">
+          <label for="floatingInput">Nombres</label>
 
-            <div *ngIf="myForm.controls['pacienteNombre']?.invalid && (myForm.controls['pacienteNombre']?.dirty || myForm.controls['pacienteNombre']?.touched)">
-              <div *ngIf="myForm.controls['pacienteNombre']?.errors?.['required']">Campo obligatorio.</div>
-            </div>
-
+          <div
+            *ngIf="myForm.controls['pacienteNombre']?.invalid && (myForm.controls['pacienteNombre']?.dirty || myForm.controls['pacienteNombre']?.touched)">
+            <div *ngIf="myForm.controls['pacienteNombre']?.errors?.['required']">Campo obligatorio.</div>
           </div>
+
+        </div>
 
 
 
@@ -86,12 +87,13 @@
           <mat-form-field class="custom-form-field" appearance="fill">
             <mat-label>Fecha nacimiento</mat-label>
             <input [(ngModel)]="paciente.fechaNacimiento" required name="pacientefecha" matInput
-              [matDatepicker]="picker" (dateChange)="onDateChange($event)">
+              [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
-          <div *ngIf="myForm.controls['pacientefecha']?.invalid && (myForm.controls['pacientefecha']?.dirty || myForm.controls['pacientefecha']?.touched)">
+          <div
+            *ngIf="myForm.controls['pacientefecha']?.invalid && (myForm.controls['pacientefecha']?.dirty || myForm.controls['pacientefecha']?.touched)">
             <div *ngIf="myForm.controls['pacientefecha']?.errors?.['required']">Campo obligatorio.</div>
           </div>
 
@@ -100,11 +102,12 @@
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.apellido" required  type="text" class="form-control"
-            id="floatingInput" placeholder="A" name="Apellidos">
+          <input [(ngModel)]="paciente.apellido" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="Apellidos">
           <label for="floatingInput">Apellidos</label>
 
-          <div *ngIf="myForm.controls['Apellidos']?.invalid && (myForm.controls['Apellidos']?.dirty || myForm.controls['Apellidos']?.touched)">
+          <div
+            *ngIf="myForm.controls['Apellidos']?.invalid && (myForm.controls['Apellidos']?.dirty || myForm.controls['Apellidos']?.touched)">
             <div *ngIf="myForm.controls['Apellidos']?.errors?.['required']">Campo obligatorio.</div>
           </div>
 
@@ -122,7 +125,8 @@
                 <option value="F">Femenino</option>
               </select>
 
-              <div *ngIf="myForm.controls['pacienteGenero']?.invalid && (myForm.controls['pacienteGenero']?.dirty || myForm.controls['pacienteGenero']?.touched)">
+              <div
+                *ngIf="myForm.controls['pacienteGenero']?.invalid && (myForm.controls['pacienteGenero']?.dirty || myForm.controls['pacienteGenero']?.touched)">
                 <div *ngIf="myForm.controls['pacienteGenero']?.errors?.['required']">Campo obligatorio.</div>
               </div>
 
@@ -132,22 +136,24 @@
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.estadoCivil" required  type="text" class="form-control"
-            id="floatingInput" placeholder="name" name="EstadoCivil">
+          <input [(ngModel)]="paciente.estadoCivil" required type="text" class="form-control" id="floatingInput"
+            placeholder="name" name="EstadoCivil">
           <label for="floatingInput">Estado Civil</label>
 
-          <div *ngIf="myForm.controls['EstadoCivil']?.invalid && (myForm.controls['EstadoCivil']?.dirty || myForm.controls['EstadoCivil']?.touched)">
+          <div
+            *ngIf="myForm.controls['EstadoCivil']?.invalid && (myForm.controls['EstadoCivil']?.dirty || myForm.controls['EstadoCivil']?.touched)">
             <div *ngIf="myForm.controls['EstadoCivil']?.errors?.['required']">Campo obligatorio.</div>
           </div>
         </div>
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.ciudadNacimiento" required type="text"
-            class="form-control" id="floatingInput" placeholder="A" name="CiudadNacimiento">
+          <input [(ngModel)]="paciente.ciudadNacimiento" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="CiudadNacimiento">
           <label for="floatingInput">Ciudad de nacimiento</label>
 
-          <div *ngIf="myForm.controls['CiudadNacimiento']?.invalid && (myForm.controls['CiudadNacimiento']?.dirty || myForm.controls['CiudadNacimiento']?.touched)">
+          <div
+            *ngIf="myForm.controls['CiudadNacimiento']?.invalid && (myForm.controls['CiudadNacimiento']?.dirty || myForm.controls['CiudadNacimiento']?.touched)">
             <div *ngIf="myForm.controls['CiudadNacimiento']?.errors?.['required']">Campo obligatorio.</div>
           </div>
 
@@ -155,22 +161,24 @@
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.ocupacion" required  type="text" class="form-control"
-            id="floatingInput" placeholder="A" name="Ocupacion">
+          <input [(ngModel)]="paciente.ocupacion" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="Ocupacion">
           <label for="floatingInput">Ocupacion</label>
 
-          <div *ngIf="myForm.controls['Ocupacion']?.invalid && (myForm.controls['Ocupacion']?.dirty || myForm.controls['Ocupacion']?.touched)">
+          <div
+            *ngIf="myForm.controls['Ocupacion']?.invalid && (myForm.controls['Ocupacion']?.dirty || myForm.controls['Ocupacion']?.touched)">
             <div *ngIf="myForm.controls['Ocupacion']?.errors?.['required']">Campo obligatorio.</div>
           </div>
 
         </div>
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.servicioSalud" required  type="text" class="form-control"
-            id="floatingInput" placeholder="A" name="ServicioSalud">
+          <input [(ngModel)]="paciente.servicioSalud" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="ServicioSalud">
           <label for="floatingInput">Servicio de salud</label>
 
-          <div *ngIf="myForm.controls['ServicioSalud']?.invalid && (myForm.controls['ServicioSalud']?.dirty || myForm.controls['ServicioSalud']?.touched)">
+          <div
+            *ngIf="myForm.controls['ServicioSalud']?.invalid && (myForm.controls['ServicioSalud']?.dirty || myForm.controls['ServicioSalud']?.touched)">
             <div *ngIf="myForm.controls['ServicioSalud']?.errors?.['required']">Campo obligatorio.</div>
           </div>
 
@@ -178,22 +186,24 @@
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.ciudadResidencia" required  type="text"
-            class="form-control" id="floatingInput" placeholder="A" name="CiudadResidencia">
+          <input [(ngModel)]="paciente.ciudadResidencia" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="CiudadResidencia">
           <label for="floatingInput">Ciudad de residencia</label>
 
-          <div *ngIf="myForm.controls['CiudadResidencia']?.invalid && (myForm.controls['CiudadResidencia']?.dirty || myForm.controls['CiudadResidencia']?.touched)">
+          <div
+            *ngIf="myForm.controls['CiudadResidencia']?.invalid && (myForm.controls['CiudadResidencia']?.dirty || myForm.controls['CiudadResidencia']?.touched)">
             <div *ngIf="myForm.controls['CiudadResidencia']?.errors?.['required']">Campo obligatorio.</div>
           </div>
         </div>
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.direccion" required  type="text" class="form-control"
-            id="floatingInput" placeholder="A" name="Direccion">
+          <input [(ngModel)]="paciente.direccion" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="Direccion">
           <label for="floatingInput">Dirección</label>
 
-          <div *ngIf="myForm.controls['Direccion']?.invalid && (myForm.controls['Direccion']?.dirty || myForm.controls['Direccion']?.touched)">
+          <div
+            *ngIf="myForm.controls['Direccion']?.invalid && (myForm.controls['Direccion']?.dirty || myForm.controls['Direccion']?.touched)">
             <div *ngIf="myForm.controls['Direccion']?.errors?.['required']">Campo obligatorio.</div>
           </div>
 
@@ -201,12 +211,13 @@
 
 
         <div class="form-floating">
-          <input [(ngModel)]="paciente.celular" required  type="text" class="form-control"
-            id="floatingInput" placeholder="A" name="telefono"
+          <input [(ngModel)]="paciente.celular" required type="text" class="form-control" id="floatingInput"
+            placeholder="A" name="telefono"
             onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
           <label for="floatingInput">Numero de celular</label>
 
-          <div *ngIf="myForm.controls['telefono']?.invalid && (myForm.controls['telefono']?.dirty || myForm.controls['telefono']?.touched)">
+          <div
+            *ngIf="myForm.controls['telefono']?.invalid && (myForm.controls['telefono']?.dirty || myForm.controls['telefono']?.touched)">
             <div *ngIf="myForm.controls['telefono']?.errors?.['required']">El telefono es obligatorio.</div>
           </div>
 
@@ -218,6 +229,55 @@
 
       </div>
 
+      <!-------------------------------------------------------------------------->
+
+
+      <h1 class="fw-bold">Acudiente</h1>
+
+      <form #myForm="ngForm">
+
+        <div class="containerForm">
+
+          <div class="form-floating">
+            <input [(ngModel)]="acudiente.nombre" name="nombre" required type="text" class="form-control"
+              placeholder="name">
+            <label for="floatingInput">Nombre</label>
+
+          </div>
+
+          <div class="form-floating">
+            <input [(ngModel)]="acudiente.parentesco" name="parentesco" required type="text" class="form-control"
+              placeholder="name">
+            <label for="floatingInput">Parentesco</label>
+
+          </div>
+
+          <div class="form-floating">
+            <input [(ngModel)]="acudiente.apellido" name="apellido" required type="text" class="form-control"
+              placeholder="name">
+            <label for="floatingInput">Apellido</label>
+
+          </div>
+
+          <div class="datepiker">
+            <mat-form-field class="custom-form-field" appearance="fill">
+              <mat-label>Fecha nacimiento</mat-label>
+              <input [(ngModel)]="acudiente.fechaNacimiento" required name="fecha" matInput [matDatepicker]="picker2"
+                (dateChange)="onDateChange($event)">
+              <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="form-floating">
+            <input [(ngModel)]="acudiente.telefono" name="telefono" required type="text" class="form-control"
+              placeholder="name" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+            <label for="floatingInput">Numero celular</label>
+
+          </div>
+
+        </div>
+      </form>
 
       <br>
       <br>
@@ -255,6 +315,38 @@
       <br>
 
     </form>
+
+
+
+    <!-- Button trigger modal -->
+
+    <button id="buttonModal" type="button" class="btn btn-danger col-2" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">Modal</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLabel"> {{modalTitulo}} </h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p> {{modalContenid}} </p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal fin -->
+
+
+
   </div>
 
 

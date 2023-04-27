@@ -67,6 +67,49 @@ class HistoryService {
 
     }
 
+    public inserAcudiente(dataAcudiente: any): Promise<boolean> {
+        return new Promise<boolean>((resolve, reject) => {
+
+            try {
+
+                pool.getConnection(async (err, conn) => {
+                    conn.query(
+                        'INSERT INTO acudientes ( nombre, apellido, fecha_nacimiento, parentesco, numero_celular, paciente_id) VALUES (?,?,?,?,?,?)', [
+
+                        dataAcudiente.nombre,
+                        dataAcudiente.apellido,
+                        dataAcudiente.fechaNacimiento,
+                        dataAcudiente.parentesco,
+                        dataAcudiente.telefono,
+                        dataAcudiente.id,
+                    ],
+                        async (err, result) => {
+
+                            if (err) {
+                                console.log("Error: " + err);
+                                reject(err.sqlMessage)
+
+
+                            } else {
+                                resolve(true)
+                                console.log("Result: " + result);
+                            }
+                            conn.release();
+
+
+                        }
+                    );
+
+                });
+
+            } catch (err) {
+                // Enviar una respuesta con error al cliente
+                console.error(err);
+                reject(err)
+            }
+        });
+    }
+
 
     public insertNewOdontologia(dataOdontologia: any): Promise<boolean> {
 
@@ -74,12 +117,7 @@ class HistoryService {
 
             try {
 
-
-
-                //obtienen datos de odontologia
-
-
-
+                //insert datos de odontologia
 
                 pool.getConnection(async (err, conn) => {
                     conn.query(
@@ -394,7 +432,7 @@ class HistoryService {
 
 
     // obtiene datos del historial de odontologia
-    public getHistory(id: string, tabla:string, nombreCampo:string) {
+    public getHistory(id: string, tabla: string, nombreCampo: string) {
 
         return new Promise<any>((resolve, reject) => {
 
@@ -402,7 +440,7 @@ class HistoryService {
 
                 pool.getConnection(async (err, conn) => {
                     conn.query(
-                        `SELECT * FROM ${tabla} WHERE ${nombreCampo} = ?`,  [
+                        `SELECT * FROM ${tabla} WHERE ${nombreCampo} = ?`, [
                         id
                     ],
                         async (err, result) => {
@@ -433,6 +471,48 @@ class HistoryService {
 
         });
     }
+
+    public deleteHistory(id: string, tabla: string) {
+        return new Promise<any>((resolve, reject) => {
+
+        
+            try {
+
+                pool.getConnection(async (err, conn) => {
+                    conn.query(
+                        `DELETE FROM ${tabla} WHERE odontologia_id = ?`,[
+                        id
+                    ],
+                        async (err, result) => {
+
+                            if (err) {
+                                console.log("Error: " + err);
+                                reject(err.sqlMessage)
+
+                            } else {
+                                resolve(result)
+                                console.log("Result: ");
+                                console.log(result);
+
+                            }
+                            conn.release();
+                        }
+                    );
+                });
+
+
+            } catch (err) {
+                console.error(err);
+                reject(err)
+            }
+
+
+
+        });
+    }
+
+
+
 
 }
 

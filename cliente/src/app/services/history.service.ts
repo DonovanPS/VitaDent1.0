@@ -28,7 +28,9 @@ export class HistoryService {
     return this.httpClient.get(`${this.URL}/history/gedHistory/${id}/${tabla}/${nombreCampo}`);
   }
 
-  
+  deleteHistory(id: number, tabla: string) {
+    return this.httpClient.delete(`${this.URL}/history/deleteHistory/${id}/${tabla}`);
+  }
 
 
 }

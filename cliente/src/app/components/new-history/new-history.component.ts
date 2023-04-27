@@ -18,6 +18,7 @@ import { Route, Router } from '@angular/router';
 import { NewHistoryOdontologia } from 'src/app/models/newHistoryOdontologia';
 import { NgForm } from '@angular/forms';
 import { PacienteService } from 'src/app/services/paciente.service';
+import { Acudiente } from 'src/app/models/acudiente';
 
 
 
@@ -33,8 +34,10 @@ import { PacienteService } from 'src/app/services/paciente.service';
 })
 export class NewHistoryComponent implements AfterViewInit {
 
-  paciente= new Paciente()
-  message:string;
+  paciente = new Paciente()
+  message: string;
+  acudiente = new Acudiente();
+
 
   private examenPeriodontal: ExamenPeriodontal;
   private anamnesis: Anamnesis;
@@ -42,34 +45,45 @@ export class NewHistoryComponent implements AfterViewInit {
   private tejidosBlandos: Tejidos_blandos;
   private tejidosDentales: Tejidos_dentales;
 
+  validarEdadAcu: boolean = false;
+  public validDoc: boolean = true;
+
+  modalTitulo: string;
+  modalContenid: string;
+  edad : number
 
   constructor(
     private historyService: HistoryService,
     //private router: Router,
     private usuarioService: PacienteService
-    
-  ){
+
+
+  ) {
     this.anamnesis = new Anamnesis();
+
   }
-
-
 
 
 
   @ViewChild(SonNewHistoryExamenPeriodontalComponent) child: SonNewHistoryExamenPeriodontalComponent;
   eventSubject: Subject<boolean> = new Subject<boolean>();
 
+  ngOnInit(): void{
+    const myButton = document.getElementById("buttonModal") as HTMLButtonElement;
+
+    myButton.style.display = 'none';
+  }
 
 
-  public validDoc: boolean = true;
 
-  validarNumeroDocumento(id: any){
 
-    this.usuarioService.validar(id).subscribe( (res:any) =>{
+  validarNumeroDocumento(id: any) {
+
+    this.usuarioService.validar(id).subscribe((res: any) => {
 
       console.log(res);
 
-      const {numUser} = res;
+      const { numUser } = res;
 
 
       this.validDoc = numUser == 0
@@ -79,9 +93,36 @@ export class NewHistoryComponent implements AfterViewInit {
     })
   }
 
-  onDateChange(event: MatDatepickerInputEvent<Date>) {
-    console.log(event.value);
+  validarEdadAcudiente(fecha: string) {
+    const fechaNac = new Date(fecha);
+    const fechaActual = new Date();
+    const edadEnMilisegundos = fechaActual.getTime() - fechaNac.getTime();
+    const edadEnAnios = edadEnMilisegundos / 31536000000; // cantidad de milisegundos en un año
+    this.edad = Math.floor(edadEnAnios);
+
+    console.log(Math.floor(edadEnAnios));
+    console.log(this.edad);
+
+
+
+
+    // Verificar si la edad es mayor o igual a 18
+    if (this.edad >= 18) {
+      this.validarEdadAcu = true;
+    } else {
+      this.validarEdadAcu = false;
+    }
   }
+
+  onDateChange(event: MatDatepickerInputEvent<Date>) {
+    if (event.value != null) {
+      const fecha: string = event.value.toISOString().substring(0, 10);
+      this.acudiente.fechaNacimiento = fecha;
+      
+      this.validarEdadAcudiente(fecha);
+    }
+  }
+
 
 
   ngAfterViewInit() {
@@ -89,107 +130,131 @@ export class NewHistoryComponent implements AfterViewInit {
   }
 
 
-  prueba(){
-   // this.paciente.fechaNacimiento= (this.paciente.fechaNacimiento)
+  prueba() {
+
+    if (this.validarEdadAcu) {
+
+
+      // this.paciente.fechaNacimiento= (this.paciente.fechaNacimiento)
       //console.log(this.paciente);
-    this.eventSubject.next(true);
-    //alert(this.message);
+      this.eventSubject.next(true);
+      //alert(this.message);
 
-    console.log(this.paciente.fechaNacimiento);
+      //console.log(this.paciente.fechaNacimiento);
 
+      this.acudiente.id = this.paciente.id;
 
+      this.examenPeriodontal.examenPeriodontal_id = this.paciente.id;
+      this.anamnesis.anamnesis_id = this.paciente.id;
+      this.odontologia.odontologia_id = this.paciente.id;
+      this.tejidosBlandos.tejidos_blandos_id = this.paciente.id;
+      this.tejidosDentales.tejidos_dentales_id = this.paciente.id;
 
-
-
-
-
-
-    this.examenPeriodontal.examenPeriodontal_id=this.paciente.id;
-    this.anamnesis.anamnesis_id=this.paciente.id;
-    this.odontologia.odontologia_id=this.paciente.id;
-    this.tejidosBlandos.tejidos_blandos_id=this.paciente.id;
-    this.tejidosDentales.tejidos_dentales_id=this.paciente.id;
-
-    this.examenPeriodontal.odontologia_id=this.paciente.id;
-    this.anamnesis.odontologia_id=this.paciente.id;
-    this.odontologia.paciente_id=this.paciente.id;
-    this.tejidosBlandos.odontologia_id=this.paciente.id;
-    this.tejidosDentales.odontologia_id=this.paciente.id;
+      this.examenPeriodontal.odontologia_id = this.paciente.id;
+      this.anamnesis.odontologia_id = this.paciente.id;
+      this.odontologia.paciente_id = this.paciente.id;
+      this.tejidosBlandos.odontologia_id = this.paciente.id;
+      this.tejidosDentales.odontologia_id = this.paciente.id;
 
 
-    /*
-    console.log(this.examenPeriodontal);
-    console.log(this.anamnesis);
-    console.log(this.odontologia);
-    console.log(this.tejidosBlandos);
-    console.log(this.tejidosDentales);
+      /*
+      console.log(this.examenPeriodontal);
+      console.log(this.anamnesis);
+      console.log(this.odontologia);
+      console.log(this.tejidosBlandos);
+      console.log(this.tejidosDentales);
 
-    this.newHistoryOdontologia = {};
-    this.newHistoryOdontologia.paciente= this.paciente;
-    this.newHistoryOdontologia.odontologia= this.odontologia;
-    this.newHistoryOdontologia.anamnesis= this.anamnesis;
-    this.newHistoryOdontologia.examenPeriodontal= this.examenPeriodontal;
-    this.newHistoryOdontologia.tejidosBlandos= this.tejidosBlandos;
-    this.newHistoryOdontologia.tejidosDentales= this.tejidosDentales;
-      */
+      this.newHistoryOdontologia = {};
+      this.newHistoryOdontologia.paciente= this.paciente;
+      this.newHistoryOdontologia.odontologia= this.odontologia;
+      this.newHistoryOdontologia.anamnesis= this.anamnesis;
+      this.newHistoryOdontologia.examenPeriodontal= this.examenPeriodontal;
+      this.newHistoryOdontologia.tejidosBlandos= this.tejidosBlandos;
+      this.newHistoryOdontologia.tejidosDentales= this.tejidosDentales;
+        */
 
-    const newHistoryOdontologia = new NewHistoryOdontologia();
-    newHistoryOdontologia.paciente = this.paciente;
-    newHistoryOdontologia.odontologia = this.odontologia;
-    newHistoryOdontologia.anamnesis = this.anamnesis;
-    newHistoryOdontologia.examenPeriodontal = this.examenPeriodontal;
-    newHistoryOdontologia.tejidosBlandos = this.tejidosBlandos;
-    newHistoryOdontologia.tejidosDentales = this.tejidosDentales;
+      const newHistoryOdontologia = new NewHistoryOdontologia();
+      newHistoryOdontologia.paciente = this.paciente;
+      newHistoryOdontologia.acudiente = this.acudiente;
+      newHistoryOdontologia.odontologia = this.odontologia;
+      newHistoryOdontologia.anamnesis = this.anamnesis;
+      newHistoryOdontologia.examenPeriodontal = this.examenPeriodontal;
+      newHistoryOdontologia.tejidosBlandos = this.tejidosBlandos;
+      newHistoryOdontologia.tejidosDentales = this.tejidosDentales;
 
-    console.log(newHistoryOdontologia);
-
-
-    this.historyService.createHistory(newHistoryOdontologia).subscribe( (res:any) =>{
-
-      console.log(res);
-        alert(res.message)
+      console.log(newHistoryOdontologia);
 
 
-    })
+      this.historyService.createHistory(newHistoryOdontologia).subscribe((res: any) => {
+
+        console.log(res);
+
+        if(res.message === "insercion correcta"){
+
+          this.modalTitulo = "Registro exitoso";
+          this.modalContenid = "La historia clinica del paciente: "+ this.paciente.nombre + " " +this.paciente.apellido + " se a registrado con exito!"
+
+        }else{
+
+          this.modalTitulo = "Error creación Historial";
+          this.modalContenid = res.message
+
+        }
+
+        const myButton = document.getElementById("buttonModal") as HTMLButtonElement;
+        myButton.click();
+
+      })
 
 
-  }
+    } else {
 
-/*
-  onSubmit(form: NgForm) {
-    if (form.invalid) {
-      const firstInvalidControl: HTMLElement | null = document.querySelector('.ng-invalid');
+      this.modalTitulo = "Error Acudiente"
+      this.modalContenid = "El acudiente debe ser mayor de edad, la edad calculada es de: "+ this.edad
 
-      if (firstInvalidControl !== null) {
-        firstInvalidControl.scrollIntoView({ behavior: 'smooth' });
-        firstInvalidControl.focus();
-      }
+      const myButton = document.getElementById("buttonModal") as HTMLButtonElement;
+      myButton.click();
+
     }
 
 
-    // Resto de la lógica
   }
-  */
+
+  /*
+    onSubmit(form: NgForm) {
+      if (form.invalid) {
+        const firstInvalidControl: HTMLElement | null = document.querySelector('.ng-invalid');
+
+        if (firstInvalidControl !== null) {
+          firstInvalidControl.scrollIntoView({ behavior: 'smooth' });
+          firstInvalidControl.focus();
+        }
+      }
+
+
+      // Resto de la lógica
+    }
+    */
 
 
 
-  pruebaEvento(event: ExamenPeriodontal){
+  pruebaEvento(event: ExamenPeriodontal) {
     this.examenPeriodontal = event;
   }
 
-  anamnesisEvento(event: Anamnesis){
-    this.anamnesis=event;
+  anamnesisEvento(event: Anamnesis) {
+    this.anamnesis = event;
   }
 
-  odontologiaEvento(event: Odontologia){
-    this.odontologia=event;
+  odontologiaEvento(event: Odontologia) {
+    this.odontologia = event;
   }
-  tejidosBlandosEvento(event:Tejidos_blandos){
-    this.tejidosBlandos=event;
+  tejidosBlandosEvento(event: Tejidos_blandos) {
+    this.tejidosBlandos = event;
   }
 
-  tejidosDentalesEvento(event:Tejidos_dentales){
-    this.tejidosDentales=event;
+  tejidosDentalesEvento(event: Tejidos_dentales) {
+    this.tejidosDentales = event;
   }
 
 }

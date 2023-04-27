@@ -6,15 +6,16 @@ class PacienteRoutes{
     
     public router: Router = Router();
 
-    private usuarioControler = new PacienteController();
+    private pacienteControler = new PacienteController();
 
     constructor(){
         this.config();
     }
 
     config(): void{
-        this.router.get('/:id', this.usuarioControler.getusuario)
-        this.router.get('/countpaciente/:id', this.usuarioControler.countusuario)
+        this.router.get('/:id', this.pacienteControler.getusuario)
+        this.router.get('/countpaciente/:id', this.pacienteControler.countusuario)
+        this.router.get('/deletePaciente/:id', this.pacienteControler.deletePaciente)
 
     }
 

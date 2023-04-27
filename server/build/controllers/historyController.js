@@ -20,8 +20,9 @@ class historyController {
         this.newHistory = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log(req.body);
-                const { paciente, odontologia, anamnesis, examenPeriodontal, tejidosBlandos, tejidosDentales } = req.body;
+                const { paciente, acudiente, odontologia, anamnesis, examenPeriodontal, tejidosBlandos, tejidosDentales } = req.body;
                 yield this.historyService.newHistory(paciente);
+                yield this.historyService.inserAcudiente(acudiente);
                 yield this.historyService.insertNewOdontologia(odontologia);
                 yield this.historyService.insertNewAnamnesis(anamnesis);
                 yield this.historyService.insertNewExamenPeriodontal(examenPeriodontal);
@@ -72,6 +73,25 @@ class historyController {
                 res.status(200).json({
                     success: true,
                     data: data,
+                });
+            }
+            catch (err) {
+                console.log(err);
+                // deberia ir 400
+                res.status(400).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        this.deleteHistory = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const { tabla } = req.params;
+                yield this.historyService.deleteHistory(id, tabla);
+                res.status(200).json({
+                    success: true,
+                    message: "historia eliminada",
                 });
             }
             catch (err) {

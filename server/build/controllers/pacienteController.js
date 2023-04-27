@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const pacienteService_1 = __importDefault(require("../services/pacienteService"));
 class PacienteController {
     constructor() {
-        this.usuarioService = new pacienteService_1.default();
+        this.PacienteService = new pacienteService_1.default();
         this.getusuario = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const data = yield this.usuarioService.getPaciente(id);
+                const data = yield this.PacienteService.getPaciente(id);
                 res.status(200).json({
                     success: true,
                     data: data,
@@ -36,10 +36,27 @@ class PacienteController {
         this.countusuario = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const { numUsers } = yield this.usuarioService.countuser(id);
+                const { numUsers } = yield this.PacienteService.countuser(id);
                 res.status(200).json({
                     success: true,
                     numUser: numUsers,
+                });
+            }
+            catch (err) {
+                console.log(err);
+                res.status(400).json({
+                    success: false,
+                    numUser: 0,
+                });
+            }
+        });
+        this.deletePaciente = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                yield this.PacienteService.delete(id);
+                res.status(200).json({
+                    success: true,
+                    message: "Paciente eliminado",
                 });
             }
             catch (err) {

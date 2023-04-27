@@ -1,31 +1,48 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+
+
 import { HistoryService } from 'src/app/services/history.service';
 import { PacienteService } from 'src/app/services/paciente.service';
 import { SonHistorySearchComponent } from 'src/app/components/son-history-search/son-history-search.component'
+import { ToastrService, IndividualConfig } from 'ngx-toastr';
+import { ToastrIconClasses } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-history-search',
   templateUrl: './history-search.component.html',
   styleUrls: ['./history-search.component.css']
 })
-export class HistorySearchComponent {
+export class HistorySearchComponent implements AfterViewInit {
   viewContainerRef: any;
   componentFactoryResolver: any;
 
   constructor(
     private historyService: HistoryService,
-    private usuarioService: PacienteService
+    private usuarioService: PacienteService,
+    private toastr: ToastrService
 
-    ) {
+  ) {
   }
+
+
+  ngAfterViewInit(): void {
+
+    if(localStorage.getItem("eliminar")==="true"){
+      this.showToast();
+    }
+
+
+  }
+
 
   @ViewChild('buscar') buscar: ElementRef;
   id: '';
 
-  dataPacienteOdontologia: {idP:'', nombrePaciente: string, historial: string } ;
+  dataPacienteOdontologia: { idP: '', nombrePaciente: string, historial: string };
 
-  dataPacienteOrtodoncia: {idP:'', nombrePaciente: string, historial: string } ;
+  dataPacienteOrtodoncia: { idP: '', nombrePaciente: string, historial: string };
 
   showSonHistorySearchOdontologia = false;
   showSonHistorySearchOrtodoncia = false;
@@ -35,7 +52,7 @@ export class HistorySearchComponent {
 
   validarNumeroDocumento(id: any) {
 
-    if(id!==''){
+    if (id !== '') {
 
       this.usuarioService.validar(id).subscribe((res: any) => {
 
@@ -123,5 +140,17 @@ export class HistorySearchComponent {
     this.viewContainerRef.insert(componentRef.hostView);
   }
 
+  showToast() {
+    this.toastr.success('Usuario eliminado!', 'Alerta', {
+      timeOut: 3000,
+      extendedTimeOut: 2000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: false,
+    });
+
+    localStorage.removeItem("eliminar");
+
+  }
 
 }

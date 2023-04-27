@@ -56,10 +56,41 @@ class HistoryService {
             }
         });
     }
+    inserAcudiente(dataAcudiente) {
+        return new Promise((resolve, reject) => {
+            try {
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query('INSERT INTO acudientes ( nombre, apellido, fecha_nacimiento, parentesco, numero_celular, paciente_id) VALUES (?,?,?,?,?,?)', [
+                        dataAcudiente.nombre,
+                        dataAcudiente.apellido,
+                        dataAcudiente.fechaNacimiento,
+                        dataAcudiente.parentesco,
+                        dataAcudiente.telefono,
+                        dataAcudiente.id,
+                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.log("Error: " + err);
+                            reject(err.sqlMessage);
+                        }
+                        else {
+                            resolve(true);
+                            console.log("Result: " + result);
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (err) {
+                // Enviar una respuesta con error al cliente
+                console.error(err);
+                reject(err);
+            }
+        });
+    }
     insertNewOdontologia(dataOdontologia) {
         return new Promise((resolve, reject) => {
             try {
-                //obtienen datos de odontologia
+                //insert datos de odontologia
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                     conn.query('INSERT INTO historiales_odontologia (odontologia_id, higiene_oral, cepillado, numero_cepillado, enjuague_bucal, seda_dental, plan_tratamiento, paciente_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
                         dataOdontologia.odontologia_id,
@@ -278,6 +309,32 @@ class HistoryService {
             try {
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                     conn.query(`SELECT * FROM ${tabla} WHERE ${nombreCampo} = ?`, [
+                        id
+                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.log("Error: " + err);
+                            reject(err.sqlMessage);
+                        }
+                        else {
+                            resolve(result);
+                            console.log("Result: ");
+                            console.log(result);
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (err) {
+                console.error(err);
+                reject(err);
+            }
+        });
+    }
+    deleteHistory(id, tabla) {
+        return new Promise((resolve, reject) => {
+            try {
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query(`DELETE FROM ${tabla} WHERE odontologia_id = ?`, [
                         id
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
