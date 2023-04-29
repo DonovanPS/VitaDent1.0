@@ -16,6 +16,7 @@ class historyRouter {
         this.router.get('/findHistory/:id', this.historyControler.findHistory);
         this.router.get('/gedHistory/:id/:tabla/:nombreCampo', this.historyControler.getHistory);
         this.router.delete('/deleteHistory/:id/:tabla', this.historyControler.deleteHistory);
+        this.router.put('/updateHistoryOdontologia/:auxId', this.historyControler.updateHistoryOdontologia);
     }
 }
 exports.default = historyRouter;

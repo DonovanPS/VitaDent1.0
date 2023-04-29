@@ -39,6 +39,10 @@ import { SonPatientOrtodonciaComponent } from './components/son-patient-ortodonc
 
 import { ToastrModule } from 'ngx-toastr';
 import { NewHistoryOrtodonciaComponent } from './components/new-history-ortodoncia/new-history-ortodoncia.component';
+import { UploadImageComponent } from './components/upload-image/upload-image.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -58,7 +62,8 @@ import { NewHistoryOrtodonciaComponent } from './components/new-history-ortodonc
     PatientComponent,
     SonPatientOdontologiaComponent,
     SonPatientOrtodonciaComponent,
-    NewHistoryOrtodonciaComponent
+    NewHistoryOrtodonciaComponent,
+    UploadImageComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,10 @@ import { NewHistoryOrtodonciaComponent } from './components/new-history-ortodonc
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule,
+    NgbCarouselModule,
+
 
   ],
   exports: [

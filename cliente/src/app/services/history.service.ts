@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environment/environment';
@@ -30,6 +30,10 @@ export class HistoryService {
 
   deleteHistory(id: number, tabla: string) {
     return this.httpClient.delete(`${this.URL}/history/deleteHistory/${id}/${tabla}`);
+  }
+
+  updateHistory(NewHistoryOdontologia:any, auxId:number){
+    return this.httpClient.put(`${this.URL}/history/updateHistoryOdontologia/${auxId}`,NewHistoryOdontologia)
   }
 
 

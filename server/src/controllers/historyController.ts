@@ -127,6 +127,36 @@ class historyController {
         }
     }
 
+    public updateHistoryOdontologia = async (req: Request, res: Response) => {
+        try {
+
+            const { auxId } = req.params
+            console.log("updateHistory" + auxId);
+            
+            console.log(req.body);
+
+            await this.historyService.updateAllDataPaciente(auxId, req.body);
+           
+            //await this.historyService.updateOdontologia(auxId, odontologia);
+            //await this.historyService.updateAnamnesis(auxId, anamnesis);
+            //await this.historyService.updateExamenPeriodontal(auxId, examenPeriodontal);
+
+            res.status(200).json({
+                success: true,
+                message: "actualizado",
+            });
+
+        } catch (err) {
+            console.log(err);
+
+            // deberia ir 400
+            res.status(200).json({
+                success: false,
+                message: err,
+            });
+        }
+    }
+
 }
 
 export default historyController;

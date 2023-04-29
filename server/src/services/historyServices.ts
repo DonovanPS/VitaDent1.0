@@ -1,4 +1,4 @@
-
+import { PoolConnection } from 'mysql';
 import pool from '../database';
 
 class HistoryService {
@@ -475,12 +475,12 @@ class HistoryService {
     public deleteHistory(id: string, tabla: string) {
         return new Promise<any>((resolve, reject) => {
 
-        
+
             try {
 
                 pool.getConnection(async (err, conn) => {
                     conn.query(
-                        `DELETE FROM ${tabla} WHERE odontologia_id = ?`,[
+                        `DELETE FROM ${tabla} WHERE odontologia_id = ?`, [
                         id
                     ],
                         async (err, result) => {
@@ -510,6 +510,303 @@ class HistoryService {
 
         });
     }
+
+
+    // Actualizar
+
+    public updatePacienteWithTransaction(paciente: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE pacientes SET 
+                    paciente_id = ${paciente.id},
+                    tipo_documento = '${paciente.tipoID}',
+                    nombre = '${paciente.nombre}',
+                    apellido = '${paciente.apellido}',
+                    fecha_nacimiento = '${paciente.fechaNacimiento}',
+                    sexo = '${paciente.genero}',
+                    estado_civil = '${paciente.estadoCivil}',
+                    ciudad_nacimiento = '${paciente.ciudadNacimiento}',
+                    ocupacion = '${paciente.ocupacion}',
+                    servicio_salud = '${paciente.servicioSalud}',
+                    ciudad_residencia = '${paciente.ciudadResidencia}',
+                    direccion = '${paciente.direccion}',
+                    numero_celular = '${paciente.celular}'
+                    WHERE paciente_id = ${idAux}`,
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Pacientes Error:' + err.sqlMessage);
+                    } else {
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+    public updateAcudienteWithTransaction(acudienteData: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE acudientes SET
+                
+                nombre = '${acudienteData.nombre}',
+                apellido = '${acudienteData.apellido}',
+                fecha_nacimiento = '${acudienteData.fechaNacimiento}',
+                parentesco = '${acudienteData.parentesco}',
+                numero_celular = '${acudienteData.telefono}'
+                 WHERE paciente_id = ${idAux}`,
+
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Acudiente Error:' + err.sqlMessage);
+                    } else {
+
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+    public updateOdontologiaWithTransaction(odontologiaData: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE historiales_odontologia SET
+                    odontologia_id = ${odontologiaData.odontologia_id},
+                    higiene_oral = '${odontologiaData.higiene_oral}',
+                    cepillado = '${odontologiaData.cepillado}',
+                    numero_cepillado = '${odontologiaData.numero_cepillado}',
+                    enjuague_bucal = '${odontologiaData.enjuague_bucal}',
+                    seda_dental = '${odontologiaData.seda_dental}',
+                    plan_tratamiento = '${odontologiaData.plan_tratamiento}',
+                    paciente_id = ${odontologiaData.paciente_id}
+                    WHERE odontologia_id = ${idAux}`, [
+
+            ],
+
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Odontologia Error:' + err.sqlMessage);
+                    } else {
+
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+    public updateAnamnesisWithTransaction(anamnesisData: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE anamnesis SET 
+                    anamnesis_id = ?, 
+                    hipertension = ?, 
+                    enfermedades_respiratorias = ?, 
+                    cardiopatias = ?, 
+                    sistema_digestivo = ?, 
+                    fiebre_reumatica = ?, 
+                    hepatitis = ?, 
+                    enfermedades_renales = ?, 
+                    enfermedades_gastrointestinales = ?, 
+                    quirurgico = ?, 
+                    traumatico = ?, 
+                    tratamiento_medico = ?, 
+                    toma_medicamentos = ?, 
+                    alergias = ?, 
+                    embarazo = ?, 
+                    diabetes = ?, 
+                    neoplasias = ?, 
+                    enfermedad_hemorrogica = ?, 
+                    nf_neurologicas = ?, 
+                    grupo_sanguineo = ?, 
+                    rh = ?, 
+                    observaciones = ?
+                    WHERE anamnesis_id = ?
+                    ` , [
+                anamnesisData.anamnesis_id,
+                anamnesisData.hipertencion,
+                anamnesisData.enfe_respiratorias,
+                anamnesisData.cardiopatias,
+                anamnesisData.sistema_digestivo,
+                anamnesisData.fiebre_reumatica,
+                anamnesisData.hepatitis,
+                anamnesisData.enfer_renales,
+                anamnesisData.enfer_gastrointestinales,
+                anamnesisData.quirurgico,
+                anamnesisData.traumatico,
+                anamnesisData.tratamiento_medico,
+                anamnesisData.toma_medicamento,
+                anamnesisData.alergia,
+                anamnesisData.embarazo,
+                anamnesisData.diabetes,
+                anamnesisData.neoplasias,
+                anamnesisData.enfer_hemorrogicas,
+                anamnesisData.nf_neurologicas,
+                anamnesisData.grupo_sangineo,
+                anamnesisData.rh,
+                anamnesisData.observaciones,
+                idAux
+            ],
+
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Anamnesis Error:' + err.sqlMessage);
+                    } else {
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+    public updateTejidosBlandosWithTransaction(tejidosBlandos: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE examenes_tejidos_blandos SET 
+                tejidos_blandos_id = ?,
+                labios = ?,
+                carrillos = ?,
+                frenillos = ?,
+                encias = ?,
+                paladar = ?,
+                lengua = ?,
+                orofaringe = ?,
+                glandulas = ?,
+                piso_boca = ?,
+                musculos_masticatorios = ?,
+                otros = ?
+                WHERE tejidos_blandos_id = ?`,[
+                    tejidosBlandos.tejidos_blandos_id,
+                    tejidosBlandos.labios,
+                    tejidosBlandos.carrillos,
+                    tejidosBlandos.frenillos,
+                    tejidosBlandos.encias,
+                    tejidosBlandos.paladar,
+                    tejidosBlandos.lengua,
+                    tejidosBlandos.orofaringe,
+                    tejidosBlandos.glandulas,
+                    tejidosBlandos.piso_boca,
+                    tejidosBlandos.musculos_masticatorios,
+                    tejidosBlandos.otros,
+                    idAux
+
+                ],
+
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Tejidos Blandos Error:' + err.sqlMessage);
+                    } else {
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+    public updateTejidosDentalesWithTransaction(tejidosDentales: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE examenes_tejidos_dentales SET 
+                tejidos_dentales_id = ?,
+                supernumerarios = ?,
+                abrasion = ?,
+                incluidos = ?,
+                maloclusiones = ?,
+                cambio_color = ?,
+                trauma = ?,
+                patologia_pulpar = ?,
+                otros = ?
+                WHERE tejidos_dentales_id = ?`,[
+                    tejidosDentales.tejidos_dentales_id,
+                    tejidosDentales.supernumerarios,
+                    tejidosDentales.abrasion,
+                    tejidosDentales.incluidos,
+                    tejidosDentales.maloclusiones,
+                    tejidosDentales.cambio_color,
+                    tejidosDentales.trauma,
+                    tejidosDentales.patologia_pulmonar,
+                    tejidosDentales.otros,
+                    idAux
+
+                ],
+
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Tejidos Dentales Error:' + err.sqlMessage);
+                    } else {
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+
+    public updatePeriodontalWithTransaction(examenPeriodontal: any, idAux: string, conn: PoolConnection) {
+        return new Promise((resolve, reject) => {
+            conn.query(
+                `UPDATE examen_periodontal SET
+                                periodontal_id = ${examenPeriodontal.examenPeriodontal_id},
+                                bolsas = '${examenPeriodontal.bolsas}',
+                                movilidad = '${examenPeriodontal.movilidad}',
+                                placa_blanda = '${examenPeriodontal.placaBlanca}',
+                                calculos = '${examenPeriodontal.calculos}',
+                                observaciones = '${examenPeriodontal.observaciones}'
+                                
+                                WHERE periodontal_id = ${idAux}`,
+
+                async (err, result) => {
+                    if (err) {
+                        console.log("Error: " + err);
+                        reject('Periodontal Error:' + err.sqlMessage);
+                    } else {
+
+                        resolve(true);
+                    }
+                })
+        })
+    }
+
+
+    public updateAllDataPaciente(idAux: string, pacienteData: any) {
+
+        const { paciente, acudiente, odontologia, anamnesis, examenPeriodontal, tejidosBlandos, tejidosDentales } = pacienteData
+
+
+
+        return new Promise<any>((resolve, reject) => {
+            pool.getConnection(async (err, conn) => {
+                try {
+                    conn.beginTransaction((err) => {
+                        if (err) reject(err.sqlMessage);
+                    });
+                    await this.updatePacienteWithTransaction(paciente, idAux, conn);
+                    await this.updateAcudienteWithTransaction(acudiente, idAux, conn);
+                    await this.updateOdontologiaWithTransaction(odontologia, idAux, conn);
+                    await this.updateAnamnesisWithTransaction(anamnesis, idAux, conn);
+                    await this.updatePeriodontalWithTransaction(examenPeriodontal, idAux, conn);
+                    await this.updateTejidosBlandosWithTransaction(tejidosBlandos, idAux, conn);
+                    await this.updateTejidosDentalesWithTransaction(tejidosDentales, idAux, conn);
+                    conn.commit((err) => {
+                        if (err) {
+                            console.log("Error: " + err);
+                            conn.rollback(() => {
+                                reject(err.sqlMessage);
+                            });
+                        } else {
+                            resolve(true);
+                        }
+                    });
+                } catch (error) {
+                    conn.rollback(() => {
+                        reject(error);
+                    })
+                }
+            });
+        })
+    }
+
+
 
 
 

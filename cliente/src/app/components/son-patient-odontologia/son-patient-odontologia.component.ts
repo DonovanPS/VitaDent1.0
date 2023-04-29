@@ -1,5 +1,4 @@
-import { FormsModule } from '@angular/forms';
-import { NgModel } from '@angular/forms';
+
 
 import { Tejidos_dentales } from './../../models/tejidos_dentales';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
@@ -11,6 +10,9 @@ import { Tejidos_blandos } from 'src/app/models/tejidos_blandos';
 import { HistoryService } from 'src/app/services/history.service';
 import { PacienteService } from 'src/app/services/paciente.service';
 
+import { ToastrService } from 'ngx-toastr';
+
+import { NewHistoryOdontologia } from 'src/app/models/newHistoryOdontologia';
 
 import { Paciente } from 'src/app/models/paciente';
 import { Acudiente } from 'src/app/models/acudiente';
@@ -45,10 +47,12 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
 
   edad: string;
 
+  auxId: number;
+
   edadAcudiente: string;
 
 
-  public examenPeriodontal: ExamenPeriodontal;
+
 
   public odontologia: Odontologia;
   public anamnesis: Anamnesis;
@@ -65,13 +69,18 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private pacienteService: PacienteService, private historyService: HistoryService) {
+  constructor(
+    private pacienteService: PacienteService,
+    private historyService: HistoryService,
+    private toastr: ToastrService
+
+  ) {
 
 
 
 
     this.odontologia = new Odontologia();
-    this.examenPeriodontal = new ExamenPeriodontal();
+    this.examen_periodontal = new ExamenPeriodontal();
     this.anamnesis = new Anamnesis();
     this.tejidos_blandos = new Tejidos_blandos();
     this.tejidos_dentales = new Tejidos_dentales();
@@ -89,6 +98,7 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
 
     const id: any = localStorage.getItem('paciente');
     this.id = id;
+    this.auxId = id;
     //localStorage.removeItem('paciente');
 
 
@@ -150,8 +160,8 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
     }
   }
 
-  consultaAcudiente(){
-    this.historyService.getHistory(this.id,'acudientes', 'paciente_id').subscribe((res: any) => {
+  consultaAcudiente() {
+    this.historyService.getHistory(this.id, 'acudientes', 'paciente_id').subscribe((res: any) => {
 
       this.acudiente.id = res.data[0].paciente_id;
       this.acudiente.nombre = res.data[0].nombre;
@@ -288,23 +298,12 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
   }
 
 
-
-
-
   editar() {
-
-
 
     const myButton = document.getElementById("myButton") as HTMLButtonElement;
     myButton.click();
 
-
-
   }
-
-
-
-
 
 
   validarNumeroDocumento(id: any) {
@@ -321,7 +320,61 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
     })
   }
 
-  
+
+
+  actualizarDatos() {
+    this.acudiente.id = this.paciente.id;
+
+    this.examen_periodontal.examenPeriodontal_id = this.paciente.id;
+    this.anamnesis.anamnesis_id = this.paciente.id;
+    this.odontologia.odontologia_id = this.paciente.id;
+    this.tejidos_blandos.tejidos_blandos_id = this.paciente.id;
+    this.tejidos_dentales.tejidos_dentales_id = this.paciente.id;
+
+    this.examen_periodontal.odontologia_id = this.paciente.id;
+    this.anamnesis.odontologia_id = this.paciente.id;
+    this.odontologia.paciente_id = this.paciente.id;
+    this.tejidos_blandos.odontologia_id = this.paciente.id;
+    this.tejidos_dentales.odontologia_id = this.paciente.id;
+
+    const newHistoryOdontologia = new NewHistoryOdontologia();
+    newHistoryOdontologia.paciente = this.paciente;
+    newHistoryOdontologia.acudiente = this.acudiente;
+    newHistoryOdontologia.odontologia = this.odontologia;
+    newHistoryOdontologia.anamnesis = this.anamnesis;
+    newHistoryOdontologia.examenPeriodontal = this.examen_periodontal;
+    newHistoryOdontologia.tejidosBlandos = this.tejidos_blandos;
+    newHistoryOdontologia.tejidosDentales = this.tejidos_dentales;
+
+    console.log(newHistoryOdontologia);
+
+    this.historyService.updateHistory(newHistoryOdontologia, this.auxId).subscribe((res: any) => {
+      console.log(res);
+      if (res.message === 'actualizado') {
+        this.toastr.success('Datos actualizados correctamente', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+
+        localStorage.setItem('paciente', this.paciente.id.toString());
+      } else{
+        this.toastr.error( res.message,'Error al actualizar', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+
+      }
+
+
+    })
+
+  }
 
 
 

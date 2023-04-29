@@ -356,5 +356,267 @@ class HistoryService {
             }
         });
     }
+    // Actualizar
+    updatePacienteWithTransaction(paciente, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE pacientes SET 
+                    paciente_id = ${paciente.id},
+                    tipo_documento = '${paciente.tipoID}',
+                    nombre = '${paciente.nombre}',
+                    apellido = '${paciente.apellido}',
+                    fecha_nacimiento = '${paciente.fechaNacimiento}',
+                    sexo = '${paciente.genero}',
+                    estado_civil = '${paciente.estadoCivil}',
+                    ciudad_nacimiento = '${paciente.ciudadNacimiento}',
+                    ocupacion = '${paciente.ocupacion}',
+                    servicio_salud = '${paciente.servicioSalud}',
+                    ciudad_residencia = '${paciente.ciudadResidencia}',
+                    direccion = '${paciente.direccion}',
+                    numero_celular = '${paciente.celular}'
+                    WHERE paciente_id = ${idAux}`, (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Pacientes Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updateAcudienteWithTransaction(acudienteData, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE acudientes SET
+                
+                nombre = '${acudienteData.nombre}',
+                apellido = '${acudienteData.apellido}',
+                fecha_nacimiento = '${acudienteData.fechaNacimiento}',
+                parentesco = '${acudienteData.parentesco}',
+                numero_celular = '${acudienteData.telefono}'
+                 WHERE paciente_id = ${idAux}`, (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Acudiente Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updateOdontologiaWithTransaction(odontologiaData, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE historiales_odontologia SET
+                    odontologia_id = ${odontologiaData.odontologia_id},
+                    higiene_oral = '${odontologiaData.higiene_oral}',
+                    cepillado = '${odontologiaData.cepillado}',
+                    numero_cepillado = '${odontologiaData.numero_cepillado}',
+                    enjuague_bucal = '${odontologiaData.enjuague_bucal}',
+                    seda_dental = '${odontologiaData.seda_dental}',
+                    plan_tratamiento = '${odontologiaData.plan_tratamiento}',
+                    paciente_id = ${odontologiaData.paciente_id}
+                    WHERE odontologia_id = ${idAux}`, [], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Odontologia Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updateAnamnesisWithTransaction(anamnesisData, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE anamnesis SET 
+                    anamnesis_id = ?, 
+                    hipertension = ?, 
+                    enfermedades_respiratorias = ?, 
+                    cardiopatias = ?, 
+                    sistema_digestivo = ?, 
+                    fiebre_reumatica = ?, 
+                    hepatitis = ?, 
+                    enfermedades_renales = ?, 
+                    enfermedades_gastrointestinales = ?, 
+                    quirurgico = ?, 
+                    traumatico = ?, 
+                    tratamiento_medico = ?, 
+                    toma_medicamentos = ?, 
+                    alergias = ?, 
+                    embarazo = ?, 
+                    diabetes = ?, 
+                    neoplasias = ?, 
+                    enfermedad_hemorrogica = ?, 
+                    nf_neurologicas = ?, 
+                    grupo_sanguineo = ?, 
+                    rh = ?, 
+                    observaciones = ?
+                    WHERE anamnesis_id = ?
+                    `, [
+                anamnesisData.anamnesis_id,
+                anamnesisData.hipertencion,
+                anamnesisData.enfe_respiratorias,
+                anamnesisData.cardiopatias,
+                anamnesisData.sistema_digestivo,
+                anamnesisData.fiebre_reumatica,
+                anamnesisData.hepatitis,
+                anamnesisData.enfer_renales,
+                anamnesisData.enfer_gastrointestinales,
+                anamnesisData.quirurgico,
+                anamnesisData.traumatico,
+                anamnesisData.tratamiento_medico,
+                anamnesisData.toma_medicamento,
+                anamnesisData.alergia,
+                anamnesisData.embarazo,
+                anamnesisData.diabetes,
+                anamnesisData.neoplasias,
+                anamnesisData.enfer_hemorrogicas,
+                anamnesisData.nf_neurologicas,
+                anamnesisData.grupo_sangineo,
+                anamnesisData.rh,
+                anamnesisData.observaciones,
+                idAux
+            ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Anamnesis Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updateTejidosBlandosWithTransaction(tejidosBlandos, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE examenes_tejidos_blandos SET 
+                tejidos_blandos_id = ?,
+                labios = ?,
+                carrillos = ?,
+                frenillos = ?,
+                encias = ?,
+                paladar = ?,
+                lengua = ?,
+                orofaringe = ?,
+                glandulas = ?,
+                piso_boca = ?,
+                musculos_masticatorios = ?,
+                otros = ?
+                WHERE tejidos_blandos_id = ?`, [
+                tejidosBlandos.tejidos_blandos_id,
+                tejidosBlandos.labios,
+                tejidosBlandos.carrillos,
+                tejidosBlandos.frenillos,
+                tejidosBlandos.encias,
+                tejidosBlandos.paladar,
+                tejidosBlandos.lengua,
+                tejidosBlandos.orofaringe,
+                tejidosBlandos.glandulas,
+                tejidosBlandos.piso_boca,
+                tejidosBlandos.musculos_masticatorios,
+                tejidosBlandos.otros,
+                idAux
+            ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Tejidos Blandos Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updateTejidosDentalesWithTransaction(tejidosDentales, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE examenes_tejidos_dentales SET 
+                tejidos_dentales_id = ?,
+                supernumerarios = ?,
+                abrasion = ?,
+                incluidos = ?,
+                maloclusiones = ?,
+                cambio_color = ?,
+                trauma = ?,
+                patologia_pulpar = ?,
+                otros = ?
+                WHERE tejidos_dentales_id = ?`, [
+                tejidosDentales.tejidos_dentales_id,
+                tejidosDentales.supernumerarios,
+                tejidosDentales.abrasion,
+                tejidosDentales.incluidos,
+                tejidosDentales.maloclusiones,
+                tejidosDentales.cambio_color,
+                tejidosDentales.trauma,
+                tejidosDentales.patologia_pulmonar,
+                tejidosDentales.otros,
+                idAux
+            ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Tejidos Dentales Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updatePeriodontalWithTransaction(examenPeriodontal, idAux, conn) {
+        return new Promise((resolve, reject) => {
+            conn.query(`UPDATE examen_periodontal SET
+                                periodontal_id = ${examenPeriodontal.examenPeriodontal_id},
+                                bolsas = '${examenPeriodontal.bolsas}',
+                                movilidad = '${examenPeriodontal.movilidad}',
+                                placa_blanda = '${examenPeriodontal.placaBlanca}',
+                                calculos = '${examenPeriodontal.calculos}',
+                                observaciones = '${examenPeriodontal.observaciones}'
+                                
+                                WHERE periodontal_id = ${idAux}`, (err, result) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject('Periodontal Error:' + err.sqlMessage);
+                }
+                else {
+                    resolve(true);
+                }
+            }));
+        });
+    }
+    updateAllDataPaciente(idAux, pacienteData) {
+        const { paciente, acudiente, odontologia, anamnesis, examenPeriodontal, tejidosBlandos, tejidosDentales } = pacienteData;
+        return new Promise((resolve, reject) => {
+            database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    conn.beginTransaction((err) => {
+                        if (err)
+                            reject(err.sqlMessage);
+                    });
+                    yield this.updatePacienteWithTransaction(paciente, idAux, conn);
+                    yield this.updateAcudienteWithTransaction(acudiente, idAux, conn);
+                    yield this.updateOdontologiaWithTransaction(odontologia, idAux, conn);
+                    yield this.updateAnamnesisWithTransaction(anamnesis, idAux, conn);
+                    yield this.updatePeriodontalWithTransaction(examenPeriodontal, idAux, conn);
+                    yield this.updateTejidosBlandosWithTransaction(tejidosBlandos, idAux, conn);
+                    yield this.updateTejidosDentalesWithTransaction(tejidosDentales, idAux, conn);
+                    conn.commit((err) => {
+                        if (err) {
+                            console.log("Error: " + err);
+                            conn.rollback(() => {
+                                reject(err.sqlMessage);
+                            });
+                        }
+                        else {
+                            resolve(true);
+                        }
+                    });
+                }
+                catch (error) {
+                    conn.rollback(() => {
+                        reject(error);
+                    });
+                }
+            }));
+        });
+    }
 }
 exports.default = HistoryService;

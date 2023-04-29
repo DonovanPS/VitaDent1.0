@@ -1,0 +1,27 @@
+<form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="description">Titulo:</label>
+    <input formControlName="title" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="file">Imagen:</label>
+    <input type="file" formControlName="file" accept="image/*" class="form-control" (change)="previewImage($event)">
+  </div>
+  <div class="form-group">
+    <label for="description">Descripción:</label>
+    <textarea formControlName="description" class="form-control"></textarea>
+  </div>
+
+  <br>
+  <br>
+
+  <img [src]="imageUrl" *ngIf="imageUrl" class="img-fluid">
+
+  <br>
+  <br>
+
+  <button type="submit" class="btn btn-primary">Subir imagen</button>
+</form>
+
+
+<div id="toast-container" class="toast-top-center"></div>

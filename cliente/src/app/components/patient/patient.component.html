@@ -13,20 +13,23 @@
     <div class="container-fluid">
 
       <div>
-        <app-son-patient-odontologia *ngIf="showSonPatientOdontologia" [eventSubject]="eventSubject"  (idPaciente)="idPacienteEvento($event)" (informacionPaciente)="recibirInformacionPaciente($event)">
+        <app-son-patient-odontologia *ngIf="showSonPatientOdontologia" [eventSubject]="eventSubject"
+          (idPaciente)="idPacienteEvento($event)" (informacionPaciente)="recibirInformacionPaciente($event)">
         </app-son-patient-odontologia>
 
-        <app-son-patient-ortodoncia *ngIf="showSonPatientOrtodoncia" [eventSubject]="eventSubject" (idPaciente)="idPacienteEvento($event)" (informacionPaciente)="recibirInformacionPaciente($event)">
+        <app-son-patient-ortodoncia *ngIf="showSonPatientOrtodoncia" [eventSubject]="eventSubject"
+          (idPaciente)="idPacienteEvento($event)" (informacionPaciente)="recibirInformacionPaciente($event)">
         </app-son-patient-ortodoncia>
       </div>
 
 
       <div class="row mx-auto mb-3 justify-content-end" style="width: 90%;">
-        <button type="button" class="btn btn-success col-2 me-2" (click)="editar()" >Editar datos</button>
+        <button type="button" class="btn btn-success col-2 me-2" (click)="editar()">Editar datos</button>
 
         <!-- Button trigger modal -->
 
-        <button  type="button" class="btn btn-danger col-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar historial</button>
+        <button type="button" class="btn btn-danger col-2" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">Eliminar historial</button>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -43,13 +46,14 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="eliminar()" >Eliminar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                  (click)="eliminar()">Eliminar</button>
               </div>
             </div>
           </div>
         </div>
 
-         <!-- Modal fin -->
+        <!-- Modal fin -->
 
 
 
@@ -62,22 +66,73 @@
 
       <!----- Esto seria lo que apareceria si se da click en radiografia ----->
 
+
       <div *ngIf="showDivRadiografias" class="row mx-auto mb-3" style="width: 90%;">
 
-        <img src="https://cdn.pixabay.com/photo/2016/12/05/20/39/x-ray-1884888_1280.png" class="img-fluid"
-          alt="Radiografia">
+
+
+
+
+
+        <!------------------------- Carrucel ----------------------------------->
+
+        <div>
+
+
+
+          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-indicators" *ngIf="images.length > 0">
+              <button *ngFor="let image of images; let i = index" type="button"
+                [attr.data-bs-target]="'#carouselExampleCaptions'" [attr.data-bs-slide-to]="i" [class.active]="i === 0">
+              </button>
+            </div>
+
+
+            <div class="carousel-inner">
+              <div class="carousel-item" *ngFor="let image of images; let i = index" [class.active]="i === 0">
+                <img [src]="URL + '/' + image.ruta" [alt]="image.titulo" class="d-block w-100"
+                  id="radiografia_id" (click)="verImagenModal(image)">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>{{ image.titulo }}</h5>
+                  <p>{{ image.descripcion }}</p>
+                </div>
+              </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carouselExampleCaptions'"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carouselExampleCaptions'"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+
+
+
+          <div class="row mx-auto mb-3 justify-content-end" style="width: 100%;">
+
+            <button type="button" class="btn btn-secondary col-2 me-2 agregarImagen" data-bs-toggle="modal"
+              data-bs-target="#agregarImagen">Agregar imagen</button>
+
+
+          </div>
+
+        </div>
+
 
       </div>
-
-      <!-------------------------------------------------------------------------->
-
 
 
       <!----- Esto seria lo que apareceria si se da click en Registros ----->
 
       <div *ngIf="showDivTable" class="row mx-auto mb-3" style="width: 90%;">
 
-        <table class="table table-striped" >
+        <table class="table table-striped">
           <thead>
             <tr style="background-color: #ab4181;">
               <th scope="col" class="text-white fw-normal">Fecha</th>
@@ -119,7 +174,95 @@
   </div>
 
 
-  <button id="myButton2" (click)="cambiarPagina()" type="button" class="btn btn-primary" routerLink="/history-search"> atras </button>
+  <button id="myButton2" (click)="cambiarPagina()" type="button" class="btn btn-primary" routerLink="/history-search">
+    atras </button>
 
+
+
+  <!-------------- Modal agregar imagen ----------------------->
+
+  <div class="modal fade" id="agregarImagen" tabindex="-1" aria-labelledby="agregar Imagen" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalLabel">Nueva radiografia</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <app-upload-image [eventSubject]="eventSubjectAgregarImagen" ></app-upload-image>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button (click)="subirRadiografia()" type="button" class="btn btn-primary"
+            data-bs-dismiss="modal">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------- Modal agregar imagen fin ----------------------->
+
+
+
+  <!-------------- Modal CRUD ver imagen ----------------------->
+  <button id="modalVerImagenes" type="button" class="btn btn-danger col-2" data-bs-toggle="modal"
+    data-bs-target="#verImagen">Ver
+    imagen</button>
+
+
+  <div class="modal fade" id="verImagen" tabindex="-1" aria-labelledby="ver Imagen" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalLabel">Radiografia</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h2>Titulo:
+            <input [(ngModel)]="verImagen.titulo" class="form-control"
+              placeholder="Titulo"> </h2>
+
+
+          <p>Descripción:
+
+            <input [(ngModel)]="verImagen.descripcion"
+              class="form-control" placeholder="Descripcion">
+
+          </p>
+
+          <form [formGroup]="imageForm">
+
+            <p>Imagen:</p>
+            <input type="file" formControlName="file" accept="image/*" class="form-control" (change)="previewImage($event)">
+          </form>
+
+          <br>
+          <br>
+
+          <p> Nueva Radiografia: </p>
+
+          <img [src]="imageUrl" *ngIf="imageUrl" class="img-fluid">
+
+          <br>
+          <br>
+
+          <p> Radiografia Actual: </p>
+          <img [src]="URL + '/' + verImagen.ruta" [alt]="verImagen.titulo" class="d-block w-100"
+            [id]="verImagen.radiografia_id">
+        </div>
+
+        <div class="modal-footer">
+          <button (click)="updateRadiografia(verImagen.radiografia_id )" type="button" class="btn btn-primary" data-bs-dismiss="modal">Actualizar</button>
+          <button (click)="deleteRadiografia(verImagen.radiografia_id,verImagen.ruta)" type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-------------- Modal ver imagen fin ----------------------->
 
 </div>

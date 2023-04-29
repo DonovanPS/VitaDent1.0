@@ -21,7 +21,7 @@ class historyRouter{
 
         this.router.delete('/deleteHistory/:id/:tabla', this.historyControler.deleteHistory);
 
-
+        this.router.put('/updateHistoryOdontologia/:auxId', this.historyControler.updateHistoryOdontologia);
     }
 
 

@@ -24,5 +24,7 @@ constructor(private httpClient: HttpClient,
     return this.httpClient.get(`${this.URL}/paciente/deletePaciente/`+id)
   }
 
+  
+
 
 }
