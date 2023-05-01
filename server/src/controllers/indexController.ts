@@ -15,7 +15,7 @@ class IndexController {
     }
 
     public imprimir(){
-        console.log("lakshjdfkilasdjalsasdjklasdhjklasdhjklasdjkldasjklasdjklasdjklasdjkl");
+      
         
       }
 
@@ -37,8 +37,7 @@ class IndexController {
 
 
     public llamar(req: Request, res: Response) {
-        console.log("llamar");
-        console.log(dataToken);
+       
 
         pool.getConnection(async (err, conn) => {
             conn.query('SELECT * FROM Users', (err, result) => {
@@ -56,7 +55,7 @@ class IndexController {
 
         pool.getConnection(async (err, conn) => {
             conn.query('INSERT INTO USERS VALUES (NULL, ?, ?)', [user, hashedPassword], (err, result) => {
-                console.log(result);
+               
                 res.json("creacion hacida")
             });
         })
@@ -64,7 +63,7 @@ class IndexController {
     }
 
     public login(req: Request, res: Response) {
-        console.log("entrado al login");
+      
 
         // res.json('Validando  '+ req.params.user + ' ' + req.params.password)
         //const {user,password} = req.body;
@@ -125,7 +124,7 @@ class IndexController {
             }
 
         } catch (e) {
-            console.log(e)
+          
             res.status(401).json('Error token');
         }
 
@@ -138,13 +137,13 @@ class IndexController {
        
 
         try {
-          console.log("Nuevo historial");
+        
           //console.log(req.body);
       
           // Obtener los datos del paciente del objeto req.body
           const Nh = req.body;
       
-          console.log(Nh);
+       
       
           // Crear una consulta SQL que inserte los datos en la tabla correspondiente
          
@@ -170,7 +169,7 @@ class IndexController {
 
 
                 if (err) {
-                  console.log("Error: " + err);
+                 
                   res.status(200).json({
                     success: false,
                     message: err.sqlMessage,
@@ -296,12 +295,12 @@ class IndexController {
 
             try{
 
-                console.log("insertar odontologia");
+               
             
                 //obtienen datos de odontologia
               
     
-                console.log(dataOdontologia);
+               
     
                pool.getConnection(async (err,conn) =>{
                 conn.query(
@@ -319,13 +318,13 @@ class IndexController {
                     async (err,result)=>{
     
                         if (err) {
-                            console.log("Error: " + err);
+                           
                            reject(err.sqlMessage)
           
                             
                           } else {
                              resolve(true)
-                            console.log("Result: " + result);
+                           
                           }
                           conn.release();
     

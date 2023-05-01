@@ -11,10 +11,13 @@ class historyController {
 
         try {
 
-            console.log(req.body);
+            //console.log(req.body);
 
             const { paciente, acudiente, odontologia, anamnesis, examenPeriodontal, tejidosBlandos, tejidosDentales } = req.body
 
+            await this.historyService.createOdontologia(req.body);
+
+            /*
             await this.historyService.newHistory(paciente);
             await this.historyService.inserAcudiente(acudiente);
 
@@ -23,14 +26,14 @@ class historyController {
             await this.historyService.insertNewExamenPeriodontal(examenPeriodontal);
             await this.historyService.insertNewExamenTejidosBlnados(tejidosBlandos)
             await this.historyService.insertNewExamenTejidosDentales(tejidosDentales)
-
+*/
             res.status(200).json({
                 success: true,
                 message: "insercion correcta",
             });
 
         } catch (err) {
-            console.log(err);
+            //console.log(err);
 
             // deberia ir 400
             res.status(200).json({
@@ -59,7 +62,7 @@ class historyController {
 
 
         } catch (err) {
-            console.log(err);
+            //console.log(err);
 
             // deberia ir 400
             res.status(200).json({
@@ -92,7 +95,7 @@ class historyController {
 
 
         } catch (err) {
-            console.log(err);
+            //console.log(err);
 
             // deberia ir 400
             res.status(400).json({
@@ -117,7 +120,7 @@ class historyController {
                 message: "historia eliminada",
             });
         } catch (err) {
-            console.log(err);
+            //console.log(err);
 
             // deberia ir 400
             res.status(400).json({
@@ -131,9 +134,8 @@ class historyController {
         try {
 
             const { auxId } = req.params
-            console.log("updateHistory" + auxId);
             
-            console.log(req.body);
+            ////console.log(req.body);
 
             await this.historyService.updateAllDataPaciente(auxId, req.body);
            
@@ -147,7 +149,7 @@ class historyController {
             });
 
         } catch (err) {
-            console.log(err);
+            ////console.log(err);
 
             // deberia ir 400
             res.status(200).json({
@@ -157,6 +159,83 @@ class historyController {
         }
     }
 
+
+    // ortodoncia
+
+    public newHistoryOrtodoncia = async (req: Request, res: Response) => {
+
+        try {
+
+           
+            await this.historyService.newHistoryOrtodoncia(req.body);
+
+            res.status(200).json({
+                success: true,
+                message: "insercion correcta",
+            });
+
+        } catch (err) {
+            //console.log(err);
+
+            // deberia ir 400
+            res.status(200).json({
+                success: false,
+                message: err,
+            });
+        }
+    }
+
+
+    public updateHistoryOrtodoncia = async (req: Request, res: Response) => {
+        try {
+
+            const { id } = req.params
+            
+           const data = await this.historyService.updateAllDataPacienteOrtodoncia(id, req.body);
+           
+           console.log(data);
+           
+           
+            res.status(200).json({
+                success: true,
+                message: "actualizado",
+            });
+
+        } catch (err) {
+        
+            // deberia ir 400
+            res.status(200).json({
+                success: false,
+                message: err,
+            });
+        }
+    }
+
+    public deleteHistoryOrtodoncia = async (req: Request, res: Response) => {
+
+        try {
+
+            const { id } = req.params
+            
+            const data = await this.historyService.deleteHistoryOrtodoncia(id);
+           
+            console.log(data);
+
+            
+            res.status(200).json({
+                success: true,
+                message: data,
+            });
+
+        } catch (err) {
+        
+            // deberia ir 400
+            res.status(200).json({
+                success: false,
+                message: err,
+            });
+        }
+    }
 }
 
 export default historyController;

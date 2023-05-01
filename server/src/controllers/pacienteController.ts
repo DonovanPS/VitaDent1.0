@@ -20,7 +20,7 @@ class PacienteController {
 
 
         } catch (err) {
-            console.log(err);
+           
 
             res.status(400).json({
                 success: false,
@@ -47,7 +47,7 @@ class PacienteController {
 
 
         } catch (err) {
-            console.log(err);
+          
 
             res.status(400).json({
                 success: false,
@@ -73,13 +73,35 @@ class PacienteController {
 
 
         } catch (err) {
-            console.log(err);
+          
 
             res.status(400).json({
                 success: false,
                 numUser: 0,
             });
         }
+    }
+
+
+    public getPacientes = async (req: Request, res: Response) => {
+            
+            try {
+    
+                const data = await this.PacienteService.getPacientes();
+    
+                res.status(200).json({
+                    success: true,
+                    data: data,
+                });
+
+            } catch (err) {
+             
+    
+                res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
     }
 
 

@@ -54,8 +54,48 @@ margin-top: 2%;
 }
 
 
+/* modal agregar radiografia */
+
+.form-floating{
+
+  margin-left: 4%;
+  margin-bottom: 2%;
+}
+
+.containerForm{
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
+  }
+
+.datepiker{
+  width: 40%;
+  margin-left: 9%;
+  margin-top: 2%;
 
 
+}
 
+.form-select{
+  width: 100%;
+}
+
+.tipoCons{
+  width: 80%;
+  margin-left: 4%;
+  height: 55px;
+  display: flex;
+
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+/* iconos */
+.material-icons {
+  color: rgb(171, 65, 129);
+}
 
 

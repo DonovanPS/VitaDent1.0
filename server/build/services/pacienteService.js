@@ -13,7 +13,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
+const fileDelete_1 = require("../utils/fileDelete");
 class PacienteService {
+    constructor() {
+        this.deleteFilesImage = (names) => {
+            const files = names.map((name) => ({ ruta: name }));
+            (0, fileDelete_1.deleteFiles)(files);
+        };
+    }
+    getPacientes() {
+        return new Promise((resolve, reject) => {
+            try {
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query(`SELECT paciente_id, nombre, apellido
+                        FROM pacientes
+                        WHERE NOT EXISTS (
+                          SELECT 1
+                          FROM historiales_ortodoncia
+                          WHERE historiales_ortodoncia.paciente_id = pacientes.paciente_id
+                        )`, [], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            reject(err.sqlMessage);
+                        }
+                        else {
+                            resolve(result);
+                        }
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (err) {
+                console.error(err);
+                reject(err);
+            }
+        });
+    }
     getPaciente(id) {
         return new Promise((resolve, reject) => {
             try {
@@ -22,13 +56,10 @@ class PacienteService {
                         id
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
-                            console.log("Error: " + err);
                             reject(err.sqlMessage);
                         }
                         else {
                             resolve(result);
-                            console.log("Result: ");
-                            console.log(result);
                         }
                         conn.release();
                     }));
@@ -48,12 +79,10 @@ class PacienteService {
                         id
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
-                            console.log("Error: " + err);
                             reject(err.sqlMessage);
                         }
                         else {
                             resolve(result[0]);
-                            console.log("Result: " + result);
                         }
                         conn.release();
                     }));
@@ -65,23 +94,113 @@ class PacienteService {
             }
         });
     }
+    // obtiene las radiografias de un paciente para eliminar
+    getRadiografias(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                database_1.default.query(`SELECT ruta FROM radiografias WHERE paciente_id = ?`, [id], (error, results, fields) => {
+                    if (error) {
+                        reject(error);
+                        return;
+                    }
+                    const names = results.map((row) => row.ruta);
+                    resolve(names);
+                });
+            });
+        });
+    }
+    /*public async delete(id: string) {
+        return new Promise<any>((resolve, reject) => {
+
+
+            try {
+
+                //const results = await this.getRadiografias(id);
+
+                //this.deleteFilesImage(results);
+
+                pool.getConnection(async (err, conn) => {
+                    conn.query(
+                        `DELETE FROM pacientes WHERE paciente_id = ?`, [
+                        id
+                    ],
+                        async (err, result) => {
+
+                            if (err) {
+
+                                reject(err.sqlMessage)
+
+                            } else {
+                                resolve(result)
+
+
+                            }
+                            conn.release();
+                        }
+                    );
+                });
+
+
+            } catch (err) {
+                console.error(err);
+                reject(err)
+            }
+
+
+
+        });
+
+    }*/
     delete(id) {
         return new Promise((resolve, reject) => {
             try {
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
-                    conn.query(`DELETE FROM pacientes WHERE paciente_id     = ?`, [
-                        id
-                    ], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                    conn.beginTransaction((err) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
-                            console.log("Error: " + err);
-                            reject(err.sqlMessage);
+                            throw err;
                         }
-                        else {
-                            resolve(result);
-                            console.log("Result: ");
-                            console.log(result);
+                        try {
+                            const results = yield this.getRadiografias(id);
+                            this.deleteFilesImage(results);
+                            const deleteHistoriales = new Promise((resolve, reject) => {
+                                conn.query(`DELETE FROM pacientes WHERE paciente_id = ?`, [
+                                    id
+                                ], (error, results, fields) => {
+                                    if (error) {
+                                        return conn.rollback(() => {
+                                            reject(error);
+                                            throw error;
+                                        });
+                                    }
+                                    resolve(true);
+                                });
+                            });
+                            Promise.all([deleteHistoriales])
+                                .then(() => {
+                                conn.commit((err) => {
+                                    if (err) {
+                                        return conn.rollback(() => {
+                                            reject(err);
+                                            throw err;
+                                        });
+                                    }
+                                    console.log("Registros eliminados con éxito");
+                                    resolve(true);
+                                });
+                            })
+                                .catch((error) => {
+                                return conn.rollback(() => {
+                                    reject(error);
+                                    throw error;
+                                });
+                            });
                         }
-                        conn.release();
+                        catch (error) {
+                            return conn.rollback(() => {
+                                reject(error);
+                                throw error;
+                            });
+                        }
                     }));
                 }));
             }

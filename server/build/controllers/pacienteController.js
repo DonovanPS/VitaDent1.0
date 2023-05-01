@@ -26,7 +26,6 @@ class PacienteController {
                 });
             }
             catch (err) {
-                console.log(err);
                 res.status(400).json({
                     success: false,
                     message: err,
@@ -43,7 +42,6 @@ class PacienteController {
                 });
             }
             catch (err) {
-                console.log(err);
                 res.status(400).json({
                     success: false,
                     numUser: 0,
@@ -60,10 +58,24 @@ class PacienteController {
                 });
             }
             catch (err) {
-                console.log(err);
                 res.status(400).json({
                     success: false,
                     numUser: 0,
+                });
+            }
+        });
+        this.getPacientes = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = yield this.PacienteService.getPacientes();
+                res.status(200).json({
+                    success: true,
+                    data: data,
+                });
+            }
+            catch (err) {
+                res.status(200).json({
+                    success: false,
+                    message: err,
                 });
             }
         });

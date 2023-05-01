@@ -346,10 +346,8 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
     newHistoryOdontologia.tejidosBlandos = this.tejidos_blandos;
     newHistoryOdontologia.tejidosDentales = this.tejidos_dentales;
 
-    console.log(newHistoryOdontologia);
-
     this.historyService.updateHistory(newHistoryOdontologia, this.auxId).subscribe((res: any) => {
-      console.log(res);
+
       if (res.message === 'actualizado') {
         this.toastr.success('Datos actualizados correctamente', 'OK', {
           timeOut: 3000,
@@ -360,8 +358,8 @@ export class SonPatientOdontologiaComponent implements OnInit, OnDestroy {
         });
 
         localStorage.setItem('paciente', this.paciente.id.toString());
-      } else{
-        this.toastr.error( res.message,'Error al actualizar', {
+      } else {
+        this.toastr.error(res.message, 'Error al actualizar', {
           timeOut: 3000,
           positionClass: 'toast-top-center',
           progressBar: true,

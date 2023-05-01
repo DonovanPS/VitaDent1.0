@@ -19,7 +19,7 @@ class ImageService {
     uploadImage(image, id, title, description, history) {
         return new Promise((resolve, reject) => {
             const ruta = image.originalname;
-            console.log(image.originalname); // Imprime el nombre original del archivo
+            // console.log(image.originalname); // Imprime el nombre original del archivo
             database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                 if (err) {
                     console.error(err);
@@ -55,8 +55,8 @@ class ImageService {
                             reject(err.sqlMessage);
                         }
                         else {
-                            console.log("Result: ");
-                            console.log(result);
+                            //console.log("Result: ");
+                            //console.log(result);
                             resolve(result);
                         }
                         conn.release();
@@ -70,7 +70,7 @@ class ImageService {
             try {
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                     // Consultar si la imagen existe en la base de datos
-                    conn.query('SELECT * FROM radiografias WHERE paciente_id = ? AND historia = ?', [
+                    conn.query('SELECT * FROM radiografias WHERE paciente_id = ? AND historia = ? OR historia = "Urgencia"', [
                         id,
                         history
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
@@ -116,7 +116,7 @@ class ImageService {
             }
         });
     }
-    updateImage(image, idImagen, title, description, rutaAnterior) {
+    updateImage(image, idImagen, title, description, history, rutaAnterior) {
         return new Promise((resolve, reject) => {
             try {
                 const Nuevaruta = image.originalname;
@@ -124,7 +124,8 @@ class ImageService {
                     conn.query(`UPDATE radiografias SET 
                         titulo = '${title}',
                         descripcion = '${description}',
-                        ruta = '${Nuevaruta}'
+                        ruta = '${Nuevaruta}',
+                        historia = '${history}'
                         WHERE radiografia_id = ${idImagen}`, [], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
                             console.error(err);
@@ -134,6 +135,32 @@ class ImageService {
                         }
                         (0, fileDelete_1.deleteFile)(rutaAnterior); // elimina la imagen de la carpeta
                         (0, fileCreator_1.saveFile)(image.originalname, image); // guarda la nueva imagen en la carpeta
+                        resolve(result);
+                        conn.release();
+                    }));
+                }));
+            }
+            catch (err) {
+                console.error(err);
+                reject(err);
+            }
+        });
+    }
+    updateImageOnlyDB(idImagen, title, description, history, rutaAnterior) {
+        return new Promise((resolve, reject) => {
+            try {
+                database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
+                    conn.query(`UPDATE radiografias SET 
+                        titulo = '${title}',
+                        descripcion = '${description}',
+                        historia = '${history}'
+                        WHERE radiografia_id = ${idImagen}`, [], (err, result) => __awaiter(this, void 0, void 0, function* () {
+                        if (err) {
+                            console.error(err);
+                            reject(err.sqlMessage);
+                            conn.release();
+                            return;
+                        }
                         resolve(result);
                         conn.release();
                     }));

@@ -19,22 +19,26 @@ class historyController {
         // crea una nueva historia clinica
         this.newHistory = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log(req.body);
+                //console.log(req.body);
                 const { paciente, acudiente, odontologia, anamnesis, examenPeriodontal, tejidosBlandos, tejidosDentales } = req.body;
-                yield this.historyService.newHistory(paciente);
-                yield this.historyService.inserAcudiente(acudiente);
-                yield this.historyService.insertNewOdontologia(odontologia);
-                yield this.historyService.insertNewAnamnesis(anamnesis);
-                yield this.historyService.insertNewExamenPeriodontal(examenPeriodontal);
-                yield this.historyService.insertNewExamenTejidosBlnados(tejidosBlandos);
-                yield this.historyService.insertNewExamenTejidosDentales(tejidosDentales);
+                yield this.historyService.createOdontologia(req.body);
+                /*
+                await this.historyService.newHistory(paciente);
+                await this.historyService.inserAcudiente(acudiente);
+    
+                await this.historyService.insertNewOdontologia(odontologia);
+                await this.historyService.insertNewAnamnesis(anamnesis);
+                await this.historyService.insertNewExamenPeriodontal(examenPeriodontal);
+                await this.historyService.insertNewExamenTejidosBlnados(tejidosBlandos)
+                await this.historyService.insertNewExamenTejidosDentales(tejidosDentales)
+    */
                 res.status(200).json({
                     success: true,
                     message: "insercion correcta",
                 });
             }
             catch (err) {
-                console.log(err);
+                //console.log(err);
                 // deberia ir 400
                 res.status(200).json({
                     success: false,
@@ -55,7 +59,7 @@ class historyController {
                 });
             }
             catch (err) {
-                console.log(err);
+                //console.log(err);
                 // deberia ir 400
                 res.status(200).json({
                     success: false,
@@ -76,7 +80,7 @@ class historyController {
                 });
             }
             catch (err) {
-                console.log(err);
+                //console.log(err);
                 // deberia ir 400
                 res.status(400).json({
                     success: false,
@@ -95,7 +99,7 @@ class historyController {
                 });
             }
             catch (err) {
-                console.log(err);
+                //console.log(err);
                 // deberia ir 400
                 res.status(400).json({
                     success: false,
@@ -106,8 +110,7 @@ class historyController {
         this.updateHistoryOdontologia = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { auxId } = req.params;
-                console.log("updateHistory" + auxId);
-                console.log(req.body);
+                ////console.log(req.body);
                 yield this.historyService.updateAllDataPaciente(auxId, req.body);
                 //await this.historyService.updateOdontologia(auxId, odontologia);
                 //await this.historyService.updateAnamnesis(auxId, anamnesis);
@@ -118,7 +121,61 @@ class historyController {
                 });
             }
             catch (err) {
-                console.log(err);
+                ////console.log(err);
+                // deberia ir 400
+                res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        // ortodoncia
+        this.newHistoryOrtodoncia = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.historyService.newHistoryOrtodoncia(req.body);
+                res.status(200).json({
+                    success: true,
+                    message: "insercion correcta",
+                });
+            }
+            catch (err) {
+                //console.log(err);
+                // deberia ir 400
+                res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        this.updateHistoryOrtodoncia = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const data = yield this.historyService.updateAllDataPacienteOrtodoncia(id, req.body);
+                console.log(data);
+                res.status(200).json({
+                    success: true,
+                    message: "actualizado",
+                });
+            }
+            catch (err) {
+                // deberia ir 400
+                res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        this.deleteHistoryOrtodoncia = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                const data = yield this.historyService.deleteHistoryOrtodoncia(id);
+                console.log(data);
+                res.status(200).json({
+                    success: true,
+                    message: data,
+                });
+            }
+            catch (err) {
                 // deberia ir 400
                 res.status(200).json({
                     success: false,

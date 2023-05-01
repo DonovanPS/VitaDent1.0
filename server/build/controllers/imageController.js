@@ -16,34 +16,6 @@ const imageService_1 = __importDefault(require("../services/imageService"));
 class ImageController {
     constructor() {
         this.ImageService = new imageService_1.default();
-        /*
-        public uploadImage = async (req: Request, res: Response) => {
-      
-          console.log("entro");
-          console.log(req.body);
-          
-          
-      
-          this.upload(req, res, (err: any) => {
-            if (err) {
-              res.status(400).json({
-                success: false,
-                message: err.message,
-              });
-            } else {
-              const file = req.file;
-              const description = req.body.description;
-      
-              // Aquí puedes llamar al servicio para agregar la información de la imagen a la base de datos
-      
-              res.status(200).json({
-                success: true,
-                message: 'Imagen subida correctamente',
-                imageUrl: `http://localhost:3000/uploads/${file.filename}`,
-              });
-            }
-          });
-        };*/
         this.uploadImage = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id, history } = req.params;
@@ -57,7 +29,6 @@ class ImageController {
                 });
             }
             catch (err) {
-                console.log(err);
                 // deberia ir 400
                 res.status(200).json({
                     success: false,
@@ -69,14 +40,12 @@ class ImageController {
             try {
                 const { id, history } = req.params;
                 const response = yield this.ImageService.getImagesID(id, history);
-                console.log(response);
                 res.status(200).json({
                     success: true,
                     data: response,
                 });
             }
             catch (err) {
-                console.log(err);
                 // deberia ir 400
                 res.status(200).json({
                     success: false,
@@ -94,7 +63,6 @@ class ImageController {
                 });
             }
             catch (err) {
-                console.log(err);
                 // deberia ir 400
                 res.status(200).json({
                     success: false,
@@ -105,16 +73,20 @@ class ImageController {
         this.updateImage = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id, ruta } = req.params;
-                const { title, description } = req.body;
+                const { title, description, history } = req.body;
                 const file = req.file;
-                yield this.ImageService.updateImage(file, id, title, description, ruta);
+                if (file == null) {
+                    yield this.ImageService.updateImageOnlyDB(id, title, description, history, ruta);
+                }
+                else {
+                    yield this.ImageService.updateImage(file, id, title, description, history, ruta);
+                }
                 res.status(200).json({
                     success: true,
                     message: "imagen actualizada correctamente",
                 });
             }
             catch (err) {
-                console.log(err);
                 // deberia ir 400
                 res.status(200).json({
                     success: false,

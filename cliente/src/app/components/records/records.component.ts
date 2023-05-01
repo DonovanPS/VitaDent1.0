@@ -4,6 +4,8 @@ import { RecordService } from 'src/app/services/record.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -12,7 +14,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.css']
 
-  
+
 
 })
 export class RecordsComponent  {
@@ -28,9 +30,29 @@ export class RecordsComponent  {
   isDental = false;
   isOrthodontic = false;
 
-  constructor(private recordService: RecordService) {}
+  RegistroForm: FormGroup;
+  tipoRegistro: string;
+
+
+  constructor(
+    private recordService: RecordService,
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder,
+    ) {
+      this.RegistroForm = this.formBuilder.group({
+        fecha: [''],
+        id: [''],
+        consulta: [''],
+        descripcion: [''],
+        procedimiento: [''],
+        precio: ['']
+      });
+
+    }
 
   ngOnInit() {
+    
+
     this.recordService.findRecords().subscribe((res: any) => {
       this.records = res.records;
       this.recordsAux = res.records;
@@ -122,6 +144,85 @@ export class RecordsComponent  {
    let formattedTotal = total.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
    this.totalPrice = formattedTotal;
   }
+
+
+  //------------------------------
+  CargarRegistroEditar(registro: any){
+
+
+    this.RegistroForm.setValue({
+      id: registro.registro_id,
+      descripcion: registro.descripcion,
+      procedimiento: registro.procedimiento,
+      precio: registro.precio,
+      fecha: registro.fecha,
+      consulta: registro.consulta
+
+    });
+
+  }
+
+  eliminarRegistro(idRegistro: number) {
+
+    this.recordService.deleteRecord(idRegistro).subscribe((res: any) => {
+
+
+      if (res.success) {
+
+        this.toastr.success('Registro eliminado con exito', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+
+        });
+
+        this.ngOnInit();
+      } else {
+
+        this.toastr.error(res.message, 'Error al eliminar registro', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+      }
+    });
+  }
+
+  actualizarRegistro() {
+
+    this.recordService.updateRecord(this.RegistroForm.value).subscribe((res: any) => {
+
+      if (res.success) {
+
+        this.toastr.success('Registro actualizado con exito', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+
+        });
+
+        this.ngOnInit();
+
+      } else {
+
+        this.toastr.error(res.message, 'Error al actualizar registro', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+      }
+    });
+
+  }
+
 
 
 

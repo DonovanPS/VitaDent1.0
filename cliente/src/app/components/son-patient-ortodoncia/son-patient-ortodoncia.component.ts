@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, Subscription } from 'rxjs';
 import { Acudiente } from 'src/app/models/acudiente';
 import { Anamnesis } from 'src/app/models/anamnesis';
@@ -29,14 +30,21 @@ export class SonPatientOrtodonciaComponent {
 
   edad: string;
 
+
+
   public acudiente: Acudiente;
   public anamnesis: Anamnesis;
   public Paciente: Paciente;
   public ortodoncia: Ortodoncia;
 
+
+
   @Output() informacionPaciente = new EventEmitter<{ nombres: string, tipoDocumento: string, numeroDocumento: string }>();
 
-  constructor(private pacienteService: PacienteService, private historyService: HistoryService) {
+  constructor(private pacienteService: PacienteService,
+    private historyService: HistoryService,
+    private toastr: ToastrService
+    ) {
     this.acudiente = new Acudiente();
     this.anamnesis = new Anamnesis();
     this.ortodoncia = new Ortodoncia();
@@ -111,6 +119,8 @@ export class SonPatientOrtodonciaComponent {
     this.historyService.getHistory(this.id, 'anamnesis', 'anamnesis_id').subscribe((res: any) => {
 
 
+
+
       this.anamnesis.anamnesis_id = res.data[0].anamnesis_id
       this.anamnesis.hipertencion = res.data[0].hipertension === '1' ? true : false;
       this.anamnesis.enfe_respiratorias = res.data[0].enfermedades_respiratorias === '1' ? true : false;
@@ -135,8 +145,6 @@ export class SonPatientOrtodonciaComponent {
       this.anamnesis.observaciones = res.data[0].observaciones
 
 
-
-
     });
 
   }
@@ -144,32 +152,35 @@ export class SonPatientOrtodonciaComponent {
   consultaOrtodoncia() {
     this.historyService.getHistory(this.id, 'historiales_ortodoncia', 'ortodoncia_id').subscribe((res: any) => {
 
+      this.ortodoncia = res.data[0];
 
+
+      /*
       this.ortodoncia.ortodoncia_id = res.data[0].ortodoncia_id;
-      this.ortodoncia.linea_media = res.data[0].linea_media === '1' ? true : false;
-      this.ortodoncia.overjet = res.data[0].overjet === '1' ? true : false;
-      this.ortodoncia.overbite = res.data[0].overbite === '1' ? true : false;
-      this.ortodoncia.perdida_dientes = res.data[0].perdida_dientes === '1' ? true : false;
-      this.ortodoncia.migraciones = res.data[0].migraciones === '1' ? true : false;
-      this.ortodoncia.asimentria_facial = res.data[0].asimetria_facial === '1' ? true : false;
-      this.ortodoncia.apinamiento_superior = res.data[0].apinamiento_superior === '1' ? true : false;
-      this.ortodoncia.apinamiento_inferior = res.data[0].apinamiento_inferior === '1' ? true : false;
-      this.ortodoncia.perfil = res.data[0].perfil === '1' ? true : false;
-      this.ortodoncia.habitos = res.data[0].habitos === '1' ? true : false;
-      this.ortodoncia.relacion_canina_derecha = res.data[0].relacion_canina_derecha === '1' ? true : false;
-      this.ortodoncia.relacion_canina_izquierda = res.data[0].relacion_canina_izquierda === '1' ? true : false;
-      this.ortodoncia.relacion_molar_derecha = res.data[0].relacion_molar_derecha === '1' ? true : false;
-      this.ortodoncia.relacion_molar_izquierda = res.data[0].relacion_molar_izquierda === '1' ? true : false;
-      this.ortodoncia.mal_posicion_dental_superior = res.data[0].mal_posicion_dental_superior === '1' ? true : false;
-      this.ortodoncia.mal_posicion_dental_inferior = res.data[0].mal_posicion_dental_inferior === '1' ? true : false;
-      this.ortodoncia.mordida_cruzada = res.data[0].mordida_cruzada === '1' ? true : false;
+      this.ortodoncia.linea_media = res.data[0].linea_media;
+      this.ortodoncia.overjet = res.data[0].overjet;
+      this.ortodoncia.overbite = res.data[0].overbite;
+      this.ortodoncia.perdida_dientes = res.data[0].perdida_dientes;
+      this.ortodoncia.migraciones = res.data[0].migraciones;
+      this.ortodoncia.asimentria_facial = res.data[0].asimentria_facial;
+      this.ortodoncia.apinamiento_superior = res.data[0].apinamiento_superior;
+      this.ortodoncia.apinamiento_inferior = res.data[0].apinamiento_inferior;
+      this.ortodoncia.perfil = res.data[0].perfil;
+      this.ortodoncia.habitos = res.data[0].habitos;
+      this.ortodoncia.relacion_canina_derecha = res.data[0].relacion_canina_derecha;
+      this.ortodoncia.relacion_canina_izquierda = res.data[0].relacion_canina_izquierda;
+      this.ortodoncia.relacion_molar_derecha = res.data[0].relacion_molar_derecha;
+      this.ortodoncia.relacion_molar_izquierda = res.data[0].relacion_molar_izquierda;
+      this.ortodoncia.mal_posicion_dental_superior = res.data[0].mal_posicion_dental_superior;
+      this.ortodoncia.mal_posicion_dental_inferior = res.data[0].mal_posicion_dental_inferior;
+      this.ortodoncia.mordida_cruzada = res.data[0].mordida_cruzada;
       this.ortodoncia.otros = res.data[0].otros;
       this.ortodoncia.pronostico = res.data[0].pronostico;
       this.ortodoncia.plan_de_tratamiento = res.data[0].plan_de_tratamiento;
       this.ortodoncia.paciente_id = res.data[0].paciente_id;
       this.ortodoncia.anamnesis_id = res.data[0].anamnesis_id;
 
-
+*/
 
 
     });
@@ -220,5 +231,46 @@ export class SonPatientOrtodonciaComponent {
 
     });
   }
+
+
+  actualizar() {
+
+    this.acudiente.id = this.paciente.id;
+    this.anamnesis.anamnesis_id = this.paciente.id;
+    this.ortodoncia.ortodoncia_id = this.paciente.id;
+
+    let datosOrtodonciaActualizar: (Paciente | Acudiente | Anamnesis | Ortodoncia)[] = [];
+    datosOrtodonciaActualizar.push(this.paciente, this.acudiente, this.anamnesis, this.ortodoncia);
+
+
+
+
+
+    this.historyService.updateHistoryOrtodoncia(datosOrtodonciaActualizar, this.id).subscribe((res: any) => {
+
+      if (res.message === 'actualizado') {
+        this.toastr.success('Datos actualizados correctamente', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+
+        localStorage.setItem('paciente', this.paciente.id.toString());
+      } else {
+        this.toastr.error(res.message, 'Error al actualizar', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+      }
+    });
+
+
+  }
+
 
 }

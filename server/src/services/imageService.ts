@@ -8,7 +8,7 @@ class ImageService {
     public uploadImage(image: Express.Multer.File, id: string, title: string, description: string, history: string) {
         return new Promise<any>((resolve, reject) => {
             const ruta = image.originalname;
-            console.log(image.originalname); // Imprime el nombre original del archivo
+           // console.log(image.originalname); // Imprime el nombre original del archivo
 
             pool.getConnection(async (err, conn) => {
                 if (err) {
@@ -51,8 +51,8 @@ class ImageService {
                                     console.error(err);
                                     reject(err.sqlMessage);
                                 } else {
-                                    console.log("Result: ");
-                                    console.log(result);
+                                    //console.log("Result: ");
+                                    //console.log(result);
                                     resolve(result);
                                 }
                                 conn.release();
@@ -73,7 +73,7 @@ class ImageService {
 
                     // Consultar si la imagen existe en la base de datos
                     conn.query(
-                        'SELECT * FROM radiografias WHERE paciente_id = ? AND historia = ?',
+                        'SELECT * FROM radiografias WHERE paciente_id = ? AND historia = ? OR historia = "Urgencia"',
                         [
                             id,
                             history
@@ -136,7 +136,7 @@ class ImageService {
         });
     }
 
-    public updateImage(image: Express.Multer.File, idImagen: string, title: string, description: string, rutaAnterior: string) {
+    public updateImage(image: Express.Multer.File, idImagen: string, title: string, description: string, history: string ,rutaAnterior: string) {
 
         return new Promise<any>((resolve, reject) => {
 
@@ -151,7 +151,8 @@ class ImageService {
                         `UPDATE radiografias SET 
                         titulo = '${title}',
                         descripcion = '${description}',
-                        ruta = '${Nuevaruta}'
+                        ruta = '${Nuevaruta}',
+                        historia = '${history}'
                         WHERE radiografia_id = ${idImagen}`,
                         [
                         ],
@@ -162,8 +163,54 @@ class ImageService {
                                 conn.release();
                                 return;
                             }
+
+            
                             deleteFile(rutaAnterior);  // elimina la imagen de la carpeta
                             saveFile(image.originalname, image); // guarda la nueva imagen en la carpeta
+                            resolve(result);
+                            conn.release();
+                        }
+                    );
+                });
+
+            } catch (err) {
+                console.error(err);
+                reject(err)
+            }
+
+        });
+
+    }
+
+
+
+    public updateImageOnlyDB(idImagen: string, title: string, description: string, history: string ,rutaAnterior: string) {
+
+        return new Promise<any>((resolve, reject) => {
+
+            try {
+
+               
+
+                pool.getConnection(async (err, conn) => {
+
+                    
+                    conn.query(
+                        `UPDATE radiografias SET 
+                        titulo = '${title}',
+                        descripcion = '${description}',
+                        historia = '${history}'
+                        WHERE radiografia_id = ${idImagen}`,
+                        [
+                        ],
+                        async (err, result) => {
+                            if (err) {
+                                console.error(err);
+                                reject(err.sqlMessage);
+                                conn.release();
+                                return;
+                            }
+
                             resolve(result);
                             conn.release();
                         }

@@ -24,7 +24,14 @@ constructor(private httpClient: HttpClient,
     return this.httpClient.get(`${this.URL}/paciente/deletePaciente/`+id)
   }
 
-  
+  deleteHistoryOrtodoncia(id: number){
+    return this.httpClient.delete(`${this.URL}/history/deleteHistoryOrtodoncia/`+id)
+  }
+
+  getPacientes(){
+    return this.httpClient.get(`${this.URL}/paciente/`)
+  }
+
 
 
 }

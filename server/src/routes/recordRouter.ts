@@ -14,6 +14,9 @@ class recordRouter{
     config(): void{
         this.router.get('/findRecords', this.recordControler.findRecords);
         this.router.get('/:id/:consulta', this.recordControler.findRecordsID);
+        this.router.post('/create', this.recordControler.create);
+        this.router.put('/update', this.recordControler.update);
+        this.router.delete('/delete/:id', this.recordControler.delete);
     }
 
   

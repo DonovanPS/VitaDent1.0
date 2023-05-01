@@ -20,7 +20,19 @@ export class RecordService {
       return this.httpClient.get(`${this.URL}/record/${id}/${consulta}`)
     }
 
-  
+    createRecord(registro: any){
+      return this.httpClient.post(`${this.URL}/record/create`, registro)
+    }
+
+    updateRecord(registro: any){
+      return this.httpClient.put(`${this.URL}/record/update`, registro)
+    }
+
+    deleteRecord(id: number){
+      return this.httpClient.delete(`${this.URL}/record/delete/${id}`)
+    }
+
+
 
 
 }

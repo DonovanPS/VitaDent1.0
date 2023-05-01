@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import ImageService from 'src/app/services/image.service';
@@ -7,7 +7,6 @@ import { PacienteService } from 'src/app/services/paciente.service';
 import { RecordService } from 'src/app/services/record.service';
 import { environment } from 'src/environment/environment';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -45,9 +44,22 @@ export class PatientComponent {
 
 
   imageForm: FormGroup;
+
+  RegistroForm: FormGroup;
   selectedFile: File;
   imageUrl: string;
 
+  tipoRegistro: string;
+
+
+  verImagen: any = {
+    descripcion: "Son muy lindas",
+    historia: "Odontológico",
+    paciente_id: 1002457248,
+    radiografia_id: 4,
+    ruta: "tv_show-the_owl_house-amity_blight-eda_clawthorne-king_clawthorne-luz_noceda-1043189.jpeg",
+    titulo: "Lumity"
+  };
 
   constructor(
     private recordService: RecordService,
@@ -65,6 +77,15 @@ export class PatientComponent {
       title: ['']
     });
 
+    this.RegistroForm = this.formBuilder.group({
+      fecha: [''],
+      id: [''],
+      consulta: [''],
+      descripcion: [''],
+      procedimiento: [''],
+      precio: ['']
+    });
+
   }
 
   eventSubject: Subject<boolean> = new Subject<boolean>();
@@ -73,6 +94,10 @@ export class PatientComponent {
 
 
   ngOnInit(): void {
+
+    const id = localStorage.getItem('paciente');
+
+    this.id = id !== null ? id : '';
 
     const myButton2 = document.getElementById("myButton2") as HTMLButtonElement;
     myButton2.style.display = 'none';
@@ -87,16 +112,22 @@ export class PatientComponent {
 
     this.history = history !== null ? history : '';
 
+
+
     if (history === '1. Historial Odontológico') {
       this.toggleSonPatientOdontologia()
       this.history = 'historial odontológico'
+      this.tipoRegistro = 'Odontología'
 
     } else if (history === '2. Historial Ortodoncia') {
       this.toggleSonPatientOrtodoncia()
       this.history = 'historial ortodoncia'
+      this.tipoRegistro = 'Ortodoncia'
     }
 
     this.cargarRadiografias();
+
+
 
   }
 
@@ -198,17 +229,52 @@ export class PatientComponent {
 
   eliminar() {
 
+    if(this.history === 'historial odontológico'){
 
-    this.pacienteService.deletePaciente(this.idAux).subscribe((res: any) => {
-
-
-
-      if (res.message === 'Paciente eliminado') {
+      this.pacienteService.deletePaciente(this.idAux).subscribe((res: any) => {
 
 
-        this.cambiarPagina();
-      }
-    });
+
+        if (res.message === 'Paciente eliminado') {
+
+
+          this.cambiarPagina();
+        }else{
+
+            this.toastr.error(res.message, 'Error al eliminar historial', {
+              timeOut: 3000,
+              positionClass: 'toast-bottom-center',
+              progressBar: true,
+              progressAnimation: 'increasing',
+              closeButton: false,
+            });
+        }
+      });
+    }else{
+
+
+
+      this.pacienteService.deleteHistoryOrtodoncia(this.idAux).subscribe((res: any) => {
+        if (res.success) {
+          this.cambiarPagina();
+        }else{
+
+          this.toastr.error(res.message, 'Error al eliminar historial', {
+            timeOut: 3000,
+            positionClass: 'toast-bottom-center',
+            progressBar: true,
+            progressAnimation: 'increasing',
+            closeButton: false,
+          });
+
+        }
+
+      });
+
+
+    }
+
+
 
   }
 
@@ -228,13 +294,13 @@ export class PatientComponent {
 
     if (this.history === 'historial odontológico') {
       this.historia_Consultar = 'Odontológico'
+      this.consultaOdontologia();
     } else {
       this.historia_Consultar = 'Ortodoncia'
+      this.consultaOrtodoncia();
     }
 
-    const id = localStorage.getItem('paciente');
 
-    this.id = id !== null ? id : '';
 
     this.imageService.getImagesID(this.id, this.historia_Consultar).subscribe((res: any) => {
 
@@ -247,8 +313,9 @@ export class PatientComponent {
 
   subirRadiografia() {
     this.eventSubjectAgregarImagen.next(true);
-
     this.ngOnInit();
+    this.cargarRadiografias();
+
   }
 
   deleteRadiografia(idImagen: string, ruta: string) {
@@ -288,24 +355,102 @@ export class PatientComponent {
 
   updateRadiografia(idImagen: string) {
 
-    if (this.selectedFile == null || this.verImagen.titulo == "" || this.verImagen.descripcion == "") {
 
-      this.toastr.warning('Datos faltantes', 'Alerta', {
-        timeOut: 3000,
-        positionClass: 'toast-bottom-center',
-        progressBar: true,
-        progressAnimation: 'increasing',
-        closeButton: false,
-      });
 
+      if ( this.verImagen.titulo == "" || this.verImagen.descripcion == "" || this.verImagen.historia == "") {
+
+        this.toastr.warning('Datos faltantes', 'Alerta', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+
+      } else {
+
+
+        this.imageService.updateImage(idImagen, this.verImagen.titulo, this.verImagen.descripcion, this.verImagen.ruta, this.verImagen.historia, this.selectedFile).subscribe((res: any) => {
+
+          if (res.success) {
+
+            this.toastr.success('Radiografia actualizada con exito', 'OK', {
+              timeOut: 3000,
+              positionClass: 'toast-bottom-center',
+              progressBar: true,
+              progressAnimation: 'increasing',
+              closeButton: false,
+
+            });
+
+
+            this.ngOnInit();
+
+          } else {
+
+            this.toastr.error(res.message, 'Error al actualizar radiografia', {
+              timeOut: 3000,
+              positionClass: 'toast-bottom-center',
+              progressBar: true,
+              progressAnimation: 'increasing',
+              closeButton: false,
+            });
+
+
+          }
+
+
+
+        });
+
+      }
+
+
+  }
+
+
+
+  verImagenModal(image: any) {
+
+    this.verImagen = image;
+
+    const verImagenes = document.getElementById("modalVerImagenes") as HTMLButtonElement;
+    verImagenes.click();
+  }
+
+
+  previewImage(event: any) {
+
+    this.selectedFile = <File>event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.imageUrl = e.target.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+
+  // fin radiografias
+
+  // inicio registros
+
+  nuevoRegistro() {
+    this.RegistroForm.value.id = this.id;
+    if (Object.values(this.RegistroForm.value).some(val => val === '')) {
+    //  console.log('El arreglo está vacío');
     } else {
+    //  console.log('El arreglo contiene valores');
 
+      this.recordService.createRecord(this.RegistroForm.value).subscribe((res: any) => {
 
-      this.imageService.updateImage(idImagen, this.verImagen.titulo, this.verImagen.descripcion, this.verImagen.ruta ,this.selectedFile).subscribe((res: any) => {
-        console.log(res);
         if (res.success) {
 
-          this.toastr.success('Radiografia actualizada con exito', 'OK', {
+          this.toastr.success('Registro creado con exito', 'OK', {
             timeOut: 3000,
             positionClass: 'toast-bottom-center',
             progressBar: true,
@@ -313,65 +458,103 @@ export class PatientComponent {
             closeButton: false,
 
           });
-
 
           this.ngOnInit();
 
+
         } else {
 
-          this.toastr.error(res.message, 'Error al actualizar radiografia', {
+          this.toastr.error(res.message, 'Error al crear registro', {
             timeOut: 3000,
             positionClass: 'toast-bottom-center',
             progressBar: true,
             progressAnimation: 'increasing',
             closeButton: false,
           });
-
-
         }
-
-
 
       });
 
+
     }
 
 
   }
 
-    verImagen: any = {
-      descripcion: "Son muy lindas",
-      historia: "Odontológico",
-      paciente_id: 1002457248,
-      radiografia_id: 4,
-      ruta: "tv_show-the_owl_house-amity_blight-eda_clawthorne-king_clawthorne-luz_noceda-1043189.jpeg",
-      titulo: "Lumity"
-    };
+  CargarRegistroEditar(registro: any) {
 
-    verImagenModal(image: any) {
+    this.RegistroForm.setValue({
+      id: registro.registro_id,
+      descripcion: registro.descripcion,
+      procedimiento: registro.procedimiento,
+      precio: registro.precio,
+      fecha: registro.fecha,
+      consulta: registro.consulta
 
-      this.verImagen = image;
+    });
 
-      const verImagenes = document.getElementById("modalVerImagenes") as HTMLButtonElement;
-      verImagenes.click();
-    }
+  }
 
+  actualizarRegistro() {
 
-    previewImage(event: any) {
+    this.recordService.updateRecord(this.RegistroForm.value).subscribe((res: any) => {
 
-      this.selectedFile = <File>event.target.files[0];
+      if (res.success) {
 
-      if (event.target.files && event.target.files[0]) {
-        const reader = new FileReader();
+        this.toastr.success('Registro actualizado con exito', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
 
-        reader.onload = (e: any) => {
-          this.imageUrl = e.target.result;
-        };
+        });
 
-        reader.readAsDataURL(event.target.files[0]);
+        this.ngOnInit();
+
+      } else {
+
+        this.toastr.error(res.message, 'Error al actualizar registro', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
       }
-    }
-
-
+    });
 
   }
+
+  eliminarRegistro(idRegistro: number) {
+
+    this.recordService.deleteRecord(idRegistro).subscribe((res: any) => {
+
+
+      if (res.success) {
+
+        this.toastr.success('Registro eliminado con exito', 'OK', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+
+        });
+
+        this.ngOnInit();
+      } else {
+
+        this.toastr.error(res.message, 'Error al eliminar registro', {
+          timeOut: 3000,
+          positionClass: 'toast-bottom-center',
+          progressBar: true,
+          progressAnimation: 'increasing',
+          closeButton: false,
+        });
+      }
+    });
+  }
+
+
+}

@@ -1,26 +1,26 @@
 export class Ortodoncia {
 
   ortodoncia_id : number;
-  linea_media: boolean= false;
-  overjet: boolean= false;
-  overbite: boolean= false;
-  perdida_dientes: boolean= false;
-  migraciones: boolean= false;
-  asimentria_facial: boolean= false;
-  apinamiento_superior: boolean= false;
-  apinamiento_inferior: boolean= false;
-  perfil: boolean= false;
-  habitos: boolean= false;
-  relacion_canina_derecha: boolean= false;
-  relacion_canina_izquierda: boolean= false;
-  relacion_molar_derecha: boolean= false;
-  relacion_molar_izquierda: boolean= false;
-  mal_posicion_dental_superior: boolean= false;
-  mal_posicion_dental_inferior: boolean= false;
-  mordida_cruzada: boolean= false;
+  linea_media: string;
+  overjet: string;
+  overbite: string;
+  perdida_dientes: string;
+  migraciones: string;
+  asimentria_facial: string;
+  apinamiento_superior: string;
+  apinamiento_inferior: string;
+  perfil: string;
+  habitos: string;
+  relacion_canina_derecha: string;
+  relacion_canina_izquierda: string;
+  relacion_molar_derecha: string;
+  relacion_molar_izquierda: string;
+  mal_posicion_dental_superior: string;
+  mal_posicion_dental_inferior: string;
+  mordida_cruzada: string;
   otros: string;
   pronostico: string;
-  plan_de_tratamiento: boolean= false;
+  plan_de_tratamiento: string;
   paciente_id: number;
   anamnesis_id: number;
 }

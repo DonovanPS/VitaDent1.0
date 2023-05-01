@@ -20,7 +20,6 @@ class IndexController {
     constructor() {
     }
     imprimir() {
-        console.log("lakshjdfkilasdjalsasdjklasdhjklasdhjklasdjkldasjklasdjklasdjklasdjkl");
     }
     list(req, res) {
         //const resultado =  pool.query('Desc Users');
@@ -34,8 +33,6 @@ class IndexController {
         }));
     }
     llamar(req, res) {
-        console.log("llamar");
-        console.log(dataToken);
         database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
             conn.query('SELECT * FROM Users', (err, result) => {
                 res.json(result);
@@ -49,14 +46,12 @@ class IndexController {
             const hashedPassword = yield bcrypt_1.default.hash(password, 12);
             database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                 conn.query('INSERT INTO USERS VALUES (NULL, ?, ?)', [user, hashedPassword], (err, result) => {
-                    console.log(result);
                     res.json("creacion hacida");
                 });
             }));
         });
     }
     login(req, res) {
-        console.log("entrado al login");
         // res.json('Validando  '+ req.params.user + ' ' + req.params.password)
         //const {user,password} = req.body;
         //console.log(req.body);
@@ -99,18 +94,15 @@ class IndexController {
             }
         }
         catch (e) {
-            console.log(e);
             res.status(401).json('Error token');
         }
     }
     newHistory(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                console.log("Nuevo historial");
                 //console.log(req.body);
                 // Obtener los datos del paciente del objeto req.body
                 const Nh = req.body;
-                console.log(Nh);
                 // Crear una consulta SQL que inserte los datos en la tabla correspondiente
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                     conn.query('INSERT INTO pacientes (paciente_id, nombre, apellido, estado_civil, ciudad_nacimiento, fecha_nacimiento, tipo_documento, servicio_salud, ocupacion, ciudad_residencia, direccion, numero_celular, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)', [
@@ -129,7 +121,6 @@ class IndexController {
                         Nh.paciente.genero
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
-                            console.log("Error: " + err);
                             res.status(200).json({
                                 success: false,
                                 message: err.sqlMessage,
@@ -230,9 +221,7 @@ class IndexController {
     insertNewOdontologia(dataOdontologia) {
         return new Promise((resolve, reject) => {
             try {
-                console.log("insertar odontologia");
                 //obtienen datos de odontologia
-                console.log(dataOdontologia);
                 database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                     conn.query('INSERT INTO historiales_odontologia (odontologia_id, higiene_oral, cepillado, numero_cepillado, enjuague_bucal, seda_dental, plan_tratamiento, paciente_id ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
                         dataOdontologia.odontologia_id,
@@ -245,12 +234,10 @@ class IndexController {
                         dataOdontologia.paciente_id
                     ], (err, result) => __awaiter(this, void 0, void 0, function* () {
                         if (err) {
-                            console.log("Error: " + err);
                             reject(err.sqlMessage);
                         }
                         else {
                             resolve(true);
-                            console.log("Result: " + result);
                         }
                         conn.release();
                     }));

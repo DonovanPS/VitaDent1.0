@@ -7,8 +7,16 @@ const deleteFile = (name: string) => {
     const filePath = path.join(directory, name);
     if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
-    }
+    } 
+}
+
+const deleteFiles = (files: {ruta: string}[]) => {
+    files.forEach((file) => {
+       
+        deleteFile(file.ruta);
+    });
 }
 
 
-export {deleteFile};
+
+export {deleteFile, deleteFiles};

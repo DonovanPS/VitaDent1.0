@@ -36,5 +36,16 @@ export class HistoryService {
     return this.httpClient.put(`${this.URL}/history/updateHistoryOdontologia/${auxId}`,NewHistoryOdontologia)
   }
 
+  // Ortodoncia
+
+  crearHistoriaOrtodoncia(ortodoncia:any){
+    return this.httpClient.post(`${this.URL}/history/createNewHistoryOrtodoncia`,ortodoncia)
+  }
+
+  updateHistoryOrtodoncia(ortodoncia:any, id:number){
+    return this.httpClient.put(`${this.URL}/history/updateHistoryOrtodoncia/${id}`,ortodoncia)
+  }
+
+
 
 }

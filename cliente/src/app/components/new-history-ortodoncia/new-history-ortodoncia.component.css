@@ -14,3 +14,17 @@
     height: 100%;
 
 }
+
+.idPaciente{
+  width: 50%;
+  display: flex;
+
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+.form-select{
+  width: 100%;
+}
+

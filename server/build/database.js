@@ -7,8 +7,10 @@ const mySql_1 = __importDefault(require("./mySql"));
 const mysql_1 = __importDefault(require("mysql"));
 const pool = mysql_1.default.createPool(mySql_1.default.database);
 pool.getConnection((err, connection) => {
-    if (err)
-        throw err;
+    if (err) {
+        console.error('Error connecting to database: ', err);
+        return;
+    }
     connection.release();
     console.log('DB is connected');
 });

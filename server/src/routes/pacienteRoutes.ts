@@ -16,7 +16,7 @@ class PacienteRoutes{
         this.router.get('/:id', this.pacienteControler.getusuario)
         this.router.get('/countpaciente/:id', this.pacienteControler.countusuario)
         this.router.get('/deletePaciente/:id', this.pacienteControler.deletePaciente)
-
+        this.router.get('/', this.pacienteControler.getPacientes)
     }
 
 }

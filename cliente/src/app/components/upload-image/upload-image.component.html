@@ -12,6 +12,20 @@
     <textarea formControlName="description" class="form-control"></textarea>
   </div>
 
+  <div class="historia">
+    <label>Consulta: </label>
+    <div class="row">
+      <div class="col-md">
+
+        <select required formControlName="history" class="form-select" id="genero">
+          <option value="" selected disabled>Selecione una opción...</option>
+          <option value="{{history}}"> {{history}} </option>
+          <option value="Urgencia">Urgencia</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <br>
   <br>
 
@@ -20,7 +34,7 @@
   <br>
   <br>
 
-  <button type="submit" class="btn btn-primary">Subir imagen</button>
+  <button type="submit" class="btn btn-primary" id="subirImagen">Subir imagen</button>
 </form>
 
 

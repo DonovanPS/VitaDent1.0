@@ -12,35 +12,7 @@ class ImageController {
 
   private ImageService = new ImageService();
 
-  /*
-  public uploadImage = async (req: Request, res: Response) => {
-
-    console.log("entro");
-    console.log(req.body);
-    
-    
-
-    this.upload(req, res, (err: any) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-          message: err.message,
-        });
-      } else {
-        const file = req.file;
-        const description = req.body.description;
-
-        // Aquí puedes llamar al servicio para agregar la información de la imagen a la base de datos
-
-        res.status(200).json({
-          success: true,
-          message: 'Imagen subida correctamente',
-          imageUrl: `http://localhost:3000/uploads/${file.filename}`,
-        });
-      }
-    });
-  };*/
-
+  
 
   public uploadImage = async (req: Request, res: Response) => {
 
@@ -66,7 +38,7 @@ class ImageController {
       });
 
     } catch (err) {
-      console.log(err);
+  
 
       // deberia ir 400
       res.status(200).json({
@@ -84,7 +56,7 @@ class ImageController {
 
       const response = await this.ImageService.getImagesID(id, history);
 
-      console.log(response);
+      
 
 
       res.status(200).json({
@@ -93,7 +65,7 @@ class ImageController {
       });
 
     } catch (err) {
-      console.log(err);
+
 
       // deberia ir 400
       res.status(200).json({
@@ -107,7 +79,7 @@ class ImageController {
 
     try {
 
-      const { id , ruta} = req.params
+      const { id, ruta } = req.params
 
 
       await this.ImageService.deleteImage(id, ruta);
@@ -120,7 +92,7 @@ class ImageController {
 
 
     } catch (err) {
-      console.log(err);
+      
 
       // deberia ir 400
       res.status(200).json({
@@ -132,18 +104,23 @@ class ImageController {
 
 
   public updateImage = async (req: Request, res: Response) => {
-    
+
     try {
-     
 
-      const { id, ruta} = req.params
 
-      const { title, description } = req.body;
+      const { id, ruta } = req.params
+
+      const { title, description, history } = req.body;
 
       const file: Express.Multer.File = (req as any).file;
 
-      await this.ImageService.updateImage(file, id, title, description, ruta);
+      if (file == null) {
+       
+        await this.ImageService.updateImageOnlyDB( id, title, description, history, ruta);
 
+      } else {
+        await this.ImageService.updateImage(file, id, title, description, history, ruta);
+      }
 
       res.status(200).json({
         success: true,
@@ -151,10 +128,9 @@ class ImageController {
       });
 
 
-      
-    } catch (err) {
-      console.log(err);
 
+    } catch (err) {
+   
       // deberia ir 400
       res.status(200).json({
         success: false,

@@ -25,7 +25,6 @@ class recordController {
                 });
             }
             catch (err) {
-                console.log(err);
                 res.status(400).json({
                     success: false,
                     message: err,
@@ -43,8 +42,55 @@ class recordController {
                 });
             }
             catch (err) {
-                console.log(err);
                 res.status(400).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        this.create = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { fecha, id, consulta, descripcion, procedimiento, precio } = req.body;
+                yield this.recorService.create(fecha, id, consulta, descripcion, procedimiento, precio);
+                res.status(200).json({
+                    success: true,
+                    records: "Registro creado",
+                });
+            }
+            catch (err) {
+                res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        this.update = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { fecha, id, consulta, descripcion, procedimiento, precio } = req.body;
+                yield this.recorService.update(fecha, id, consulta, descripcion, procedimiento, precio);
+                res.status(200).json({
+                    success: true,
+                    records: "Registro actualizado",
+                });
+            }
+            catch (err) {
+                res.status(200).json({
+                    success: false,
+                    message: err,
+                });
+            }
+        });
+        this.delete = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = req.params.id;
+                yield this.recorService.delete(id);
+                res.status(200).json({
+                    success: true,
+                    records: "Registro creado",
+                });
+            }
+            catch (err) {
+                res.status(200).json({
                     success: false,
                     message: err,
                 });

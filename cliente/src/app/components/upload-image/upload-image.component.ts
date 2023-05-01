@@ -32,7 +32,8 @@ export class UploadImageComponent implements OnInit, OnDestroy{
     this.imageForm = this.formBuilder.group({
       file: [''],
       description: [''],
-      title: ['']
+      title: [''],
+      history: [''],
     });
   }
 
@@ -56,6 +57,9 @@ export class UploadImageComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+
+    const buttonSubirImagen = document.getElementById('subirImagen') as HTMLButtonElement;
+    buttonSubirImagen.style.display = 'none';
 
 
 
@@ -94,7 +98,7 @@ export class UploadImageComponent implements OnInit, OnDestroy{
     this.imageForm.value.file = this.selectedFile;
 
 
-    if(this.imageForm.value.file == null || this.imageForm.value.title == "" || this.imageForm.value.description == ""){
+    if(this.imageForm.value.file == null || this.imageForm.value.title == "" || this.imageForm.value.description == "" || this.imageForm.value.history == ""){
 
       this.toastr.warning('Datos faltantes', 'Alerta', {
           timeOut: 3000,
@@ -108,15 +112,15 @@ export class UploadImageComponent implements OnInit, OnDestroy{
 
     }else{
 
-      console.log("hay imagen");
 
-      this.imageService.uploadImage( this.id, this.imageForm.value.title, this.imageForm.value.description,this.history, this.selectedFile).subscribe((res: any) => {
 
-        console.log(res);
+      this.imageService.uploadImage( this.id, this.imageForm.value.title, this.imageForm.value.description,this.imageForm.value.history, this.selectedFile).subscribe((res: any) => {
+
+
 
         if(res.success){
 
-          console.log("se cargo la radiografia");
+          //console.log("se cargo la radiografia");
 
 
           this.toastr.success('Radiografia cargada con exito', 'OK', {

@@ -81,7 +81,7 @@ export class NewHistoryComponent implements AfterViewInit {
 
     this.usuarioService.validar(id).subscribe((res: any) => {
 
-      console.log(res);
+
 
       const { numUser } = res;
 
@@ -100,8 +100,8 @@ export class NewHistoryComponent implements AfterViewInit {
     const edadEnAnios = edadEnMilisegundos / 31536000000; // cantidad de milisegundos en un año
     this.edad = Math.floor(edadEnAnios);
 
-    console.log(Math.floor(edadEnAnios));
-    console.log(this.edad);
+   // console.log(Math.floor(edadEnAnios));
+    //console.log(this.edad);
 
 
 
@@ -118,7 +118,7 @@ export class NewHistoryComponent implements AfterViewInit {
     if (event.value != null) {
       const fecha: string = event.value.toISOString().substring(0, 10);
       this.acudiente.fechaNacimiento = fecha;
-      
+
       this.validarEdadAcudiente(fecha);
     }
   }
@@ -182,12 +182,11 @@ export class NewHistoryComponent implements AfterViewInit {
       newHistoryOdontologia.tejidosBlandos = this.tejidosBlandos;
       newHistoryOdontologia.tejidosDentales = this.tejidosDentales;
 
-      console.log(newHistoryOdontologia);
+
 
 
       this.historyService.createHistory(newHistoryOdontologia).subscribe((res: any) => {
 
-        console.log(res);
 
         if(res.message === "insercion correcta"){
 
@@ -198,6 +197,9 @@ export class NewHistoryComponent implements AfterViewInit {
 
           this.modalTitulo = "Error creación Historial";
           this.modalContenid = res.message
+
+         
+
 
         }
 
