@@ -1,6 +1,8 @@
 import keys from './mySql';
 import mysql from 'mysql'
 
+//  "build": "tsc -w" // para que se actualice automaticamente el archivo js hay que agregarlo en el package.json
+
 const pool = mysql.createPool(keys.database);
 
 
