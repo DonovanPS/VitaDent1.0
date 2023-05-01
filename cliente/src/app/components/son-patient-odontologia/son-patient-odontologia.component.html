@@ -520,7 +520,8 @@
 
                   <div class="form-floating2" id="numero">
                     <input [(ngModel)]="odontologia.numero_cepillado" type="text" class="form-control"
-                      id="floatingInput" placeholder="numeroCepillado" name="Numero_cepillado">
+                      id="floatingInput" placeholder="numeroCepillado" name="Numero_cepillado"  maxlength="30"
+                      onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
                     <label for="floatingInput">Numero Cepillado</label>
                   </div>
 

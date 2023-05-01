@@ -52,6 +52,8 @@ export class NewHistoryComponent implements AfterViewInit {
   modalContenid: string;
   edad : number
 
+  reloadPage: boolean = false;
+
   constructor(
     private historyService: HistoryService,
     //private router: Router,
@@ -69,6 +71,19 @@ export class NewHistoryComponent implements AfterViewInit {
   eventSubject: Subject<boolean> = new Subject<boolean>();
 
   ngOnInit(): void{
+
+    this.paciente = new Paciente();
+    this.acudiente = new Acudiente();
+    this.anamnesis = new Anamnesis();
+
+    this.examenPeriodontal = new ExamenPeriodontal();
+    this.odontologia = new Odontologia();
+    this.tejidosBlandos = new Tejidos_blandos();
+    this.tejidosDentales = new Tejidos_dentales();
+
+
+
+
     const myButton = document.getElementById("buttonModal") as HTMLButtonElement;
 
     myButton.style.display = 'none';
@@ -193,12 +208,14 @@ export class NewHistoryComponent implements AfterViewInit {
           this.modalTitulo = "Registro exitoso";
           this.modalContenid = "La historia clinica del paciente: "+ this.paciente.nombre + " " +this.paciente.apellido + " se a registrado con exito!"
 
+          this.reloadPage = true;
         }else{
 
           this.modalTitulo = "Error creación Historial";
           this.modalContenid = res.message
 
-         
+          this.reloadPage = false;
+
 
 
         }
@@ -257,6 +274,13 @@ export class NewHistoryComponent implements AfterViewInit {
 
   tejidosDentalesEvento(event: Tejidos_dentales) {
     this.tejidosDentales = event;
+  }
+
+
+  reload(){
+    if(this.reloadPage){
+      location.reload();
+    }
   }
 
 }

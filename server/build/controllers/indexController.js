@@ -40,13 +40,13 @@ class IndexController {
             });
         }));
     }
-    create_User(req, res) {
+    createUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { user, password } = req.body;
             const hashedPassword = yield bcrypt_1.default.hash(password, 12);
             database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
                 conn.query('INSERT INTO USERS VALUES (NULL, ?, ?)', [user, hashedPassword], (err, result) => {
-                    res.json("creacion hacida");
+                    res.json("creacion hacida XD");
                 });
             }));
         });
@@ -55,6 +55,7 @@ class IndexController {
         // res.json('Validando  '+ req.params.user + ' ' + req.params.password)
         //const {user,password} = req.body;
         //console.log(req.body);
+        console.log(req.body);
         const { user, password } = req.body;
         database_1.default.getConnection((err, conn) => __awaiter(this, void 0, void 0, function* () {
             conn.query('SELECT * FROM Users where user = ? ', [user, password], (err, result) => __awaiter(this, void 0, void 0, function* () {
@@ -146,7 +147,7 @@ class IndexController {
                             // Insertar datos odontologia
                             /*
                             try{
-          
+              
                               console.log("insertar odontologia");
                           
                               //obtienen datos de odontologia
@@ -201,7 +202,7 @@ class IndexController {
                               message: 'Ha ocurrido un error al insertar los datos de odontologia',
                             });
                           }
-          
+              
                           */
                         }
                         conn.release();

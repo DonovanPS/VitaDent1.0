@@ -15,8 +15,10 @@ class IndexRoutes{
         this.router.get('/test',this.indexController.verifyToken,this.indexController.llamar);
 
         this.router.post('/', this.indexController.login);
-        this.router.post('/create', this.indexController.create_User);
+        this.router.post('/create', this.indexController.createUser);
         this.router.post('/createNewHistory', this.indexController.newHistory);
+
+        
 
         
         
